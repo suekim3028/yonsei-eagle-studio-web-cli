@@ -31,5 +31,10 @@
     "**/*.tsx",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "temp"]
+  "exclude": [
+    "node_modules",
+    "temp",
+    "suekim3028-web-core-modules",
+    "suekim3028-web-core-modules/dist"
+  ]
 }
