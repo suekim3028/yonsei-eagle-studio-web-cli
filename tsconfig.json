@@ -14,9 +14,12 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": ".",
     "paths": {
-      "@public/*": ["./public/*"],
-      "@*": ["./src/*"]
+      "@public/*": ["public/*"],
+      "@web-core": ["web-core-modules"],
+      "@*": ["src/*"]
+      // "@utils": ["src/utils/index"]
     },
     "plugins": [
       {
@@ -31,10 +34,5 @@
     "**/*.tsx",
     ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "temp",
-    "suekim3028-web-core-modules",
-    "suekim3028-web-core-modules/dist"
-  ]
+  "exclude": ["node_modules"]
 }

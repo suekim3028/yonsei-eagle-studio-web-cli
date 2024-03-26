@@ -19,8 +19,7 @@
     "react-device-detect": "^2.2.3",
     "react-dom": "^18",
     "recoil": "^0.7.2",
-    "recoil-persist": "^5.1.0",
-    "@suekim3028/web-core": "file:suekim3028-web-core-modules/dist"
+    "recoil-persist": "^5.1.0"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.1.1",

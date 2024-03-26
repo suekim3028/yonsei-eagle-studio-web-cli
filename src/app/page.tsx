@@ -1,9 +1,12 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import A from "@suekim3028/web-core";
+import { commonUtils } from "@web-core";
+import { testInner } from "@utils";
 
 export default function Home() {
-  A.commonUtils;
+  commonUtils.test();
+  testInner();
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
