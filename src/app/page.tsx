@@ -1,9 +1,9 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import { getA } from "web-core";
+import A from "@suekim3028/web-core";
 
 export default function Home() {
-  getA();
+  A.commonUtils;
   return (
     <main className={styles.main}>
       <div className={styles.description}>
