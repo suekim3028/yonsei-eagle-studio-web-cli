@@ -1,10 +1,16 @@
+"use client";
 import Image from "next/image";
 import styles from "./page.module.css";
-import { commonUtils } from "@web-core";
+import { webUtils } from "@web-core";
 import { testInner } from "@utils";
+import { useEffect } from "react";
 
 export default function Home() {
-  commonUtils.test();
+  useEffect(() => {
+    setTimeout(() => {
+      webUtils.copyToClipboard("aaaaaa", () => alert("SUCCESS!!!"));
+    }, 3000);
+  }, []);
   testInner();
 
   return (
