@@ -1,3 +1,9 @@
 {
-  "plugins": ["babel-plugin-styled-components"]
+  "plugins": [
+    "babel-plugin-styled-components",
+    {
+      "meaninglessFileNames": ["index", "styles"],
+      "pure": true
+    }
+  ]
 }
