@@ -1,18 +1,8 @@
-"use client";
+import { L } from "@web-core";
 import Image from "next/image";
 import styles from "./page.module.css";
-import { webUtils } from "@web-core";
-import { testInner } from "@utils";
-import { useEffect } from "react";
 
 export default function Home() {
-  useEffect(() => {
-    setTimeout(() => {
-      webUtils.copyToClipboard("aaaaaa", () => alert("SUCCESS!!!"));
-    }, 3000);
-  }, []);
-  testInner();
-
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -21,6 +11,11 @@ export default function Home() {
           <code className={styles.code}>src/app/page.tsx</code>
         </p>
         <div>
+          <L.Flex direction={"row"}>
+            <L.Flex>?</L.Flex>
+            <L.Flex>?</L.Flex>
+            <L.Flex>?</L.Flex>
+          </L.Flex>
           <a
             href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
             target="_blank"

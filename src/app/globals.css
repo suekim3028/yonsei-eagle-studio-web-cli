@@ -108,8 +108,30 @@ a {
 
 @font-face {
   font-family: "GongGothicMedium";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff")
-    format("woff");
+  src: url("/fonts/Gong_Gothic_Medium.otf") format("otf"),
+    url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff")
+      format("woff"),
+    url("/fonts/Gong_Gothic_Medium.ttf") format("ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GongGothicBold";
+  src: url("/fonts/Gong_Gothic_Bold.otf") format("otf"),
+    url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicBold.woff")
+      format("woff"),
+    url("/fonts/Gong_Gothic_Bold.ttf") format("ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GongGothicLight";
+  src: url("/fonts/Gong_Gothic_Light.otf") format("otf"),
+    url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicLight.woff")
+      format("woff"),
+    url("/fonts/Gong_Gothic_Light.ttf") format("ttf");
   font-weight: normal;
   font-style: normal;
 }
