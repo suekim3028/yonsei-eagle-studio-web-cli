@@ -1,19 +1,20 @@
+import { Flex } from "@components";
 import { L } from "@web-core";
 
 const Icon = ({ name, size, ...flexProps }: IconsProps) => {
   return (
-    <L.Flex {...flexProps}>
+    <Flex {...flexProps}>
       <img
         src={`/icons/${name}.svg`}
         width={size}
         height={size}
         style={{ width: size, height: size, objectFit: "contain" }}
       />
-    </L.Flex>
+    </Flex>
   );
 };
 
-export type IconNames = "kakaotalk";
+export type IconNames = "kakaotalk" | "arrow_left";
 
 type IconsProps = {
   name: IconNames;

@@ -94,6 +94,7 @@ body {
   min-width: 300px;
   width: 100%;
   overflow-x: hidden;
+  min-height: 100dvh;
 }
 
 a {

@@ -1,16 +1,20 @@
-// "use client";
-import { L } from "@web-core";
-import Image from "next/image";
-import * as S from "./styles";
 import { Button, Flex, Text } from "@components";
-import { redirect } from "next/navigation";
 import { StartButtons } from "@components/app";
+import { APP_CONSTS } from "@consts";
+import * as S from "./styles";
 
 export default function Home() {
   return (
     <S.Main>
       <Flex w={"100%"} py={"12px"} px={"20px"}>
-        <Button title="1:1문의하기" type="WHITE" size="XS" icon={"kakaotalk"} />
+        <Button
+          title="1:1문의하기"
+          type="WHITE"
+          size="XS"
+          icon={"kakaotalk"}
+          href={APP_CONSTS.KAKAO_CHANNEL_CHAT_URL}
+          openInNewTab
+        />
       </Flex>
       <Flex direction={"column"} alignItems={"center"} w={"100%"}>
         <img src={"/images/main/title.png"} width={"100%"} />

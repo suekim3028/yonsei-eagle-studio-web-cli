@@ -93,13 +93,14 @@ const ButtonComponent = ({
   );
 };
 
-const Button = ({ href, ...buttonProps }: ButtonProps) => {
+const Button = ({ href, openInNewTab, ...buttonProps }: ButtonProps) => {
   if (!href) return <ButtonComponent {...buttonProps} />;
 
   return (
     <Link
       href={href}
       style={{ width: buttonProps.stretch ? "100%" : undefined }}
+      target={openInNewTab ? "_blank" : undefined}
     >
       <ButtonComponent {...buttonProps} />
     </Link>
@@ -115,7 +116,16 @@ type ButtonProps = {
   icon?: IconNames;
   stretch?: boolean;
   onClick?: () => void;
-  href?: string;
-} & L.SpaceProps;
+} & L.SpaceProps &
+  (
+    | {
+        href?: undefined;
+        openInNewTab?: undefined;
+      }
+    | {
+        href?: string;
+        openInNewTab?: boolean;
+      }
+  );
 
 export default React.memo(Button);
