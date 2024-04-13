@@ -1,3 +1,3 @@
 import Text from "./Text";
-
-export { Text };
+import Button from "./Button/Button";
+export { Text, Button };
