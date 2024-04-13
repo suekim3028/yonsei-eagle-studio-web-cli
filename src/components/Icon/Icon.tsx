@@ -7,7 +7,7 @@ const Icon = ({ name, size, ...flexProps }: IconsProps) => {
         src={`/icons/${name}.svg`}
         width={size}
         height={size}
-        style={{ width: size, height: size }}
+        style={{ width: size, height: size, objectFit: "contain" }}
       />
     </L.Flex>
   );

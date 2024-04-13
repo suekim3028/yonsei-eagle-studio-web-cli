@@ -66,7 +66,8 @@ const Button = ({
   stretch,
   ...props
 }: ButtonProps) => {
-  const { backgroundStart, backgroundEnd, textColor } = TYPE_SETTINGS[type];
+  const { backgroundStart, backgroundEnd, textColor, border } =
+    TYPE_SETTINGS[type];
   const { py, px, fontType, iconSize, iconMr } = SIZE_SETTINGS[size];
 
   return (
@@ -79,6 +80,7 @@ const Button = ({
       justifyContent={"center"}
       alignItems={"center"}
       borderRadius={"40px"}
+      border={border ? `1px solid ${border}` : undefined}
       {...props}
     >
       {!!icon && <Icon name={icon} size={iconSize} mr={`${iconMr}px`} />}

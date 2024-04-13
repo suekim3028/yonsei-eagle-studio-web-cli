@@ -6,4 +6,6 @@ export const Main = styled.div`
   flex-direction: column;
   align-items: flex-start;
   min-height: 100vh;
+  background-image: url("/images/main/bg.svg");
+  background-size: cover;
 `;
