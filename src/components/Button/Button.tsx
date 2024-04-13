@@ -94,8 +94,9 @@ type ButtonProps = {
   title: string;
   type: ButtonType;
   size?: ButtonSize;
-  onClick?: () => void;
   icon?: IconNames;
   stretch?: boolean;
-};
+  onClick?: () => void;
+} & L.SpaceProps;
+
 export default React.memo(Button);
