@@ -1,8 +1,9 @@
-import Text from "@components/Text";
+import Icon, { IconNames } from "../Icon/Icon";
+import Text, { FontType } from "../Text";
 import { L } from "@web-core";
 import React from "react";
 
-const BUTTON_SETTINGS: Record<
+const TYPE_SETTINGS: Record<
   ButtonType,
   {
     backgroundStart: string;
@@ -39,17 +40,48 @@ const BUTTON_SETTINGS: Record<
   },
 };
 
-const Button = ({ title, type }: ButtonProps) => {
-  const setting = BUTTON_SETTINGS[type];
+const SIZE_SETTINGS: Record<
+  ButtonSize,
+  {
+    py: number;
+    px: number;
+
+    fontType: FontType;
+    iconSize: number;
+    iconMr: number;
+  }
+> = {
+  L: { py: 18, px: 143, fontType: "18_Medium_Single", iconSize: 20, iconMr: 6 },
+  M: { py: 14, px: 20, fontType: "16_Light_Single", iconSize: 20, iconMr: 6 },
+  S: { py: 10, px: 16, fontType: "14_Light_Single", iconSize: 20, iconMr: 4 },
+  XS: { py: 8, px: 12, fontType: "12_Light_Single", iconSize: 16, iconMr: 4 },
+};
+
+const Button = ({
+  title,
+  type,
+  size = "L",
+  icon,
+  stretch,
+  ...props
+}: ButtonProps) => {
+  const { backgroundStart, backgroundEnd, textColor } = TYPE_SETTINGS[type];
+  const { py, px, fontType, iconSize, iconMr } = SIZE_SETTINGS[size];
+
   return (
     <L.Flex
-      w={"100%"}
-      background={`linear-gradient(90deg, ${setting.backgroundStart}, ${setting.backgroundEnd})`}
-      py="18px"
+      w={stretch ? "100%" : undefined}
+      background={`linear-gradient(90deg, ${backgroundStart}, ${backgroundEnd})`}
+      py={`${py}px`}
+      px={`${px}px`}
+      //   flexBasis={"fit-content"}
       justifyContent={"center"}
+      alignItems={"center"}
       borderRadius={"40px"}
+      {...props}
     >
-      <Text type="18_Medium_Single" color={setting.textColor}>
+      {!!icon && <Icon name={icon} size={iconSize} mr={`${iconMr}px`} />}
+      <Text type={fontType} color={textColor}>
         {title}
       </Text>
     </L.Flex>
@@ -57,9 +89,13 @@ const Button = ({ title, type }: ButtonProps) => {
 };
 
 type ButtonType = "NAVY_GRADIENT" | "BLUE" | "NAVY" | "WHITE" | "BABY_GRAY";
-
+type ButtonSize = "L" | "M" | "S" | "XS";
 type ButtonProps = {
   title: string;
   type: ButtonType;
+  size?: ButtonSize;
+  onClick?: () => void;
+  icon?: IconNames;
+  stretch?: boolean;
 };
 export default React.memo(Button);

@@ -18,7 +18,7 @@ const lineHeightValueObj: Record<LineHeightName, string> = {
   Multi: "160%",
 };
 
-type FontType = `${FontSize}_${FontWeightName}_${LineHeightName}`;
+export type FontType = `${FontSize}_${FontWeightName}_${LineHeightName}`;
 
 const factory = ((): L.TextComponentFactory<FontType> => {
   const _factory: L.TextComponentFactory<FontType> =
