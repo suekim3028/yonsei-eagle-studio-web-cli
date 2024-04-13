@@ -3,6 +3,7 @@ import Icon, { IconNames } from "../Icon/Icon";
 import Text, { FontType } from "../Text";
 import { L } from "@web-core";
 import React from "react";
+import Link from "next/link";
 
 const TYPE_SETTINGS: Record<
   ButtonType,
@@ -58,7 +59,7 @@ const SIZE_SETTINGS: Record<
   XS: { py: 8, px: 12, fontType: "12_Light_Single", iconSize: 16, iconMr: 4 },
 };
 
-const Button = ({
+const ButtonComponent = ({
   title,
   type,
   size = "L",
@@ -91,6 +92,19 @@ const Button = ({
   );
 };
 
+const Button = ({ href, ...buttonProps }: ButtonProps) => {
+  if (!href) return <ButtonComponent {...buttonProps} />;
+
+  return (
+    <Link
+      href={href}
+      style={{ width: buttonProps.stretch ? "100%" : undefined }}
+    >
+      <ButtonComponent {...buttonProps} />
+    </Link>
+  );
+};
+
 type ButtonType = "NAVY_GRADIENT" | "BLUE" | "NAVY" | "WHITE" | "BABY_GRAY";
 type ButtonSize = "L" | "M" | "S" | "XS";
 type ButtonProps = {
@@ -100,6 +114,7 @@ type ButtonProps = {
   icon?: IconNames;
   stretch?: boolean;
   onClick?: () => void;
+  href?: string;
 } & L.SpaceProps;
 
 export default React.memo(Button);
