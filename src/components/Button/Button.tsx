@@ -4,6 +4,7 @@ import Text, { FontType } from "../Text";
 import { L } from "@web-core";
 import React from "react";
 import Link from "next/link";
+import { Flex } from "@components";
 
 const TYPE_SETTINGS: Record<
   ButtonType,
@@ -72,7 +73,7 @@ const ButtonComponent = ({
   const { py, px, fontType, iconSize, iconMr } = SIZE_SETTINGS[size];
 
   return (
-    <L.Flex
+    <Flex
       w={stretch ? "100%" : undefined}
       background={`linear-gradient(90deg, ${backgroundStart}, ${backgroundEnd})`}
       py={`${py}px`}
@@ -88,7 +89,7 @@ const ButtonComponent = ({
       <Text type={fontType} color={textColor}>
         {title}
       </Text>
-    </L.Flex>
+    </Flex>
   );
 };
 
