@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { StyledComponentsRegistry } from "@web-core";
 import { ThemeProvider } from "@contexts";
+import Script from "next/script";
+import { Head } from "next/document";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +24,15 @@ export default function RootLayout({
         <StyledComponentsRegistry>
           <ThemeProvider>{children}</ThemeProvider>
         </StyledComponentsRegistry>
+        <Script
+          src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.1/kakao.min.js"
+          integrity="sha384-kDljxUXHaJ9xAb2AzRd59KxjrFjzHa5TAoFQ6GbYTCAG0bjM55XohjjDT7tDDC01"
+          crossOrigin="anonymous"
+          strategy="beforeInteractive"
+        />
+        <Script strategy="beforeInteractive">
+          Kakao.init('{process.env.KAKAO_JAVASCRIPT_KEY}');
+        </Script>
       </body>
     </html>
   );

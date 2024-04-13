@@ -1,3 +1,3 @@
 import * as UiTypes from "./ui.types";
-
-export { UiTypes };
+import * as CommonTypes from "./common.types";
+export { UiTypes, CommonTypes };
