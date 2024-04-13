@@ -1,3 +1,4 @@
+import { UI_CONSTS } from "@consts";
 import { L } from "@web-core";
 
 const FONT_SIZES = [12, 14, 16, 18, 20] as const;
@@ -42,6 +43,9 @@ const factory = ((): L.TextComponentFactory<FontType> => {
   return _factory;
 })();
 
-const Text = L.TextComponentGenerator(factory);
+const Text = L.TextComponentGenerator({
+  factory,
+  colorGenerator: UI_CONSTS.THEME,
+});
 
 export default Text;

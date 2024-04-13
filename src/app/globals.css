@@ -89,7 +89,7 @@ html {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: green;
+  background: white;
   max-width: 700px;
   min-width: 300px;
   width: 100%;
