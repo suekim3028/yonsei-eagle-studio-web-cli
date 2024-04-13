@@ -5,6 +5,7 @@ import { L } from "@web-core";
 import React from "react";
 import Link from "next/link";
 import { Flex } from "@components";
+import { UI_CONSTS } from "@consts";
 
 const TYPE_SETTINGS: Record<
   ButtonType,
@@ -54,7 +55,7 @@ const SIZE_SETTINGS: Record<
     iconMr: number;
   }
 > = {
-  L: { py: 18, px: 143, fontType: "18_Medium_Single", iconSize: 20, iconMr: 6 },
+  L: { py: 18, px: 20, fontType: "18_Medium_Single", iconSize: 32, iconMr: 6 },
   M: { py: 14, px: 20, fontType: "16_Light_Single", iconSize: 20, iconMr: 6 },
   S: { py: 10, px: 16, fontType: "14_Light_Single", iconSize: 20, iconMr: 4 },
   XS: { py: 8, px: 12, fontType: "12_Light_Single", iconSize: 16, iconMr: 4 },
@@ -66,19 +67,34 @@ const ButtonComponent = ({
   size = "L",
   icon,
   stretch,
+  bgColor,
+  bgRgbColor,
+  textRgbColor,
+  textColor,
   ...props
 }: ButtonProps) => {
-  const { backgroundStart, backgroundEnd, textColor, border } =
-    TYPE_SETTINGS[type];
+  const {
+    backgroundStart,
+    backgroundEnd,
+    textColor: themeTextColor,
+    border,
+  } = TYPE_SETTINGS[type];
   const { py, px, fontType, iconSize, iconMr } = SIZE_SETTINGS[size];
 
   return (
     <Flex
       w={stretch ? "100%" : undefined}
-      background={`linear-gradient(90deg, ${backgroundStart}, ${backgroundEnd})`}
+      // flex={0}
+      // flexGrow={0}
+
+      background={
+        bgColor
+          ? UI_CONSTS.THEME[bgColor]
+          : bgRgbColor ||
+            `linear-gradient(90deg, ${backgroundStart}, ${backgroundEnd})`
+      }
       py={`${py}px`}
       px={stretch ? undefined : `${px}px`}
-      //   flexBasis={"fit-content"}
       justifyContent={"center"}
       alignItems={"center"}
       borderRadius={"40px"}
@@ -86,7 +102,12 @@ const ButtonComponent = ({
       {...props}
     >
       {!!icon && <Icon name={icon} size={iconSize} mr={`${iconMr}px`} />}
-      <Text type={fontType} color={textColor}>
+
+      <Text
+        type={fontType}
+        color={textColor || themeTextColor}
+        colorRgb={textRgbColor}
+      >
         {title}
       </Text>
     </Flex>
@@ -99,7 +120,7 @@ const Button = ({ href, openInNewTab, ...buttonProps }: ButtonProps) => {
   return (
     <Link
       href={href}
-      style={{ width: buttonProps.stretch ? "100%" : undefined }}
+      style={{ width: buttonProps.stretch ? "100%" : "fit-content" }}
       target={openInNewTab ? "_blank" : undefined}
     >
       <ButtonComponent {...buttonProps} />
@@ -116,8 +137,12 @@ type ButtonProps = {
   icon?: IconNames;
   stretch?: boolean;
   onClick?: () => void;
-} & L.SpaceProps &
-  (
+} & L.SpaceProps & {
+    bgColor?: UiTypes.ColorKey;
+    bgRgbColor?: string;
+    textColor?: UiTypes.ColorKey;
+    textRgbColor?: string;
+  } & (
     | {
         href?: undefined;
         openInNewTab?: undefined;

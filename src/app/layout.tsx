@@ -5,6 +5,7 @@ import { StyledComponentsRegistry } from "@web-core";
 import { ThemeProvider } from "@contexts";
 import Script from "next/script";
 import { Head } from "next/document";
+import { KakaoInit } from "@components/app";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +23,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <StyledComponentsRegistry>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            <KakaoInit>{children}</KakaoInit>
+          </ThemeProvider>
         </StyledComponentsRegistry>
         <Script
           src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.1/kakao.min.js"
@@ -30,9 +33,6 @@ export default function RootLayout({
           crossOrigin="anonymous"
           strategy="beforeInteractive"
         />
-        <Script strategy="beforeInteractive">
-          Kakao.init('{process.env.KAKAO_JAVASCRIPT_KEY}');
-        </Script>
       </body>
     </html>
   );
