@@ -6,4 +6,5 @@ export type ColorKey =
   | "YONSEI_YELLOW"
   | "WHITE"
   | "BLACK"
-  | "BLUE";
+  | "BLUE"
+  | "BABY_BLUE";

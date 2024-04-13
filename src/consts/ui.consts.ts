@@ -9,4 +9,5 @@ export const THEME: Record<UiTypes.ColorKey, string> = {
   WHITE: "#FFFFFF",
   BLACK: "#000000",
   BLUE: "#0099FF",
+  BABY_BLUE: "#EAF5FF",
 };
