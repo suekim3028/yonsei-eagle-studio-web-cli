@@ -1,3 +1,4 @@
+import { UiTypes } from "@types";
 import Icon, { IconNames } from "../Icon/Icon";
 import Text, { FontType } from "../Text";
 import { L } from "@web-core";
@@ -9,34 +10,34 @@ const TYPE_SETTINGS: Record<
     backgroundStart: string;
     backgroundEnd: string;
     border?: string;
-    textColor: string;
+    textColor: UiTypes.ColorKey;
   }
 > = {
   NAVY_GRADIENT: {
     backgroundStart: "#0043C6",
     backgroundEnd: "#002875",
-    textColor: "#FFFFFF",
+    textColor: "WHITE",
   },
   BLUE: {
     backgroundStart: "#0099FF",
     backgroundEnd: "#0099FF",
-    textColor: "#FFFFFF",
+    textColor: "WHITE",
   },
   NAVY: {
     backgroundStart: "#002875",
     backgroundEnd: "#002875",
-    textColor: "#FFFFFF",
+    textColor: "WHITE",
   },
   WHITE: {
     backgroundStart: "#FFFFFFB2",
     backgroundEnd: "#FFFFFFB2",
-    border: "#FFFFFF",
-    textColor: "#002875",
+    border: "WHITE",
+    textColor: "YONSEI_NAVY",
   },
   BABY_GRAY: {
     backgroundStart: "#9CA7B8",
     backgroundEnd: "#9CA7B8",
-    textColor: "#FFFFFF",
+    textColor: "WHITE",
   },
 };
 
@@ -73,7 +74,7 @@ const Button = ({
       w={stretch ? "100%" : undefined}
       background={`linear-gradient(90deg, ${backgroundStart}, ${backgroundEnd})`}
       py={`${py}px`}
-      px={`${px}px`}
+      px={stretch ? undefined : `${px}px`}
       //   flexBasis={"fit-content"}
       justifyContent={"center"}
       alignItems={"center"}
