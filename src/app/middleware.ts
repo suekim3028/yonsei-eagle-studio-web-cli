@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
   }
 
   if (!currentUser && request.nextUrl.pathname.startsWith("/generate")) {
-    return Response.redirect(new URL("/", request.url));
+    return Response.redirect(new URL("/sign-in", request.url));
   }
 }
 

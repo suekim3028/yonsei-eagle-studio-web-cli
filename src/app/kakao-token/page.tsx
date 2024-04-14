@@ -7,10 +7,12 @@ export default async function KakaoToken({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  // TODO: call api
   const authorizationCode = searchParams["code"];
   if (typeof authorizationCode != "string") redirect("/sign-in");
 
   await userApis.login({ provider: "KAKAO", authorizationCode });
   await jsUtils.wait(3);
+
   return redirect("/generate");
 }
