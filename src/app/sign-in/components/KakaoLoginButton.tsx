@@ -1,9 +1,12 @@
-"use client";
-
 import { Button } from "@components";
 
 const KakaoLoginButton = () => {
-  const handleOnClick = () => window.Kakao.Auth.authorize();
+  const handleOnClick = () => {
+    window.Kakao.Auth.authorize({
+      redirectUri: "http://localhost:3000/kakao-token",
+    });
+  };
+
   return (
     <Button
       type={"NAVY"}

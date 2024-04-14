@@ -99,6 +99,7 @@ const ButtonComponent = ({
       alignItems={"center"}
       borderRadius={"40px"}
       border={border ? `1px solid ${border}` : undefined}
+      cursor={props.onClick ? "pointer" : undefined}
       {...props}
     >
       {!!icon && <Icon name={icon} size={iconSize} mr={`${iconMr}px`} />}
