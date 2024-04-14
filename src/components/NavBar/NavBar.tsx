@@ -16,6 +16,7 @@ const NavBar = () => {
         boxShadow={"0px 0px 20px 0px rgba(141, 202, 255, 0.4)"}
         borderRadius={40}
         onClick={router.back}
+        cursor={"pointer"}
       >
         <Icon name="arrow_left" size={20} />
       </Flex>
