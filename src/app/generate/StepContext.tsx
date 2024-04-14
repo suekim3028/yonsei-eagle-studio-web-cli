@@ -20,13 +20,19 @@ const StepContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [photos, setPhotos] = useState<string[]>([]);
 
   const goNext = () => {
+    console.log(step, style);
     switch (step) {
-      case "SELECT_STYLE":
+      case "SELECT_STYLE": {
         if (!style) return;
-      case "SELECT_PHOTOS":
+        break;
+      }
+      case "SELECT_PHOTOS": {
         if (!photos.length) return;
-      case "GENERATING":
+        break;
+      }
+      case "GENERATING": {
         return;
+      }
     }
 
     setStepIdx((s) => s + 1);
@@ -45,6 +51,7 @@ const StepContextProvider = ({ children }: { children: React.ReactNode }) => {
         photos,
         goNext,
         goPrev,
+        setStyle,
       }}
     >
       {children}
@@ -65,4 +72,5 @@ type StepContextValue = {
   photos: string[];
   goNext: () => void;
   goPrev: () => void;
+  setStyle: React.Dispatch<React.SetStateAction<"A" | "B" | null>>;
 };
