@@ -2,6 +2,7 @@
 
 import { useStepContext } from "./StepContext";
 import SelectStyle from "./components/steps/SelectStyle/SelectStyle";
+import UploadDescription from "./components/steps/UploadDescription/UploadDescription";
 
 // const checkUser(){
 
@@ -12,7 +13,8 @@ export default function Generate() {
   switch (step) {
     case "SELECT_STYLE":
       return <SelectStyle />;
-      break;
+    case "UPLOAD_DESCRIPTION":
+      return <UploadDescription />;
 
     default:
       break;

@@ -64,8 +64,13 @@ const SelectStyle = () => {
         </Text>
       </Flex>
       {!!style && (
-        <Flex w="100%" p={20} onClick={handleGoNext} cursor={"pointer"}>
-          <Button type={"NAVY_GRADIENT"} stretch title={"선택 완료"} />
+        <Flex w="100%" p={20}>
+          <Button
+            type={"NAVY_GRADIENT"}
+            stretch
+            title={"선택 완료"}
+            onClick={handleGoNext}
+          />
         </Flex>
       )}
     </Flex>
