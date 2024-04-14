@@ -31,6 +31,7 @@
     "next-env.d.ts",
     "env.d.ts",
     "index.d.ts",
+    "styled.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"

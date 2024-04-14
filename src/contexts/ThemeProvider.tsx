@@ -1,7 +1,6 @@
 "use client";
 
 import { UI_CONSTS } from "@consts";
-import { UiTypes } from "@types";
 import { ThemeProvider as ThemeProviderContext } from "styled-components";
 
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
