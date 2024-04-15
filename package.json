@@ -19,7 +19,8 @@
     "recoil": "^0.7.2",
     "recoil-persist": "^5.1.0",
     "styled-components": "^6.0.0",
-    "stylis": "^4.0.0"
+    "stylis": "^4.0.0",
+    "web-push": "^3.6.7"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.1.1",
