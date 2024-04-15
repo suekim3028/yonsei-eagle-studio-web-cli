@@ -14,7 +14,7 @@ const SelectStyle = () => {
   const handleGoNext = () => {
     if (!style) return;
     setStyle(style);
-    goNext();
+    goNext("SELECT_STYLE");
   };
 
   return (

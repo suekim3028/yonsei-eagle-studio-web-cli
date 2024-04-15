@@ -41,7 +41,7 @@ const SelectPhotos = () => {
     const imageUrls = await Promise.all(promises);
 
     setPhotos(imageUrls.filter((i) => typeof i === "string") as string[]);
-    goNext();
+    goNext("SELECT_PHOTOS");
   };
 
   return (
@@ -53,7 +53,7 @@ const SelectPhotos = () => {
       bgColor={"WHITE"}
     >
       <Flex justifyContent={"space-between"} w={"100%"} px={20} py={12}>
-        <BackButton onClick={goPrev} />
+        <BackButton onClick={() => goPrev("SELECT_PHOTOS")} />
         <Flex></Flex>
       </Flex>
       <input

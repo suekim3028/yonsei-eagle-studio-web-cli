@@ -9,7 +9,7 @@ const ConfirmPhotos = () => {
 
   return (
     <ScreenTemplate>
-      <NavBar onClick={goPrev} />
+      <NavBar onClick={() => goPrev("CONFIRM_PHOTOS")} />
       <Flex w="100%" px={20} direction={"column"}>
         <Flex w="100%" direction={"row"}>
           <img
@@ -82,7 +82,7 @@ const ConfirmPhotos = () => {
           type={"NAVY_GRADIENT"}
           stretch
           title={"프로필 생성 시작"}
-          onClick={goNext}
+          onClick={() => goNext("CONFIRM_PHOTOS")}
         />
       </Flex>
     </ScreenTemplate>

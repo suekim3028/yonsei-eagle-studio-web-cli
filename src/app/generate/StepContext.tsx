@@ -19,13 +19,14 @@ const StepContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [style, setStyle] = useState<"A" | "B" | null>(null);
   const [photos, setPhotos] = useState<string[]>([]);
 
-  const goNext = () => {
-    setStepIdx((s) => s + 1);
+  const goNext = (currentStep: Step) => {
+    const currentStepIdx = STEPS.findIndex((v) => v === currentStep);
+    setStepIdx(Math.min(currentStepIdx + 1, STEPS.length - 1));
   };
 
-  const goPrev = () => {
-    if (stepIdx === 0) return;
-    setStepIdx((s) => s - 1);
+  const goPrev = (currentStep: Step) => {
+    const currentStepIdx = STEPS.findIndex((v) => v === currentStep);
+    setStepIdx(Math.max(currentStepIdx - 1, 0));
   };
 
   return (
@@ -56,8 +57,8 @@ type StepContextValue = {
   step: Step;
   style: "A" | "B" | null;
   photos: string[];
-  goNext: () => void;
-  goPrev: () => void;
+  goNext: (currentStep: Step) => void;
+  goPrev: (currentStep: Step) => void;
   setStyle: React.Dispatch<React.SetStateAction<"A" | "B" | null>>;
 
   setPhotos: React.Dispatch<React.SetStateAction<string[]>>;

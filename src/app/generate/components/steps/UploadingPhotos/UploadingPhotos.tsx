@@ -6,7 +6,7 @@ const UploadingPhotos = () => {
   const { goNext } = useStepContext();
   commonHooks.useAsyncEffect(async () => {
     await jsUtils.wait(3); //TODO: api 붙이기
-    goNext();
+    goNext("UPLOADING_PHOTOS");
   }, []);
   return (
     <Flex w="100%" h="100%" alignItems={"center"} justifyContent={"center"}>

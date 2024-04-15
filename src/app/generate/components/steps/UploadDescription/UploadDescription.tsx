@@ -9,7 +9,7 @@ const UploadDescription = () => {
 
   return (
     <ScreenTemplate>
-      <NavBar onClick={goPrev} />
+      <NavBar onClick={() => goPrev("UPLOAD_DESCRIPTION")} />
       <>
         <Flex w="100%" direction={"row"} px={20}>
           <img
@@ -57,7 +57,7 @@ const UploadDescription = () => {
           type={"NAVY_GRADIENT"}
           stretch
           title={"내 사진 등록하기"}
-          onClick={goNext}
+          onClick={() => goNext("UPLOAD_DESCRIPTION")}
         />
       </Flex>
     </ScreenTemplate>
