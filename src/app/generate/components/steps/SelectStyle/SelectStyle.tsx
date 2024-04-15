@@ -5,6 +5,7 @@ import { BackButton, Button, Flex, NavBar, Text } from "@components";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import StyleExample from "../../StyleExample/StyleExample";
+import ScreenTemplate from "../../ScreenTemplate/ScreenTemplate";
 
 const SelectStyle = () => {
   const router = useRouter();
@@ -17,15 +18,9 @@ const SelectStyle = () => {
   };
 
   return (
-    <Flex
-      w="100%"
-      h={"100dvh"}
-      direction={"column"}
-      alignItems={"center"}
-      justifyContent={"space-between"}
-    >
-      <Flex flexDirection={"column"} w="100%" alignItems={"center"}>
-        <NavBar />
+    <ScreenTemplate>
+      <NavBar />
+      <>
         <Flex w="100%" direction={"row"} px={20}>
           <img
             src={"/images/talking_eagle.svg"}
@@ -62,7 +57,7 @@ const SelectStyle = () => {
         <Text type={"14_Light_Multi"} color={"YONSEI_BABY_GRAY"} mt={20}>
           원하는 프로필 컨셉을 골라주세요
         </Text>
-      </Flex>
+      </>
       {!!style && (
         <Flex w="100%" p={20}>
           <Button
@@ -73,7 +68,7 @@ const SelectStyle = () => {
           />
         </Flex>
       )}
-    </Flex>
+    </ScreenTemplate>
   );
 };
 

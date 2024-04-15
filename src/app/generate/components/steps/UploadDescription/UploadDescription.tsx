@@ -5,20 +5,15 @@ import { BackButton, Button, Flex, Icon, NavBar, Text } from "@components";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import StyleExample from "../../StyleExample/StyleExample";
+import ScreenTemplate from "../../ScreenTemplate/ScreenTemplate";
 
 const UploadDescription = () => {
   const { goNext, goPrev } = useStepContext();
 
   return (
-    <Flex
-      w="100%"
-      h={"100dvh"}
-      direction={"column"}
-      alignItems={"center"}
-      justifyContent={"space-between"}
-    >
-      <Flex flexDirection={"column"} w="100%" alignItems={"center"}>
-        <NavBar onClick={goPrev} />
+    <ScreenTemplate>
+      <NavBar onClick={goPrev} />
+      <>
         <Flex w="100%" direction={"row"} px={20}>
           <img
             src={"/images/talking_eagle.svg"}
@@ -44,8 +39,7 @@ const UploadDescription = () => {
         <Text type={"14_Light_Multi"} color={"YONSEI_BLUE"} mt={20}>
           내용 정리되면 변경 예정
         </Text>
-      </Flex>
-
+      </>
       <Flex
         w="100%"
         p={20}
@@ -65,7 +59,7 @@ const UploadDescription = () => {
         </Flex>
         <Button type={"NAVY_GRADIENT"} stretch title={"내 사진 등록하기"} />
       </Flex>
-    </Flex>
+    </ScreenTemplate>
   );
 };
 
