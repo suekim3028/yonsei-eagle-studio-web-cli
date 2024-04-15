@@ -1,10 +1,7 @@
 "use client";
 
 import { useStepContext } from "@app/generate/StepContext";
-import { BackButton, Button, Flex, Icon, NavBar, Text } from "@components";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import StyleExample from "../../StyleExample/StyleExample";
+import { Button, Flex, Icon, NavBar, Text } from "@components";
 import ScreenTemplate from "../../ScreenTemplate/ScreenTemplate";
 
 const UploadDescription = () => {
@@ -43,7 +40,6 @@ const UploadDescription = () => {
       <Flex
         w="100%"
         p={20}
-        onClick={goNext}
         bgColor={"WHITE"}
         direction={"column"}
         alignItems={"center"}
@@ -57,7 +53,12 @@ const UploadDescription = () => {
           </Text>
           <Icon name="chevron_right" size={14} />
         </Flex>
-        <Button type={"NAVY_GRADIENT"} stretch title={"내 사진 등록하기"} />
+        <Button
+          type={"NAVY_GRADIENT"}
+          stretch
+          title={"내 사진 등록하기"}
+          onClick={goNext}
+        />
       </Flex>
     </ScreenTemplate>
   );
