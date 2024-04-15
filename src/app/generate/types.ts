@@ -3,7 +3,7 @@ export const STEPS = [
   "UPLOAD_DESCRIPTION",
   "SELECT_PHOTOS",
   "CONFIRM_PHOTOS",
-  "UPLOAD_PHOTOS",
+  "UPLOADING_PHOTOS",
   "GENERATING",
 ] as const;
 

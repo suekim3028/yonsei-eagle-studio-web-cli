@@ -5,6 +5,7 @@ import SelectStyle from "./components/steps/SelectStyle/SelectStyle";
 import UploadDescription from "./components/steps/UploadDescription/UploadDescription";
 import SelectPhotos from "./components/steps/SelectPhotos/SelectPhotos";
 import ConfirmPhotos from "./components/steps/ConfirmPhotos/ConfirmPhotos";
+import UploadingPhotos from "./components/steps/UploadingPhotos/UploadingPhotos";
 
 // const checkUser(){
 
@@ -21,6 +22,9 @@ export default function Generate() {
       return <SelectPhotos />;
     case "CONFIRM_PHOTOS":
       return <ConfirmPhotos />;
+    case "UPLOADING_PHOTOS":
+      return <UploadingPhotos />;
+
     default:
       break;
   }
