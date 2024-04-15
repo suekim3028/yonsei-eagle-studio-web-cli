@@ -1,4 +1,4 @@
 import StartButtons from "./StartButtons/StartButtons";
-import KakaoInit from "./KakaoInit/KakaoInit";
+import Initializer from "./Initializer/Initializer";
 
-export { StartButtons, KakaoInit };
+export { StartButtons, Initializer };

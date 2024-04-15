@@ -2,7 +2,7 @@ import { jsUtils } from "@web-core";
 import { redirect } from "next/navigation";
 import webPush from "web-push";
 class WebPushManager {
-  private initialized = false;
+  private _initialized = false;
   private _status:
     | "NO_SERVICE_WORKER"
     | "NOT_INITIALIZED"
@@ -16,6 +16,9 @@ class WebPushManager {
   public get status() {
     return this._status;
   }
+  public get initialized() {
+    return this._initialized;
+  }
 
   public waitForInit = async () => {
     if (!this.registrationWaiter) return;
@@ -23,10 +26,11 @@ class WebPushManager {
   };
 
   public initialize = async () => {
-    if (this.initialized) return;
+    if (this._initialized) return;
     if (!("serviceWorker" in navigator)) {
       this._status = "NO_SERVICE_WORKER";
       console.log("[WEB PUSH] no service worker");
+      this._initialized = true;
       return;
     }
     this._status = "INITIALIZING";
@@ -47,6 +51,7 @@ class WebPushManager {
         console.log("[WEB PUSH] registration finished");
         this._status = "INITIALIZED";
         resolve(null);
+        this._initialized = true;
       }
     );
   };

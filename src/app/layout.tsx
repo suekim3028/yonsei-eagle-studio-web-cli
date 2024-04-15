@@ -5,7 +5,7 @@ import { StyledComponentsRegistry } from "@web-core";
 import { ThemeProvider } from "@contexts";
 import Script from "next/script";
 import { Head } from "next/document";
-import { KakaoInit } from "@components/app";
+import { Initializer } from "@components/app";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <StyledComponentsRegistry>
           <ThemeProvider>
-            <KakaoInit>{children}</KakaoInit>
+            <Initializer>{children}</Initializer>
           </ThemeProvider>
         </StyledComponentsRegistry>
         <Script
