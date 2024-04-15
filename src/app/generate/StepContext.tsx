@@ -52,6 +52,7 @@ const StepContextProvider = ({ children }: { children: React.ReactNode }) => {
         goNext,
         goPrev,
         setStyle,
+        setPhotos,
       }}
     >
       {children}
@@ -73,4 +74,6 @@ type StepContextValue = {
   goNext: () => void;
   goPrev: () => void;
   setStyle: React.Dispatch<React.SetStateAction<"A" | "B" | null>>;
+
+  setPhotos: React.Dispatch<React.SetStateAction<string[]>>;
 };

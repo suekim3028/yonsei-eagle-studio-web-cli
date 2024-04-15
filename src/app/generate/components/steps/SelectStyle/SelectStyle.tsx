@@ -19,7 +19,7 @@ const SelectStyle = () => {
   return (
     <Flex
       w="100%"
-      h={"100vh"}
+      h={"100dvh"}
       direction={"column"}
       alignItems={"center"}
       justifyContent={"space-between"}
