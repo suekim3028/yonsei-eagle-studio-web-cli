@@ -20,21 +20,6 @@ const StepContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [photos, setPhotos] = useState<string[]>([]);
 
   const goNext = () => {
-    console.log(step, style);
-    switch (step) {
-      case "SELECT_STYLE": {
-        if (!style) return;
-        break;
-      }
-      case "SELECT_PHOTOS": {
-        if (!photos.length) return;
-        break;
-      }
-      case "GENERATING": {
-        return;
-      }
-    }
-
     setStepIdx((s) => s + 1);
   };
 

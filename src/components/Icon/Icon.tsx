@@ -14,7 +14,7 @@ const Icon = ({ name, size, ...flexProps }: IconsProps) => {
   );
 };
 
-export type IconNames = "kakaotalk" | "arrow_left" | "chevron_right";
+export type IconNames = "kakaotalk" | "arrow_left" | "chevron_right" | "eye";
 
 type IconsProps = {
   name: IconNames;
