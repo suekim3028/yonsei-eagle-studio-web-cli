@@ -63,20 +63,21 @@ class WebPushManager {
 
   public subscribe = async () => {
     console.log("SUBSCRIBE!");
-    console.log(!!this.registration?.pushManager);
 
-    if (!this.registration?.pushManager) return;
+    const pushManager = this.registration?.pushManager;
+    alert(!!pushManager);
+
+    if (!pushManager) return;
 
     console.log("START SUBSCRIBE");
-    const subscription: PushSubscription =
-      await this.registration.pushManager.subscribe({
-        applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
-        userVisibleOnly: true,
-      });
+    const subscription: PushSubscription = await pushManager.subscribe({
+      applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+      userVisibleOnly: true,
+    });
 
-    const permissionState = await this.registration.pushManager.permissionState(
-      { userVisibleOnly: true }
-    );
+    const permissionState = await pushManager.permissionState({
+      userVisibleOnly: true,
+    });
 
     console.log({ permissionState });
     if (permissionState === "denied") return;
