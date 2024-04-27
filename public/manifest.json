@@ -1,0 +1,9 @@
+{
+  "name": "독수리사진관",
+  "short_name": "독수리사진관",
+  "start_url": "/generate",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "연세대학교 독수리사진관",
+  "gcm_sender_id": "103953800507"
+}
