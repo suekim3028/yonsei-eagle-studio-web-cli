@@ -8,7 +8,7 @@ export default function Home() {
     <S.Main>
       <Flex w={"100%"} py={"12px"} px={"20px"}>
         <Button
-          title="1:1문의하기"
+          title="1 : 1 문의하기"
           type="WHITE"
           size="XS"
           icon={"kakaotalk"}

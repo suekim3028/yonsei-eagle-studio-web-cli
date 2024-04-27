@@ -6,6 +6,8 @@ import UploadDescription from "./components/steps/UploadDescription/UploadDescri
 import SelectPhotos from "./components/steps/SelectPhotos/SelectPhotos";
 import ConfirmPhotos from "./components/steps/ConfirmPhotos/ConfirmPhotos";
 import UploadingPhotos from "./components/steps/UploadingPhotos/UploadingPhotos";
+import { WebPushManager } from "@lib";
+import Generating from "./components/steps/Generating/Generating";
 
 // const checkUser(){
 
@@ -24,6 +26,8 @@ export default function Generate() {
       return <ConfirmPhotos />;
     case "UPLOADING_PHOTOS":
       return <UploadingPhotos />;
+    case "GENERATING":
+      return <Generating />;
 
     default:
       break;

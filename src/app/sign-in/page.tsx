@@ -35,7 +35,7 @@ export default function SignIn() {
       <Flex w={"100%"} direction={"column"} px={20} alignItems={"center"}>
         <KakaoLoginButton />
         <Button
-          title={"1:1 문의하기"}
+          title={"1 : 1 문의하기"}
           href={APP_CONSTS.KAKAO_CHANNEL_CHAT_URL}
           openInNewTab
           type={"WHITE"}
