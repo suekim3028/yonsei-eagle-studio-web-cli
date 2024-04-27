@@ -1,6 +1,6 @@
 import webpush from "web-push";
 
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 webpush.setVapidDetails(
   "mailto:example@yourdomain.org",
@@ -14,10 +14,20 @@ export const POST = async ({ nextUrl: { searchParams } }: NextRequest) => {
   if (!subscriptionJSON) return;
   const subscription = JSON.parse(subscriptionJSON);
 
+  console.log(
+    "-----post 들어옴-----",
+    { subscription },
+    isPushSubscription(subscription)
+  );
   if (isPushSubscription(subscription)) {
-    webpush.sendNotification(subscription, "사진이 완성되었어요!");
+    const res = await webpush.sendNotification(
+      subscription,
+      "사진이 완성되었어요!"
+    );
+    console.log(res);
   }
-  return;
+
+  return Response.json({ message: "succeed" });
 };
 
 const isPushSubscription = (

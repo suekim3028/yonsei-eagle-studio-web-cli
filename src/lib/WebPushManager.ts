@@ -27,6 +27,7 @@ class WebPushManager {
 
   public initialize = async () => {
     if (this._initialized) return;
+
     if (!("serviceWorker" in navigator)) {
       this._status = "NO_SERVICE_WORKER";
       console.log("[WEB PUSH] no service worker");
@@ -42,10 +43,14 @@ class WebPushManager {
           console.log("[WEB PUSH] already registrated");
           this.registration = registration;
         } else {
-          const newRegistration = await navigator.serviceWorker.register(
-            "service-worker.js"
-          );
           console.log("[WEB PUSH] get new registrated");
+          const newRegistration = await navigator.serviceWorker.register(
+            "/service-worker.js",
+            {
+              scope: "/",
+            }
+          );
+          console.log("[WEB PUSH] new registration ended");
           this.registration = newRegistration;
         }
         console.log("[WEB PUSH] registration finished");
@@ -56,39 +61,34 @@ class WebPushManager {
     );
   };
 
-  private arrayBufferToString = async (buffer: ArrayBuffer) => {
-    return await new Promise((resolve: (value: string | null) => void) => {
-      const blob = new Blob([buffer], { type: "text/plain" });
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        if (e.target?.result && typeof e.target.result === "string") {
-          resolve(e.target.result);
-        } else {
-          resolve(null);
-        }
-      };
-      reader.readAsText(blob);
-    });
-  };
-
   public subscribe = async () => {
-    if (!this.registration) return;
+    console.log("SUBSCRIBE!");
+    console.log(!!this.registration?.pushManager);
 
+    if (!this.registration?.pushManager) return;
+
+    console.log("START SUBSCRIBE");
     const subscription: PushSubscription =
       await this.registration.pushManager.subscribe({
         applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
         userVisibleOnly: true,
       });
 
-    const endpoint = subscription.endpoint;
-    const p256dhBuffer = subscription.getKey("p256dh");
-    const authBuffer = subscription.getKey("auth");
+    const permissionState = await this.registration.pushManager.permissionState(
+      { userVisibleOnly: true }
+    );
 
-    if (!p256dhBuffer || !authBuffer) return;
-    const p256dh = await this.arrayBufferToString(p256dhBuffer);
-    const auth = await this.arrayBufferToString(authBuffer);
+    console.log({ permissionState });
+    if (permissionState === "denied") return;
 
-    if (!p256dh || !auth) return;
+    console.log(subscription);
+    console.log({ json: subscription.toJSON() });
+    const json = subscription.toJSON();
+    const endpoint = json.endpoint;
+    const p256dh = json.keys?.p256dh;
+    const auth = json.keys?.auth;
+
+    if (!p256dh || !auth || !endpoint) return;
 
     const _sub: webPush.PushSubscription = {
       endpoint,
@@ -97,12 +97,19 @@ class WebPushManager {
         auth,
       },
     };
-
+    console.log(JSON.stringify(_sub));
     // TODO: api에 서브스크립션 보내기
     // TEST CODE
     (async () => {
-      await jsUtils.wait(10);
-      redirect(`/send-push?subscription=${JSON.stringify(_sub)}`);
+      await jsUtils.wait(5);
+      fetch(
+        `https://w84v05fz-3000.asse.devtunnels.ms/send-push?subscription=${JSON.stringify(
+          _sub
+        )}`,
+        {
+          method: "POST",
+        }
+      );
     })();
   };
 }
