@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node server.js",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint && stylelint './src/**/*.ts'"
+    "lint": "next lint && stylelint './src/**/*.ts'",
+    "dev:https": "HTTPS=true SSL_CRT_FILE=_wildcard.example.com.pem SSL_KEY_FILE=_wildcard.example.com-key.pem HOST=0.0.0.0 next dev"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.23.10",
