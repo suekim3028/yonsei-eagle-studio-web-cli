@@ -24,9 +24,9 @@ const SelectStyle = () => {
         <Flex w="100%" direction={"row"} px={20}>
           <img
             src={"/images/talking_eagle.svg"}
-            width={66.32}
-            height={62.98}
-            style={{ width: 66.32, height: 62.98 }}
+            width={64}
+            height={64}
+            style={{ width: 64, height: 64 }}
           />
           <Flex ml={8} flex={1}>
             <Flex

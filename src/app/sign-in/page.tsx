@@ -20,9 +20,9 @@ export default function SignIn() {
       <Flex direction={"column"} py={20} alignItems={"center"} px={20}>
         <img
           src={"/images/logo_icon.svg"}
-          width={64}
-          height={64}
-          style={{ width: 64, height: 64 }}
+          width={112}
+          height={104}
+          style={{ width: 112, height: 104 }}
         />
         <Flex mt={8} py={12}>
           <Text
