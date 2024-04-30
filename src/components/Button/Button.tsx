@@ -14,12 +14,16 @@ const TYPE_SETTINGS: Record<
     backgroundEnd: string;
     border?: string;
     textColor: UiTypes.ColorKey;
+    disabledBgColor?: UiTypes.ColorKey;
+    disabledTextColor?: UiTypes.ColorKey;
   }
 > = {
   NAVY_GRADIENT: {
     backgroundStart: "#0043C6",
     backgroundEnd: "#002875",
     textColor: "WHITE",
+    disabledBgColor: "YONSEI_BABY_GRAY",
+    disabledTextColor: "YONSEI_CHARCOAL",
   },
   BLUE: {
     backgroundStart: "#0099FF",
@@ -71,6 +75,8 @@ const ButtonComponent = ({
   bgRgbColor,
   textRgbColor,
   textColor,
+  disabled,
+  onClick,
   ...props
 }: ButtonProps) => {
   const {
@@ -78,6 +84,8 @@ const ButtonComponent = ({
     backgroundEnd,
     textColor: themeTextColor,
     border,
+    disabledBgColor,
+    disabledTextColor,
   } = TYPE_SETTINGS[type];
   const { py, px, fontType, iconSize, iconMr } = SIZE_SETTINGS[size];
 
@@ -88,7 +96,9 @@ const ButtonComponent = ({
       // flexGrow={0}
 
       background={
-        bgColor
+        disabled && disabledBgColor
+          ? UI_CONSTS.THEME[disabledBgColor]
+          : bgColor
           ? UI_CONSTS.THEME[bgColor]
           : bgRgbColor ||
             `linear-gradient(90deg, ${backgroundStart}, ${backgroundEnd})`
@@ -99,14 +109,19 @@ const ButtonComponent = ({
       alignItems={"center"}
       borderRadius={"40px"}
       border={border ? `1px solid ${border}` : undefined}
-      cursor={props.onClick ? "pointer" : undefined}
+      cursor={onClick && !disabled ? "pointer" : undefined}
+      onClick={disabled ? undefined : onClick}
       {...props}
     >
       {!!icon && <Icon name={icon} size={iconSize} mr={`${iconMr}px`} />}
 
       <Text
         type={fontType}
-        color={textColor || themeTextColor}
+        color={
+          disabled && disabledTextColor
+            ? disabledTextColor
+            : textColor || themeTextColor
+        }
         colorRgb={textRgbColor}
       >
         {title}
@@ -138,6 +153,7 @@ type ButtonProps = {
   icon?: IconNames;
   stretch?: boolean;
   onClick?: () => void;
+  disabled?: boolean;
 } & L.SpaceProps & {
     bgColor?: UiTypes.ColorKey;
     bgRgbColor?: string;
