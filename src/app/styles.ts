@@ -8,4 +8,5 @@ export const Main = styled.div`
   min-height: 100vh;
   background-image: url("/images/main/bg.svg");
   background-size: cover;
+  width: 100vw;
 `;

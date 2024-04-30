@@ -16,8 +16,33 @@ export default function Home() {
           openInNewTab
         />
       </Flex>
-      <Flex direction={"column"} alignItems={"center"} w={"100%"}>
-        <img src={"/images/main/title.png"} width={"100%"} />
+      <Flex direction={"column"} alignItems={"center"} w={"100%"} mt={11}>
+        <div style={{ position: "relative" }}>
+          <img
+            src={"/images/logo_icon.svg"}
+            width={56}
+            height={52}
+            style={{
+              width: 56,
+              height: 52,
+              position: "absolute",
+              right: -64,
+              bottom: -3,
+            }}
+          />
+          <img
+            src={"/images/logo_title.png"}
+            width={141.46}
+            height={82.26}
+            style={{ width: 141.46, height: 82.26 }}
+          />
+        </div>
+        <img
+          src={"/images/main/sample_images.png"}
+          width={586.36}
+          height={286}
+          style={{ width: 586.36, height: 286, marginTop: 30 }}
+        />
         <Text type={"16_Light_Multi"} mt={32} color={"YONSEI_NAVY"}>
           2024 아카라카를 기념할
         </Text>
