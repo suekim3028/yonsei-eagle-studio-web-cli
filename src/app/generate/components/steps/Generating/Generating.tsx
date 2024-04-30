@@ -2,27 +2,22 @@ import { useStepContext } from "@app/generate/StepContext";
 import { Button, Flex, Text } from "@components";
 import { WebPushManager } from "@lib";
 import { commonHooks } from "@web-core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { isIOS, isMacOs } from "react-device-detect";
 const Generating = () => {
   const { style } = useStepContext();
   const [status, setStatus] = useState<"NO_WORKER" | "IOS" | "ANDROID">(
-    "NO_WORKER"
+    WebPushManager.status === "NO_SERVICE_WORKER"
+      ? "NO_WORKER"
+      : isIOS || isMacOs
+      ? "IOS"
+      : "ANDROID"
   );
 
   const handleOnClickNoti = () => {
     console.log(WebPushManager.status);
     WebPushManager.subscribe();
   };
-
-  commonHooks.useAsyncEffect(async () => {
-    await WebPushManager.waitForInit();
-    if (WebPushManager.status === "NO_SERVICE_WORKER") {
-      setStatus("NO_WORKER");
-    } else {
-      setStatus(isIOS || isMacOs ? "IOS" : "ANDROID");
-    }
-  });
 
   return (
     <Flex direction={"column"} w="100%" alignItems={"center"} px={20}>
@@ -37,7 +32,7 @@ const Generating = () => {
 
         <img
           src={`/images/style_${style === "A" ? "a" : "b"}.png`}
-          style={{ aspectRatio: "1/1.45", flex: 1, filter: "blur(5px)" }}
+          style={{ aspectRatio: "1/1.2", flex: 1, filter: "blur(5px)" }}
           width={"100%"}
         />
         <Flex flex={1} />

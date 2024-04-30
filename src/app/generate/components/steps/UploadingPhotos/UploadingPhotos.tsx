@@ -1,13 +1,18 @@
 import { useStepContext } from "@app/generate/StepContext";
 import { Flex, Text } from "@components";
+import { WebPushManager } from "@lib";
 import { commonHooks, jsUtils } from "@web-core";
 
 const UploadingPhotos = () => {
   const { goNext } = useStepContext();
+
   commonHooks.useAsyncEffect(async () => {
-    await jsUtils.wait(3); //TODO: api 붙이기
+    //TODO: api 붙이기
+    await Promise.all([jsUtils.wait(3), WebPushManager.waitForInit()]);
+
     goNext("UPLOADING_PHOTOS");
   }, []);
+
   return (
     <Flex w="100%" h="100%" alignItems={"center"} justifyContent={"center"}>
       <Text type="16_Light_Multi" color="YONSEI_NAVY">

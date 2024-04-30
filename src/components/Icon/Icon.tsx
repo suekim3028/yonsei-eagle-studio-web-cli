@@ -19,7 +19,8 @@ export type IconNames =
   | "arrow_left"
   | "chevron_right"
   | "eye"
-  | "gallery";
+  | "gallery"
+  | "copy";
 
 type IconsProps = {
   name: IconNames;
