@@ -8,34 +8,54 @@ const UploadDescription = () => {
   const { goNext, goPrev } = useStepContext();
 
   return (
-    <ScreenTemplate>
+    <ScreenTemplate
+      mention={`자연스런 AI 프로필을 위해\n가이드에 따라 사진을 올려주세요!`}
+    >
       <NavBar onClick={() => goPrev("UPLOAD_DESCRIPTION")} />
       <>
-        <Flex w="100%" direction={"row"} px={20}>
-          <img
-            src={"/images/talking_eagle.svg"}
-            width={66.32}
-            height={62.98}
-            style={{ width: 66.32, height: 62.98 }}
-          />
-          <Flex ml={8} flex={1}>
-            <Flex
-              bgRgbColor={"#FFFFFFB2"}
-              border={"1px solid white"}
-              borderRadius={8}
-              flex={1}
-              py={18}
-              pl={22}
-            >
-              <Text type={"14_Light_Multi"} color={"YONSEI_NAVY"}>
-                {`자연스런 AI 프로필을 위해\n가이드에 따라 사진을 올려주세요!`}
-              </Text>
-            </Flex>
-          </Flex>
+        <Flex direction={"column"} mt={28} w="100%">
+          <Text type={"18_Medium_Single"} color={"YONSEI_NAVY"} ml={28} mb={16}>
+            이런 사진은 NO
+          </Text>
+          <div
+            style={{
+              width: "100%",
+              overflowX: "scroll",
+              padding: "0px 20px",
+            }}
+          >
+            <img
+              src={"/images/upload_description/no_images.png"}
+              height={157}
+              width={360}
+              style={{ width: 360, height: 157, overflowX: "scroll" }}
+            />
+          </div>
+
+          <Text
+            type={"18_Medium_Single"}
+            color={"YONSEI_NAVY"}
+            ml={28}
+            mt={40}
+            mb={16}
+          >
+            이런 사진은 YES
+          </Text>
+          <div
+            style={{
+              width: "100%",
+              overflowX: "scroll",
+              padding: "0px 20px",
+            }}
+          >
+            <img
+              src={"/images/upload_description/yes_images.png"}
+              height={157}
+              width={360}
+              style={{ width: 360, height: 157, overflowX: "scroll" }}
+            />
+          </div>
         </Flex>
-        <Text type={"14_Light_Multi"} color={"YONSEI_BLUE"} mt={20}>
-          내용 정리되면 변경 예정
-        </Text>
       </>
       <Flex
         w="100%"

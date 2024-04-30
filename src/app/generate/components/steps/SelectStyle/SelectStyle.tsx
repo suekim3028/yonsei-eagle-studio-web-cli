@@ -18,31 +18,11 @@ const SelectStyle = () => {
   };
 
   return (
-    <ScreenTemplate>
+    <ScreenTemplate
+      mention={`독수리사진관에 어서오세요!\n어떤 AI 프로필을 만들어 볼까요?`}
+    >
       <NavBar />
       <>
-        <Flex w="100%" direction={"row"} px={20}>
-          <img
-            src={"/images/talking_eagle.svg"}
-            width={64}
-            height={64}
-            style={{ width: 64, height: 64 }}
-          />
-          <Flex ml={8} flex={1}>
-            <Flex
-              bgRgbColor={"#FFFFFFB2"}
-              border={"1px solid white"}
-              borderRadius={8}
-              flex={1}
-              py={18}
-              pl={22}
-            >
-              <Text type={"14_Light_Multi"} color={"YONSEI_NAVY"}>
-                {`독수리사진관에 어서오세요!\n어떤 AI 프로필을 만들어 볼까요?`}
-              </Text>
-            </Flex>
-          </Flex>
-        </Flex>
         <Flex px={20} w={"100%"} mt={40}>
           {["A", "B"].map((_style, idx) => (
             <StyleExample

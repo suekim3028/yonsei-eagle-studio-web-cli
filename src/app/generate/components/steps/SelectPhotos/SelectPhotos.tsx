@@ -74,31 +74,9 @@ const SelectPhotos = () => {
         multiple
         onChange={handleOnFileChange}
       />
-      <ScreenTemplate>
+      <ScreenTemplate mention="아래 버튼을 눌러 사진을 올려주세요">
         <NavBar onClick={() => goPrev("UPLOAD_DESCRIPTION")} />
         <>
-          <Flex w="100%" direction={"row"} px={20}>
-            <img
-              src={"/images/talking_eagle.svg"}
-              width={66.32}
-              height={62.98}
-              style={{ width: 66.32, height: 62.98 }}
-            />
-            <Flex ml={8} flex={1}>
-              <Flex
-                bgRgbColor={"#FFFFFFB2"}
-                border={"1px solid white"}
-                borderRadius={8}
-                flex={1}
-                py={18}
-                pl={22}
-              >
-                <Text type={"14_Light_Multi"} color={"YONSEI_NAVY"}>
-                  아래 버튼을 눌러 사진을 올려주세요
-                </Text>
-              </Flex>
-            </Flex>
-          </Flex>
           <Flex
             direction={"column"}
             py={71.5}

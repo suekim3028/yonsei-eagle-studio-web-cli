@@ -8,31 +8,9 @@ const ConfirmPhotos = () => {
   const { goNext, goPrev, photos } = useStepContext();
 
   return (
-    <ScreenTemplate>
+    <ScreenTemplate mention={`이 사진들로 AI 프로필을 만들까요?`}>
       <NavBar onClick={() => goPrev("CONFIRM_PHOTOS")} />
       <Flex w="100%" px={20} direction={"column"}>
-        <Flex w="100%" direction={"row"}>
-          <img
-            src={"/images/talking_eagle.svg"}
-            width={66.32}
-            height={62.98}
-            style={{ width: 66.32, height: 62.98 }}
-          />
-          <Flex ml={8} flex={1}>
-            <Flex
-              bgRgbColor={"#FFFFFFB2"}
-              border={"1px solid white"}
-              borderRadius={8}
-              flex={1}
-              py={18}
-              pl={22}
-            >
-              <Text type={"14_Light_Multi"} color={"YONSEI_NAVY"}>
-                {`이 사진들로 AI 프로필을 만들까요?`}
-              </Text>
-            </Flex>
-          </Flex>
-        </Flex>
         <div
           style={{
             display: "grid",
