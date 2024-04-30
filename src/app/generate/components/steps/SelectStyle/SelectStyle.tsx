@@ -23,7 +23,7 @@ const SelectStyle = () => {
     >
       <NavBar />
       <>
-        <Flex px={20} w={"100%"} mt={40}>
+        <Flex px={20} w={"100%"} mt={20}>
           {["A", "B"].map((_style, idx) => (
             <StyleExample
               idx={idx}

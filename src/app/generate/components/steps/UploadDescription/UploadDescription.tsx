@@ -13,7 +13,7 @@ const UploadDescription = () => {
     >
       <NavBar onClick={() => goPrev("UPLOAD_DESCRIPTION")} />
       <>
-        <Flex direction={"column"} mt={28} w="100%">
+        <Flex direction={"column"} mt={8} w="100%">
           <Text type={"18_Medium_Single"} color={"YONSEI_NAVY"} ml={28} mb={16}>
             이런 사진은 NO
           </Text>

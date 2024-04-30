@@ -10,7 +10,7 @@ const ScreenTemplate = ({
   return (
     <Flex w="100%" h={"100dvh"} direction={"column"}>
       {children[0]}
-      <Flex w="100%" direction={"row"} px={20}>
+      <Flex w="100%" direction={"row"} px={20} mb={20}>
         <img
           src={"/images/talking_eagle.svg"}
           width={66.32}

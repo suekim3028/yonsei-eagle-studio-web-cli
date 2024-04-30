@@ -5,19 +5,23 @@ import { Button, Flex, Icon, NavBar, Text } from "@components";
 import ScreenTemplate from "../../ScreenTemplate/ScreenTemplate";
 
 const ConfirmPhotos = () => {
-  const { goNext, goPrev, photos } = useStepContext();
+  const { goNext, goPrev: _goPrev, photos, setPhotos } = useStepContext();
+
+  const goPrev = () => {
+    setPhotos([]);
+    _goPrev("CONFIRM_PHOTOS");
+  };
 
   return (
     <ScreenTemplate mention={`이 사진들로 AI 프로필을 만들까요?`}>
-      <NavBar onClick={() => goPrev("CONFIRM_PHOTOS")} />
-      <Flex w="100%" px={20} direction={"column"}>
+      <NavBar onClick={goPrev} />
+      <Flex w="100%" px={20} direction={"column"} alignItems={"center"}>
         <div
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
             columnGap: 8,
             rowGap: 12,
-            marginTop: 20,
           }}
         >
           {photos.map((photo) => (
@@ -26,7 +30,7 @@ const ConfirmPhotos = () => {
               style={{
                 aspectRatio: "1/1.3",
                 width: "100%",
-                objectFit: "contain",
+                objectFit: "cover",
                 backgroundColor: "gray",
                 borderRadius: 32,
               }}
@@ -35,11 +39,21 @@ const ConfirmPhotos = () => {
         </div>
         <Button
           type={"BABY_GRAY"}
+          title={"다시 등록하기"}
+          size="M"
+          stretch
+          mt={20}
+          onClick={goPrev}
+        />
+
+        <Button
+          type={"WHITE"}
+          textColor="YONSEI_CHARCOAL"
           title={"사진 등록 가이드 다시 보기"}
           size="S"
-          icon={"eye"}
-          mt={20}
+          mt={12}
         />
+
         <Flex>
           <Text
             type={"14_Light_Multi"}

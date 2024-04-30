@@ -131,7 +131,7 @@ const SelectPhotos = () => {
           alignItems={"center"}
         >
           <Button
-            disabled={!photos.length}
+            disabled
             type={"NAVY_GRADIENT"}
             stretch
             title={"프로필 생성 시작"}
