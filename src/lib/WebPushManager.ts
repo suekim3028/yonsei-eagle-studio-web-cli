@@ -63,8 +63,12 @@ class WebPushManager {
 
   public subscribe = async () => {
     console.log("SUBSCRIBE!");
+    alert(!!this.registration);
 
-    const pushManager = this.registration?.pushManager;
+    const pushManager =
+      this.registration?.pushManager ||
+      (window as any)?.safari?.pushNotification;
+
     alert(!!pushManager);
 
     if (!pushManager) return;

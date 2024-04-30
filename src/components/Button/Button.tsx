@@ -59,7 +59,7 @@ const SIZE_SETTINGS: Record<
     iconMr: number;
   }
 > = {
-  L: { py: 18, px: 20, fontType: "18_Medium_Single", iconSize: 32, iconMr: 6 },
+  L: { py: 18, px: 20, fontType: "18_Medium_Single", iconSize: 20, iconMr: 6 },
   M: { py: 14, px: 20, fontType: "16_Light_Single", iconSize: 20, iconMr: 6 },
   S: { py: 10, px: 16, fontType: "14_Light_Single", iconSize: 20, iconMr: 4 },
   XS: { py: 8, px: 12, fontType: "12_Light_Single", iconSize: 16, iconMr: 4 },

@@ -4,6 +4,7 @@ import { WebPushManager } from "@lib";
 import { commonHooks } from "@web-core";
 import { useEffect, useState } from "react";
 import { isIOS, isMacOs } from "react-device-detect";
+import { PushAvailableIOS } from "./components/PushAvailableIOS";
 const Generating = () => {
   const { style } = useStepContext();
   const [status, setStatus] = useState<"NO_WORKER" | "IOS" | "ANDROID">(
@@ -37,18 +38,7 @@ const Generating = () => {
         />
         <Flex flex={1} />
       </Flex>
-      <Flex direction={"column"} py={20} w="100%" alignItems={"center"}>
-        <Text type="16_Light_Single" color="YONSEI_NAVY">
-          이미지가 완성되면 알려드릴까요?
-        </Text>
-        <Button
-          type={"NAVY_GRADIENT"}
-          title={"알림 받기"}
-          stretch
-          mt={14}
-          onClick={handleOnClickNoti}
-        />
-      </Flex>
+      <PushAvailableIOS />
     </Flex>
   );
 };

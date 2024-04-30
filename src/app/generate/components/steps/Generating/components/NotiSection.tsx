@@ -9,7 +9,9 @@ const NotiSection = ({ onClick }: { onClick: () => void }) => {
       <Button
         type={"NAVY_GRADIENT"}
         title={"알림 받기"}
+        icon={"bell"}
         stretch
+        size={"L"}
         mt={14}
         onClick={onClick}
       />
