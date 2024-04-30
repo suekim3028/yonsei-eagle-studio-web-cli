@@ -19,14 +19,8 @@ const SelectPhotos = () => {
     const { files: fileList } = e.target;
     console.log({ fileList });
 
-    if (!fileList || GEN_CONSTS.NUM_OF_PHOTOS.MIN > fileList.length) {
+    if (!fileList) {
       alert(`사진을 최소 ${NUM_MIN}장 이상 등록해주세요!`);
-
-      return;
-    }
-
-    if (fileList.length > GEN_CONSTS.NUM_OF_PHOTOS.MAX) {
-      alert(`사진을 ${NUM_MAX}장 이하로 등록해주세요!`);
       return;
     }
 
@@ -50,9 +44,21 @@ const SelectPhotos = () => {
         fileReader.readAsDataURL(image);
       });
     });
-    const imageUrls = await Promise.all(promises);
+    const imageUrls = (await Promise.all(promises)).filter(
+      (i) => typeof i === "string"
+    ) as string[];
 
-    setPhotos(imageUrls.filter((i) => typeof i === "string") as string[]);
+    if (GEN_CONSTS.NUM_OF_PHOTOS.MIN > imageUrls.length) {
+      alert(`사진을 최소 ${NUM_MIN}장 이상 등록해주세요!`);
+      return;
+    }
+
+    if (imageUrls.length > GEN_CONSTS.NUM_OF_PHOTOS.MAX) {
+      alert(`사진을 ${NUM_MAX}장 이하로 등록해주세요!`);
+      return;
+    }
+
+    setPhotos(imageUrls);
     goNext("SELECT_PHOTOS");
   };
 
