@@ -12,10 +12,10 @@ export default function SignIn() {
       direction={"column"}
     >
       <img
-        src={"/images/logo_title.svg"}
-        width={144}
-        height={98}
-        style={{ width: 144, height: 98 }}
+        src={"/images/logo_title.png"}
+        width={141.46}
+        height={82.26}
+        style={{ width: 141.46, height: 82.26, margin: "20px 0px" }}
       />
       <Flex direction={"column"} py={20} alignItems={"center"} px={20}>
         <img
