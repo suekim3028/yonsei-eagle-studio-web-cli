@@ -56,7 +56,9 @@ const SelectPhotos = () => {
     goNext("SELECT_PHOTOS");
   };
 
-  const clickInput = () => inputRef.current?.click();
+  const clickInput = () => {
+    inputRef.current?.click();
+  };
 
   return (
     <div style={{ width: "100%", height: "100%", position: "relative" }}>
@@ -69,7 +71,8 @@ const SelectPhotos = () => {
           height: 0,
           display: "none",
         }}
-        type={"image"}
+        accept="image/*"
+        type={"file"}
         ref={inputRef}
         multiple
         onChange={handleOnFileChange}
@@ -90,7 +93,7 @@ const SelectPhotos = () => {
             <Button
               stretch
               type={"BLUE"}
-              size="M"
+              size="L"
               title={"파일 업로드하기"}
               icon="gallery"
               onClick={clickInput}
