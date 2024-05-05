@@ -1,173 +1,102 @@
-import { UiTypes } from "@types";
-import Icon, { IconNames } from "../Icon/Icon";
-import Text, { FontType } from "../Text";
-import { L } from "@web-core";
-import React from "react";
-import Link from "next/link";
-import { Flex } from "@components";
 import { UI_CONSTS } from "@consts";
+import React from "react";
+import { ButtonComponentGenerator } from "web-core-modules/src/layouts";
+import Icon, { ICON_NAMES } from "../Icon/Icon";
+import Text from "../Text";
 
-const TYPE_SETTINGS: Record<
-  ButtonType,
+const Button = ButtonComponentGenerator(
   {
-    backgroundStart: string;
-    backgroundEnd: string;
-    border?: string;
-    textColor: UiTypes.ColorKey;
-    disabledBgColor?: UiTypes.ColorKey;
-    disabledTextColor?: UiTypes.ColorKey;
-  }
-> = {
-  NAVY_GRADIENT: {
-    backgroundStart: "#0043C6",
-    backgroundEnd: "#002875",
-    textColor: "WHITE",
-    disabledBgColor: "YONSEI_BABY_GRAY",
-    disabledTextColor: "YONSEI_CHARCOAL",
+    buttonTypes: [
+      "NAVY_GRADIENT",
+      "BLUE",
+      "NAVY",
+      "WHITE",
+      "BABY_GRAY",
+    ] as const,
+    fontTypes: [
+      "18_Medium_Single",
+      "16_Light_Single",
+      "14_Light_Single",
+      "12_Light_Single",
+    ] as const,
+    iconNames: ICON_NAMES,
+    colorSettings: UI_CONSTS.THEME,
   },
-  BLUE: {
-    backgroundStart: "#0099FF",
-    backgroundEnd: "#0099FF",
-    textColor: "WHITE",
-  },
-  NAVY: {
-    backgroundStart: "#002875",
-    backgroundEnd: "#002875",
-    textColor: "WHITE",
-  },
-  WHITE: {
-    backgroundStart: "#FFFFFFB2",
-    backgroundEnd: "#FFFFFFB2",
-    border: "WHITE",
-    textColor: "YONSEI_NAVY",
-  },
-  BABY_GRAY: {
-    backgroundStart: "#9CA7B8",
-    backgroundEnd: "#9CA7B8",
-    textColor: "WHITE",
-  },
-};
 
-const SIZE_SETTINGS: Record<
-  ButtonSize,
   {
-    py: number;
-    px: number;
-
-    fontType: FontType;
-    iconSize: number;
-    iconMr: number;
+    sizeSettings: {
+      XL: {
+        py: 18,
+        px: 20,
+        fontType: "18_Medium_Single",
+        iconSize: 20,
+        iconMr: 6,
+      },
+      L: {
+        py: 18,
+        px: 20,
+        fontType: "18_Medium_Single",
+        iconSize: 20,
+        iconMr: 6,
+      },
+      M: {
+        py: 14,
+        px: 20,
+        fontType: "16_Light_Single",
+        iconSize: 20,
+        iconMr: 6,
+      },
+      S: {
+        py: 10,
+        px: 16,
+        fontType: "14_Light_Single",
+        iconSize: 20,
+        iconMr: 4,
+      },
+      XS: {
+        py: 8,
+        px: 12,
+        fontType: "12_Light_Single",
+        iconSize: 16,
+        iconMr: 4,
+      },
+    },
+    typeSettings: {
+      NAVY_GRADIENT: {
+        backgroundStart: "#0043C6",
+        backgroundEnd: "#002875",
+        textColor: "WHITE",
+        disabledBgColor: "YONSEI_BABY_GRAY",
+        disabledTextColor: "YONSEI_CHARCOAL",
+      },
+      BLUE: {
+        backgroundStart: "#0099FF",
+        backgroundEnd: "#0099FF",
+        textColor: "WHITE",
+      },
+      NAVY: {
+        backgroundStart: "#002875",
+        backgroundEnd: "#002875",
+        textColor: "WHITE",
+      },
+      WHITE: {
+        backgroundStart: "#FFFFFFB2",
+        backgroundEnd: "#FFFFFFB2",
+        border: "WHITE",
+        textColor: "YONSEI_NAVY",
+      },
+      BABY_GRAY: {
+        backgroundStart: "#9CA7B8",
+        backgroundEnd: "#9CA7B8",
+        textColor: "WHITE",
+      },
+    },
+    colorSettings: UI_CONSTS.THEME,
+    defaultSettings: {
+      borderRadius: 20,
+    },
+    renderIcon: (props) => <Icon {...props} />,
+    renderText: ({ title, ...props }) => <Text {...props}>{title}</Text>,
   }
-> = {
-  L: { py: 18, px: 20, fontType: "18_Medium_Single", iconSize: 20, iconMr: 6 },
-  M: { py: 14, px: 20, fontType: "16_Light_Single", iconSize: 20, iconMr: 6 },
-  S: { py: 10, px: 16, fontType: "14_Light_Single", iconSize: 20, iconMr: 4 },
-  XS: { py: 8, px: 12, fontType: "12_Light_Single", iconSize: 16, iconMr: 4 },
-};
-
-const ButtonComponent = ({
-  title,
-  type,
-  size = "L",
-  icon,
-  stretch,
-  bgColor,
-  bgRgbColor,
-  textRgbColor,
-  textColor,
-  disabled,
-  onClick,
-  ...props
-}: ButtonProps) => {
-  const {
-    backgroundStart,
-    backgroundEnd,
-    textColor: themeTextColor,
-    border,
-    disabledBgColor,
-    disabledTextColor,
-  } = TYPE_SETTINGS[type];
-  const { py, px, fontType, iconSize, iconMr } = SIZE_SETTINGS[size];
-
-  return (
-    <Flex
-      w={stretch ? "100%" : undefined}
-      // flex={0}
-      // flexGrow={0}
-
-      background={
-        disabled && disabledBgColor
-          ? UI_CONSTS.THEME[disabledBgColor]
-          : bgColor
-          ? UI_CONSTS.THEME[bgColor]
-          : bgRgbColor ||
-            `linear-gradient(90deg, ${backgroundStart}, ${backgroundEnd})`
-      }
-      py={`${py}px`}
-      px={stretch ? undefined : `${px}px`}
-      justifyContent={"center"}
-      alignItems={"center"}
-      borderRadius={"40px"}
-      border={border ? `1px solid ${border}` : undefined}
-      cursor={onClick && !disabled ? "pointer" : undefined}
-      onClick={disabled ? undefined : onClick}
-      {...props}
-    >
-      {!!icon && <Icon name={icon} size={iconSize} mr={`${iconMr}px`} />}
-
-      <Text
-        type={fontType}
-        color={
-          disabled && disabledTextColor
-            ? disabledTextColor
-            : textColor || themeTextColor
-        }
-        colorRgb={textRgbColor}
-      >
-        {title}
-      </Text>
-    </Flex>
-  );
-};
-
-const Button = ({ href, openInNewTab, ...buttonProps }: ButtonProps) => {
-  if (!href) return <ButtonComponent {...buttonProps} />;
-
-  return (
-    <Link
-      href={href}
-      style={{ width: buttonProps.stretch ? "100%" : "fit-content" }}
-      target={openInNewTab ? "_blank" : undefined}
-    >
-      <ButtonComponent {...buttonProps} />
-    </Link>
-  );
-};
-
-type ButtonType = "NAVY_GRADIENT" | "BLUE" | "NAVY" | "WHITE" | "BABY_GRAY";
-type ButtonSize = "L" | "M" | "S" | "XS";
-type ButtonProps = {
-  title: string;
-  type: ButtonType;
-  size?: ButtonSize;
-  icon?: IconNames;
-  stretch?: boolean;
-  onClick?: () => void;
-  disabled?: boolean;
-} & L.SpaceProps & {
-    bgColor?: UiTypes.ColorKey;
-    bgRgbColor?: string;
-    textColor?: UiTypes.ColorKey;
-    textRgbColor?: string;
-  } & (
-    | {
-        href?: undefined;
-        openInNewTab?: undefined;
-      }
-    | {
-        href?: string;
-        openInNewTab?: boolean;
-      }
-  );
-
+);
 export default React.memo(Button);
