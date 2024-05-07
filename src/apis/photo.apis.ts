@@ -43,7 +43,7 @@ export const createPhotoRequest = (req: CreatePhotoRequestReq) =>
  */
 
 export const getPhotoRequest = (requestId: number) =>
-  API.post<PhotoTypes.Request>(`photo-request/${requestId}`);
+  API.get<PhotoTypes.Request>(`photo-request/${requestId}`);
 
 /**
  * 이미지 처리 요청 상태 확인
