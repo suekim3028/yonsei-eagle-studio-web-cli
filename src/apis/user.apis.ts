@@ -36,7 +36,7 @@ export const refreshLogin = async (payload: RefreshLoginRequest) =>
  * 유저 정보 가져오기
  */
 
-export const getUserInfo = () => API.get<UserTypes.User>("/user");
+export const getUserInfo = () => API.get<UserTypes.Info>("/user");
 
 /**
  * 유저 정보 삭제

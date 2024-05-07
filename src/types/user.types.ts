@@ -1,9 +1,13 @@
-export type RequestStatus = "";
+import { PhotoTypes } from "@types";
 
-export type User = {
+/**
+ * 유저 정보
+ */
+// TODO: request 상태 전부 가져오기
+export type Info = {
   userId: string;
   userName: string;
-  requestStatus: RequestStatus;
+  requestStatus: PhotoTypes.RequestStatus;
   createYmdt: number;
   requestYmdt: number;
 };
