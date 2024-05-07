@@ -8,8 +8,7 @@ const UploadingPhotos = () => {
 
   commonHooks.useAsyncEffect(async () => {
     //TODO: api 붙이기
-    await Promise.all([jsUtils.wait(3), WebPushManager.waitForInit()]);
-
+    await Promise.all([jsUtils.wait(3), WebPushManager.initialize()]);
     goNext("UPLOADING_PHOTOS");
   }, []);
 

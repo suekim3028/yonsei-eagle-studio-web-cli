@@ -1,7 +1,7 @@
 "use client";
 
 import { useStepContext } from "@app/generate/StepContext";
-import { Button, Flex, Icon, NavBar, Text } from "@components";
+import { Button, Flex, NavBar, Text } from "@components";
 import ScreenTemplate from "../../ScreenTemplate/ScreenTemplate";
 
 const ConfirmPhotos = () => {

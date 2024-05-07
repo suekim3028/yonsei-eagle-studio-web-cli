@@ -1,10 +1,10 @@
 import { UI_CONSTS } from "@consts";
+import { L } from "@web-core";
 import React from "react";
-import { ButtonComponentGenerator } from "web-core-modules/src/layouts";
 import Icon, { ICON_NAMES } from "../Icon/Icon";
 import Text from "../Text";
 
-const Button = ButtonComponentGenerator(
+const Button = L.ButtonComponentGenerator(
   {
     buttonTypes: [
       "NAVY_GRADIENT",
@@ -94,6 +94,7 @@ const Button = ButtonComponentGenerator(
     colorSettings: UI_CONSTS.THEME,
     defaultSettings: {
       borderRadius: 20,
+      defaultSize: "L",
     },
     renderIcon: (props) => <Icon {...props} />,
     renderText: ({ title, ...props }) => <Text {...props}>{title}</Text>,
