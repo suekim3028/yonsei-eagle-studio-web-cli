@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -16,9 +20,15 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@public/*": ["public/*"],
-      "@web-core": ["web-core-modules"],
-      "@*": ["src/*"]
+      "@public/*": [
+        "public/*"
+      ],
+      "@web-core": [
+        "web-core-modules"
+      ],
+      "@*": [
+        "src/*"
+      ]
       // "@utils": ["src/utils/index"]
     },
     "plugins": [
@@ -36,5 +46,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
