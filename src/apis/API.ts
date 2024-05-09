@@ -37,7 +37,6 @@ const API = () => {
     onError: (error) => {
       {
         if (webUtils.isServerSide()) throw new ApiError(error);
-        else alert(error.message);
       }
     },
   });
