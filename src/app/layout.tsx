@@ -1,4 +1,4 @@
-import { Initializer, RecoilRootComponent } from "@components/app";
+import { Initializer, RecoilRootWrapper } from "@components/app";
 import { ThemeProvider } from "@contexts";
 import { StyledComponentsRegistry } from "@web-core";
 import type { Metadata } from "next";
@@ -28,9 +28,9 @@ export default function RootLayout({
         <React.StrictMode>
           <StyledComponentsRegistry>
             <ThemeProvider>
-              <RecoilRootComponent>
+              <RecoilRootWrapper>
                 <Initializer>{children}</Initializer>
-              </RecoilRootComponent>
+              </RecoilRootWrapper>
             </ThemeProvider>
           </StyledComponentsRegistry>
         </React.StrictMode>
