@@ -1,3 +1,4 @@
+"use server";
 import { UserTypes } from "@types";
 import API from "./API";
 

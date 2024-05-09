@@ -1,16 +1,15 @@
 "use client";
 
-import { API } from "@apis";
-import { useUser } from "@hooks";
+import { userActions } from "@actions";
 import { WebPushManager } from "@lib";
-import React, { useEffect, useRef } from "react";
+import { TokenLocalStorage } from "@storage";
+import { commonHooks } from "@web-core";
+import React, { useRef } from "react";
 
 const Initializer = ({ children }: { children: React.ReactNode }) => {
-  const { initUser } = useUser();
-
   const initiated = useRef(false);
 
-  useEffect(() => {
+  commonHooks.useAsyncEffect(async () => {
     if (initiated.current) return;
     if (!window.Kakao.isInitialized()) {
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY);
@@ -22,10 +21,15 @@ const Initializer = ({ children }: { children: React.ReactNode }) => {
       WebPushManager.initialize();
     }
 
-    API.init({
-      baseURL: process.env.NEXT_PUBLIC_API_ENDPOINT_URL,
-    });
-    initUser();
+    const token = TokenLocalStorage.get();
+
+    if (token) {
+      const { accessToken, refreshToken } = token;
+      if (accessToken && refreshToken)
+        await userActions.initUser({ accessToken, refreshToken });
+    } else {
+      console.log("[Initializer] GUEST USER");
+    }
     initiated.current = true;
   }, []);
 
