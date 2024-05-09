@@ -9,7 +9,7 @@ export const useAuth = () => {
     const token = await APIToken.getToken();
     if (!token) {
       console.log("[useUser] NO TOKEN IN STORAGE");
-      return;
+      return null;
     }
 
     const { data: userInfo, isError } = await userApis.getUserInfo();
@@ -36,6 +36,7 @@ export const useAuth = () => {
     } else {
       setUser(userInfo);
       console.log("[useUser] SILENTLY LOGGED IN", { userInfo });
+      return userInfo;
     }
   };
 

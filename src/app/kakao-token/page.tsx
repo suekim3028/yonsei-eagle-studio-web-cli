@@ -22,15 +22,14 @@ const KakaoToken = ({
     if (typeof code != "string") {
       router.replace("/sign-in");
     } else {
-      const { isError, data } = await userApis.kakaoLogin(code);
-      console.log({ isError, data });
+      const { isError, data: token } = await userApis.kakaoLogin(code);
       if (isError) {
         router.replace("/sign-in");
       } else {
-        TokenLocalStorage.set(data);
-        initUser();
-
-        router.replace("/generate");
+        TokenLocalStorage.set(token);
+        const user = await initUser();
+        if (!user) alert("로그인 중 오류가 발생했습니다.");
+        router.replace(user ? "/generate" : "/sign-in");
       }
     }
   }, []);
