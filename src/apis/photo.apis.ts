@@ -6,7 +6,7 @@
 // "originalImages": List[Photo]
 
 import { PhotoTypes } from "@types";
-import { API } from "@web-core";
+import API from "./API";
 
 /**
  * 이미지 링크 요청

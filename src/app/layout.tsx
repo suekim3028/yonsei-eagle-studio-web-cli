@@ -1,11 +1,11 @@
+import { Initializer, RecoilRootComponent } from "@components/app";
+import { ThemeProvider } from "@contexts";
+import { StyledComponentsRegistry } from "@web-core";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import { StyledComponentsRegistry } from "@web-core";
-import { ThemeProvider } from "@contexts";
 import Script from "next/script";
-import { Head } from "next/document";
-import { Initializer } from "@components/app";
+import React from "react";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,11 +25,15 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className={inter.className}>
-        <StyledComponentsRegistry>
-          <ThemeProvider>
-            <Initializer>{children}</Initializer>
-          </ThemeProvider>
-        </StyledComponentsRegistry>
+        <React.StrictMode>
+          <StyledComponentsRegistry>
+            <ThemeProvider>
+              <RecoilRootComponent>
+                <Initializer>{children}</Initializer>
+              </RecoilRootComponent>
+            </ThemeProvider>
+          </StyledComponentsRegistry>
+        </React.StrictMode>
         <Script
           src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.1/kakao.min.js"
           integrity="sha384-kDljxUXHaJ9xAb2AzRd59KxjrFjzHa5TAoFQ6GbYTCAG0bjM55XohjjDT7tDDC01"

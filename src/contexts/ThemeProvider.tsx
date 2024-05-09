@@ -1,6 +1,7 @@
 "use client";
 
 import { UI_CONSTS } from "@consts";
+import React from "react";
 import { ThemeProvider as ThemeProviderContext } from "styled-components";
 
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
@@ -11,4 +12,4 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default ThemeProvider;
+export default React.memo(ThemeProvider);
