@@ -1,6 +1,5 @@
-import { tokenActions } from "@actions";
+import { commonActions, tokenActions } from "@actions";
 import { userApis } from "@apis";
-import { log } from "@apis/serverLogActions";
 import { UserAtoms } from "@atoms";
 import { useRecoilStoreID, useSetRecoilState } from "recoil";
 
@@ -35,7 +34,7 @@ export const useAuth = () => {
       console.log("[useUser] TOKEN REFRESHED!");
       initUser();
     } else {
-      log("SET USER!", { RECOIL_STORE_ID: RECOIL_STORE_ID });
+      commonActions.log("SET USER!", { RECOIL_STORE_ID: RECOIL_STORE_ID });
       setUser(userInfo);
 
       console.log("[useUser] SILENTLY LOGGED IN", { userInfo });

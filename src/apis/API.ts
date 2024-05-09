@@ -6,8 +6,8 @@ import { ApiError } from "./ApiError";
 const API = () => {
   return returnFetch<ApiTypes.ApiError>({
     baseUrl: process.env.NEXT_PUBLIC_API_ENDPOINT_URL,
-    getToken: () => {
-      const token = tokenActions.get();
+    getToken: async () => {
+      const token = await tokenActions.get();
       if (!token) return null;
       return token.accessToken;
     },

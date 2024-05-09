@@ -1,3 +1,4 @@
-import * as tokenActions from "./serverTokenActions";
+import * as commonActions from "./commonActions";
+import * as tokenActions from "./tokenActions";
 
-export { tokenActions };
+export { commonActions, tokenActions };
