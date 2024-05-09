@@ -9,13 +9,13 @@ type LoginRequest = {
   authorizationCode: string;
 };
 
-type LoginResponse = {
+export type LoginResponse = {
   accessToken: string;
   refreshToken: string;
 };
 
 export const login = (payload: LoginRequest) =>
-  API.post("/user/login", {
+  API.post<LoginResponse>("/user/login", {
     loginType: "LOGIN",
     payload,
   });
@@ -27,7 +27,7 @@ type RefreshLoginRequest = {
   refreshToken: string;
 };
 export const refreshLogin = async (payload: RefreshLoginRequest) =>
-  API.post("/user/login", {
+  API.post<LoginResponse>("/user/login", {
     loginType: "REFRESH",
     payload,
   });

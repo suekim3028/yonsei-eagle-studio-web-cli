@@ -1,10 +1,13 @@
 "use client";
 
+import { useUser } from "@hooks";
 import { WebPushManager } from "@lib";
 import { API } from "@web-core";
 import { useEffect } from "react";
 
 const Initializer = ({ children }: { children: React.ReactNode }) => {
+  const { initUser } = useUser();
+
   useEffect(() => {
     if (!window.Kakao.isInitialized()) {
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY);
@@ -15,9 +18,11 @@ const Initializer = ({ children }: { children: React.ReactNode }) => {
     if (!WebPushManager.initialized) {
       WebPushManager.initialize();
     }
+
     API.init({
       baseURL: process.env.NEXT_PUBLIC_API_ENDPOINT_URL,
     });
+    initUser();
   }, []);
 
   return children;
