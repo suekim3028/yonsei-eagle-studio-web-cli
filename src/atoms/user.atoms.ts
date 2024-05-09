@@ -7,7 +7,6 @@ const { persistAtom } = recoilPersist();
 export const userState = atom<UserTypes.Info | null>({
   key: "userState",
   default: null,
-  // effects_UNSTABLE: [persistAtom],
 });
 
 export const hasUserState = selector({

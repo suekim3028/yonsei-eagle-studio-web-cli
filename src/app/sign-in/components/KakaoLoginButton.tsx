@@ -2,10 +2,10 @@
 import { Button } from "@components";
 
 const KakaoLoginButton = () => {
-  const handleOnClick = () => {
+  const handleOnClick = async () => {
     window.Kakao.Auth.authorize({
-      redirectUri: "http://localhost:3000/kakao-token",
-      isPopup: true,
+      redirectUri: `${process.env.NEXT_PUBLIC_WEB_URL}kakao-token`,
+      isPopup: false,
     });
   };
 

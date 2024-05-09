@@ -1,6 +1,5 @@
 import { UI_CONSTS } from "@consts";
 import { L } from "@web-core";
-import React from "react";
 import Icon, { ICON_NAMES } from "../Icon/Icon";
 import Text from "../Text";
 
@@ -100,4 +99,4 @@ const Button = L.ButtonComponentGenerator(
     renderText: ({ title, ...props }) => <Text {...props}>{title}</Text>,
   }
 );
-export default React.memo(Button);
+export default Button;

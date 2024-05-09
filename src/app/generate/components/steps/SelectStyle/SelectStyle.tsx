@@ -1,11 +1,10 @@
 "use client";
 
 import { useStepContext } from "@app/generate/StepContext";
-import { BackButton, Button, Flex, NavBar, Text } from "@components";
+import { Button, Flex, NavBar, Text } from "@components";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import StyleExample from "../../StyleExample/StyleExample";
 import ScreenTemplate from "../../ScreenTemplate/ScreenTemplate";
+import StyleExample from "../../StyleExample/StyleExample";
 
 const SelectStyle = () => {
   const router = useRouter();
@@ -21,7 +20,7 @@ const SelectStyle = () => {
     <ScreenTemplate
       mention={`독수리사진관에 어서오세요!\n어떤 AI 프로필을 만들어 볼까요?`}
     >
-      <NavBar />
+      <NavBar onClick={() => router.replace("/")} />
       <>
         <Flex px={20} w={"100%"} mt={20}>
           {["A", "B"].map((_style, idx) => (

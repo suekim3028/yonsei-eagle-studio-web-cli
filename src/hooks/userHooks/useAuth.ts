@@ -9,7 +9,8 @@ export const useAuth = () => {
   const RECOIL_STORE_ID = useRecoilStoreID();
 
   const initUser = async () => {
-    const token = tokenActions.get();
+    const token = await tokenActions.get();
+
     if (!token) {
       console.log("[useUser] NO TOKEN IN STORAGE");
       return null;
