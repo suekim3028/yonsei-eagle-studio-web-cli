@@ -1,5 +1,6 @@
 "use client";
-import { APIToken, userApis } from "@apis";
+import { tokenActions } from "@actions";
+import { userApis } from "@apis";
 import { userHooks } from "@hooks";
 import { commonHooks } from "@web-core";
 import { useRouter } from "next/navigation";
@@ -25,7 +26,7 @@ const KakaoToken = ({
       if (isError) {
         router.replace("/sign-in");
       } else {
-        APIToken.setToken(token);
+        tokenActions.set(token);
         const user = await initUser();
         if (!user) alert("로그인 중 오류가 발생했습니다.");
         router.replace(user ? "/generate" : "/sign-in");

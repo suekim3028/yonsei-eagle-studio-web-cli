@@ -1,4 +1,4 @@
 import Initializer from "./Initializer/Initializer";
-import RecoilRootComponent from "./RecoilRootComponent/RecoilRootComponent";
+import RecoilRootWrapper from "./RecoilRootWrapper/RecoilRootWrapper";
 import StartButtons from "./StartButtons/StartButtons";
-export { Initializer, RecoilRootComponent, StartButtons };
+export { Initializer, RecoilRootWrapper, StartButtons };

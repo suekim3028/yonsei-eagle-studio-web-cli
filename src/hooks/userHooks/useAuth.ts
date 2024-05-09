@@ -1,13 +1,16 @@
-import { APIToken, userApis } from "@apis";
+import { tokenActions } from "@actions";
+import { userApis } from "@apis";
+import { log } from "@apis/serverLogActions";
 import { UserAtoms } from "@atoms";
-import { useSetRecoilState } from "recoil";
+import { useRecoilStoreID, useSetRecoilState } from "recoil";
 
 export const useAuth = () => {
   const setUser = useSetRecoilState(UserAtoms.userState);
+  const RECOIL_STORE_ID = useRecoilStoreID();
 
   const initUser = async () => {
-    const token = await APIToken.getToken();
-    if (!token || !token?.accessToken || !token?.refreshToken) {
+    const token = tokenActions.get();
+    if (!token) {
       console.log("[useUser] NO TOKEN IN STORAGE");
       return null;
     }
@@ -23,17 +26,17 @@ export const useAuth = () => {
       });
 
       if (!newToken || isError) {
-        APIToken.removeToken();
+        tokenActions.remove();
         return null;
       }
-
-      APIToken.setToken(newToken);
+      tokenActions.set(newToken);
 
       console.log("[useUser] TOKEN REFRESHED!");
       initUser();
     } else {
+      log("SET USER!", { RECOIL_STORE_ID: RECOIL_STORE_ID });
       setUser(userInfo);
-      APIToken.setToken(token);
+
       console.log("[useUser] SILENTLY LOGGED IN", { userInfo });
       return userInfo;
     }
