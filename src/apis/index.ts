@@ -1,7 +1,7 @@
-import * as notiApis from "./noti.apis";
-import * as photoApis from "./photo.apis";
-import * as userApis from "./user.apis";
+export * as notiApis from "./noti.apis";
+export * as photoApis from "./photo.apis";
+export * as userApis from "./user.apis";
 
-import API from "./API";
+import API, { APIToken } from "./API";
 
-export { API, notiApis, photoApis, userApis };
+export { API, APIToken };
