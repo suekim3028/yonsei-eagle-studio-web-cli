@@ -1,18 +1,41 @@
+"use client";
 import { userApis } from "@apis";
-import { jsUtils } from "@web-core";
-import { redirect } from "next/navigation";
+import { userHooks } from "@hooks";
+import { TokenLocalStorage } from "@storage";
+import { commonHooks } from "@web-core";
+import { useRouter } from "next/navigation";
+import { useRef } from "react";
 
-export default async function KakaoToken({
+const KakaoToken = ({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
-}) {
-  // TODO: call api
-  const authorizationCode = searchParams["code"];
-  if (typeof authorizationCode != "string") redirect("/sign-in");
+}) => {
+  const { initUser } = userHooks.useAuth();
+  const router = useRouter();
+  const effected = useRef(false);
 
-  const data = await userApis.login({ provider: "KAKAO", authorizationCode });
-  await jsUtils.wait(3);
+  commonHooks.useAsyncEffect(async () => {
+    if (effected.current) return;
+    effected.current = true;
+    const code = searchParams["code"];
+    if (typeof code != "string") {
+      router.replace("/sign-in");
+    } else {
+      const { isError, data } = await userApis.kakaoLogin(code);
+      console.log({ isError, data });
+      if (isError) {
+        router.replace("/sign-in");
+      } else {
+        TokenLocalStorage.set(data);
+        initUser();
 
-  return redirect("/generate");
-}
+        router.replace("/generate");
+      }
+    }
+  }, []);
+
+  return <>Loading...</>;
+};
+
+export default KakaoToken;
