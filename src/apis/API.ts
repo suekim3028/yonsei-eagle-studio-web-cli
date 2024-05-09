@@ -6,20 +6,42 @@ import { ApiError } from "./ApiError";
 import * as serverTokenActions from "./serverTokenActions";
 
 export const APIToken = (() => {
-  const setToken = (token: userApis.LoginResponse) => {
+  const setToken = async (token: userApis.LoginResponse) => {
     TokenLocalStorage.set(token);
-    serverTokenActions.setToken(token);
+    const cookieToken = await serverTokenActions.getToken();
+    if (
+      cookieToken?.accessToken != token.accessToken ||
+      cookieToken.refreshToken != token.refreshToken
+    )
+      serverTokenActions.setToken(token);
   };
 
-  const removeToken = () => {
+  const removeToken = async () => {
     TokenLocalStorage.remove();
-    serverTokenActions.removeToken();
+    if (await serverTokenActions.getToken()) serverTokenActions.removeToken();
   };
 
-  const getToken = async () => {
-    return webUtils.isServerSide()
+  const getToken = async (): Promise<userApis.LoginResponse | null> => {
+    console.log("server token", await serverTokenActions.getToken());
+    const isServerSide = webUtils.isServerSide();
+    const token = isServerSide
       ? await serverTokenActions.getToken()
       : TokenLocalStorage.get();
+
+    if (!!token) {
+      const { accessToken, refreshToken } = token;
+      if (!accessToken || !refreshToken) {
+        removeToken();
+        return null;
+      }
+
+      setToken({ accessToken, refreshToken });
+
+      return { accessToken, refreshToken };
+    } else {
+      removeToken();
+      return null;
+    }
   };
 
   return { setToken, removeToken, getToken };

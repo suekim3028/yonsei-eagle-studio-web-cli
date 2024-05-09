@@ -15,6 +15,7 @@ export const getToken = async () => {
   try {
     const value = cookies().get("token")?.value;
     if (!value) return null;
+
     return JSON.parse(value) as userApis.LoginResponse;
   } catch (e) {
     return null;

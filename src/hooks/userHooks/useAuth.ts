@@ -7,7 +7,7 @@ export const useAuth = () => {
 
   const initUser = async () => {
     const token = await APIToken.getToken();
-    if (!token) {
+    if (!token || !token?.accessToken || !token?.refreshToken) {
       console.log("[useUser] NO TOKEN IN STORAGE");
       return null;
     }
@@ -15,8 +15,6 @@ export const useAuth = () => {
     const { data: userInfo, isError } = await userApis.getUserInfo();
 
     if (isError) {
-      const token = await APIToken.getToken();
-
       const { refreshToken } = token || {};
       if (!refreshToken) return;
 
@@ -35,6 +33,7 @@ export const useAuth = () => {
       initUser();
     } else {
       setUser(userInfo);
+      APIToken.setToken(token);
       console.log("[useUser] SILENTLY LOGGED IN", { userInfo });
       return userInfo;
     }
