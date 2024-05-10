@@ -1,6 +1,6 @@
 import { Initializer, RecoilRootWrapper } from "@components/app";
 import { ThemeProvider } from "@contexts";
-import { StyledComponentsRegistry } from "@web-core";
+import { ModalWrapper, StyledComponentsRegistry } from "@web-core";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
@@ -29,7 +29,9 @@ export default function RootLayout({
           <StyledComponentsRegistry>
             <ThemeProvider>
               <RecoilRootWrapper>
-                <Initializer>{children}</Initializer>
+                <Initializer>
+                  <ModalWrapper>{children}</ModalWrapper>
+                </Initializer>
               </RecoilRootWrapper>
             </ThemeProvider>
           </StyledComponentsRegistry>
