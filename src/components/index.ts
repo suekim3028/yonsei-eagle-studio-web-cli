@@ -12,8 +12,8 @@ import type { ErrorModalProps } from "./ErrorModal/ErrorModal";
 import ErrorModal from "./ErrorModal/ErrorModal";
 import type { IconNames } from "./Icon/Icon";
 import type { FontType } from "./Text";
+import UploadPhotoExamples from "./UploadPhotoExamples/UploadPhotoExamples";
 const Flex = L.FlexComponentGenerator(UI_CONSTS.THEME);
-
 export {
   BackButton,
   BgContainer,
@@ -26,4 +26,5 @@ export {
   IconNames,
   NavBar,
   Text,
+  UploadPhotoExamples,
 };

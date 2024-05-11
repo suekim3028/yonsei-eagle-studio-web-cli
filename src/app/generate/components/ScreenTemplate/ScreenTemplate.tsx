@@ -24,9 +24,9 @@ const ScreenTemplate = ({
             borderRadius={8}
             flex={1}
             py={18}
-            pl={22}
+            px={22}
           >
-            <Text type={"14_Light_Multi"} color={"YONSEI_NAVY"}>
+            <Text type={"14_Light_Multi"} color={"YONSEI_NAVY"} flex={1}>
               {mention}
             </Text>
           </Flex>
@@ -42,6 +42,7 @@ const ScreenTemplate = ({
           direction={"column"}
           w="100%"
           overflowY={"scroll"}
+          style={{ scrollbarWidth: "none" }}
           alignItems={"center"}
         >
           {children[1]}

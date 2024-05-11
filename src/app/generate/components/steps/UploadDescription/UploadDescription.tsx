@@ -1,11 +1,22 @@
 "use client";
 
 import { useStepContext } from "@app/generate/StepContext";
-import { Button, Flex, Icon, NavBar, Text } from "@components";
+import {
+  Button,
+  Flex,
+  Icon,
+  NavBar,
+  Text,
+  UploadPhotoExamples,
+} from "@components";
 import ScreenTemplate from "../../ScreenTemplate/ScreenTemplate";
 
 const UploadDescription = () => {
   const { goNext, goPrev } = useStepContext();
+  const warnings = [
+    "사진 등록 가이드에 부합하지 않는 사진을 등록할 경우, 나와 닮지 않았거나 어색한 AI 이미지가 생성될 수 있어요.",
+    "독수리 사진관에서 사용하는 AI는 학습 진행 중으로, 생성되는 일부 결과물이 만족스럽지 않을 수 있어요. 너른 마음으로 양해를 부탁 드릴게요.",
+  ];
 
   return (
     <ScreenTemplate
@@ -13,48 +24,27 @@ const UploadDescription = () => {
     >
       <NavBar onClick={() => goPrev("UPLOAD_DESCRIPTION")} />
       <>
-        <Flex direction={"column"} mt={8} w="100%">
-          <Text type={"18_Medium_Single"} color={"YONSEI_NAVY"} ml={28} mb={16}>
-            이런 사진은 NO
-          </Text>
-          <div
-            style={{
-              width: "100%",
-              overflowX: "scroll",
-              padding: "0px 20px",
-            }}
-          >
-            <img
-              src={"/images/upload_description/no_images.png"}
-              height={157}
-              width={360}
-              style={{ width: 360, height: 157, overflowX: "scroll" }}
-            />
-          </div>
-
+        <Flex direction={"column"} mt={8} w="100%" mb={50}>
+          <UploadPhotoExamples />
           <Text
-            type={"18_Medium_Single"}
-            color={"YONSEI_NAVY"}
-            ml={28}
+            type="16_Light_Single"
+            mx={28}
             mt={40}
-            mb={16}
+            mb={12}
+            color="YONSEI_BABY_GRAY"
           >
-            이런 사진은 YES
+            {"가끔 이렇게 생성될 수 있어요"}
           </Text>
-          <div
-            style={{
-              width: "100%",
-              overflowX: "scroll",
-              padding: "0px 20px",
-            }}
-          >
-            <img
-              src={"/images/upload_description/yes_images.png"}
-              height={157}
-              width={360}
-              style={{ width: 360, height: 157, overflowX: "scroll" }}
-            />
-          </div>
+          {warnings.map((warn, idx) => (
+            <Flex key={warn.slice(0, 5)} px={28} mt={idx === 0 ? 0 : 4}>
+              <Text type="12_Light_Multi" color={"YONSEI_BABY_GRAY"}>
+                -
+              </Text>
+              <Text type="12_Light_Multi" ml={8} color={"YONSEI_BABY_GRAY"}>
+                {warn}
+              </Text>
+            </Flex>
+          ))}
         </Flex>
       </>
       <Flex

@@ -3,6 +3,7 @@
 import { tokenActions, userActions } from "@actions";
 import { userApis } from "@apis";
 import { photoRequestState, userState } from "@atoms";
+import { useErrorModal } from "@hooks";
 import { commonHooks } from "@web-core";
 import { useRouter } from "next/navigation";
 import { useCallback, useRef } from "react";
@@ -16,9 +17,10 @@ const KakaoToken = ({
   const router = useRouter();
   const setUserInfo = useSetRecoilState(userState);
   const setPhotoRequest = useSetRecoilState(photoRequestState);
+  const { showError } = useErrorModal();
 
   const handleError = useCallback(() => {
-    // TODO: 에러보여주기
+    showError("로그인에 실패했어요. 다시 시도해 주세요.");
     router.replace("/sign-in");
   }, []);
 

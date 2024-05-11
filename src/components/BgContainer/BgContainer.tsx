@@ -7,7 +7,7 @@ const BgContainer = ({ children }: { children: React.ReactNode }) => {
     <>
       <Flex w="100dvw" h="100dvh" bgColor={"BABY_BLUE"} position={"relative"}>
         <S.Circle />
-        <Flex zIndex={1} direction={"column"} w="100%" h="100%">
+        <Flex zIndex={1} direction={"column"} w="100dvw" h="100dvh">
           {children}
         </Flex>
       </Flex>
