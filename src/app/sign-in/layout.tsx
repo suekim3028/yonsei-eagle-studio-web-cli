@@ -1,7 +1,6 @@
 "use client";
-import { NavBar } from "@components";
+import { BgContainer, NavBar } from "@components";
 import { useRouter } from "next/navigation";
-import * as S from "./styles";
 
 export default function Layout({
   children,
@@ -10,9 +9,9 @@ export default function Layout({
 }>) {
   const router = useRouter();
   return (
-    <S.Container>
+    <BgContainer>
       <NavBar onClick={() => router.replace("/")} />
       {children}
-    </S.Container>
+    </BgContainer>
   );
 }

@@ -1,4 +1,4 @@
-import { Flex, Text } from "@components";
+import { BgContainer, Flex, Text } from "@components";
 
 const ScreenTemplate = ({
   children,
@@ -8,7 +8,7 @@ const ScreenTemplate = ({
   mention: string;
 }) => {
   return (
-    <Flex w="100%" h={"100dvh"} direction={"column"}>
+    <BgContainer>
       {children[0]}
       <Flex w="100%" direction={"row"} px={20} mb={20}>
         <img
@@ -48,7 +48,7 @@ const ScreenTemplate = ({
         </Flex>
         {children[2]}
       </Flex>
-    </Flex>
+    </BgContainer>
   );
 };
 
