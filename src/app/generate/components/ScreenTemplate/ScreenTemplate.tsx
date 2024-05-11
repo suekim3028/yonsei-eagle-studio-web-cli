@@ -1,5 +1,5 @@
 import { BgContainer, Flex, Text } from "@components";
-
+import * as S from "./styles";
 const ScreenTemplate = ({
   children,
   mention,
@@ -17,16 +17,24 @@ const ScreenTemplate = ({
           height={62.98}
           style={{ width: 66.32, height: 62.98 }}
         />
-        <Flex ml={8} flex={1}>
+        <Flex ml={8} w="100%" alignItems={"center"}>
+          <Flex position={"relative"} zIndex={2} right={-1}>
+            <S.Triangle />
+            <S.InnerTriangle />
+          </Flex>
+
           <Flex
             bgRgbColor={"#FFFFFFB2"}
             border={"1px solid white"}
             borderRadius={8}
             flex={1}
-            py={18}
+            mr={22.5}
+            py={13.5}
             px={22}
+            alignItems={"center"}
+            alignSelf={"center"}
           >
-            <Text type={"14_Light_Multi"} color={"YONSEI_NAVY"} flex={1}>
+            <Text type={"14_Light_Multi"} color={"YONSEI_NAVY"}>
               {mention}
             </Text>
           </Flex>

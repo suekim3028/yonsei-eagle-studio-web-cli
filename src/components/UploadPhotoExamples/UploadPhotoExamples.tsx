@@ -33,7 +33,7 @@ const UploadPhotoExamples = () => {
                 src={`/images/photo_examples/${type}_${idx + 1}.png`}
                 width={112}
                 height={128}
-                style={{ width: 122, height: 128, borderRadius: 32 }}
+                style={{ width: 112, height: 128, borderRadius: 32 }}
               />
               <Text type="14_Light_Single" color="YONSEI_CHARCOAL" mt={12}>
                 {desc}

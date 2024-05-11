@@ -85,9 +85,17 @@ const SelectPhotos = () => {
             px={47.5}
             alignItems={"center"}
           >
-            <Text type="16_Light_Single" color="BLUE" mb={20}>
-              📢 사진을 5장 이상 등록해 주세요
-            </Text>
+            <Flex mb={20}>
+              <Text type="16_Light_Single" color="BLUE">
+                📢 사진을
+              </Text>
+              <Text type="16_Light_Single" color="BLACK" mx={4}>
+                {` 6장 이상 `}
+              </Text>
+              <Text type="16_Light_Single" color="BLUE">
+                등록해 주세요
+              </Text>
+            </Flex>
             <Button
               stretch
               type={"BLUE"}
