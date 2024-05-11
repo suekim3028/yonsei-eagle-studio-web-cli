@@ -17,8 +17,6 @@ export const getUserFromToken = async (
 
   const { data: _userInfo, isError } = await userApis.getUserInfo();
 
-  // console.log({ userInfo });
-
   if (isError) {
     if (!silent) throw new Error();
     const { refreshToken } = token || {};
@@ -40,7 +38,7 @@ export const getUserFromToken = async (
 
   const userInfo: UserTypes.Info = {
     ..._userInfo,
-    requestStatus: "PROCESSING",
+    // requestStatus: "PROCESSING",
   };
 
   console.log({ userInfo });
@@ -54,7 +52,7 @@ export const getUserFromToken = async (
 
   if (photoRequestError) {
     if (silent) throw new Error();
-    return { userInfo, photoRequest: null };
+    return { userInfo: null, photoRequest: null };
   }
 
   return { userInfo, photoRequest };
