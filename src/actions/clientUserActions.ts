@@ -2,7 +2,7 @@ import { tokenActions } from "@actions";
 import { photoApis, userApis } from "@apis";
 import { PhotoTypes, UserTypes } from "@types";
 
-export const getUserFromToken = async (): Promise<{
+const getUserFromToken = async (): Promise<{
   userInfo: UserTypes.Info | null;
   photoRequest: PhotoTypes.Request | null;
 }> => {
