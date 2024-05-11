@@ -2,9 +2,9 @@ import { UserTypes } from "@types";
 import API from "./API";
 
 const dummyUser: UserTypes.Info = {
-  createYmdt: 3242424,
+  createYmdt: "2024-05-11T09:02:09.866",
   requestStatus: "PROCESSING",
-  requestYmdt: 32423432,
+  requestYmdt: "2024-05-11T09:02:09.866",
   userId: "1",
   userName: "김수빈",
 };

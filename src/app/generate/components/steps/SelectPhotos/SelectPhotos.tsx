@@ -3,7 +3,9 @@
 import { useStepContext } from "@app/generate/StepContext";
 import { Button, Flex, NavBar, Text } from "@components";
 import { GEN_CONSTS } from "@consts";
+import { ModalManager } from "@web-core";
 import { useRef } from "react";
+import PhotoExamplesModal from "../../PhotoExamplesModal/PhotoExamplesModal";
 import ScreenTemplate from "../../ScreenTemplate/ScreenTemplate";
 
 const { MIN: NUM_MIN, MAX: NUM_MAX } = GEN_CONSTS.NUM_OF_PHOTOS;
@@ -48,6 +50,13 @@ const SelectPhotos = () => {
   const clickInput = () => {
     inputRef.current?.click();
   };
+
+  const openExampleModal = () =>
+    ModalManager.show({
+      Component: <PhotoExamplesModal />,
+      closeOnDim: true,
+      position: "bottom",
+    });
 
   return (
     <div style={{ width: "100%", height: "100%", position: "relative" }}>
@@ -94,6 +103,7 @@ const SelectPhotos = () => {
               size="S"
               title={"사진 등록 가이드 다시 보기"}
               textColor="YONSEI_CHARCOAL"
+              onClick={openExampleModal}
             />
           </Flex>
           <Flex py={15} px={20}>

@@ -96,6 +96,7 @@ body {
   overflow-x: hidden;
   min-height: 100dvh;
   display: flex;
+  position: relative;
 }
 
 a {

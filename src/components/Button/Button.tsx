@@ -35,7 +35,7 @@ const Button = L.ButtonComponentGenerator(
         py: 18,
         px: 20,
         fontType: "18_Medium_Single",
-        iconSize: 20,
+        iconSize: 24,
         iconMr: 6,
       },
       M: {
