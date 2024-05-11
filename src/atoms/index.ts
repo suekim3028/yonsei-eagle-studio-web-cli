@@ -1,5 +1,5 @@
 import { PhotoTypes, UserTypes } from "@types";
-import { atom, selector } from "recoil";
+import { atom, selector, useRecoilStoreID } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist();
@@ -21,3 +21,10 @@ export const photoRequestState = atom<PhotoTypes.Request | null>({
   key: "photoRequest",
   default: null,
 });
+
+export const recoilChecker = () => {
+  const id = useRecoilStoreID();
+  return {
+    logStoreId: () => console.log(id),
+  };
+};
