@@ -7,13 +7,12 @@ import { useRecoilValue } from "recoil";
 import { useStepContext } from "./StepContext";
 import PhotoRequest from "./components/PhotoRequest/PhotoRequest";
 import ConfirmPhotos from "./components/steps/ConfirmPhotos/ConfirmPhotos";
-import Generating from "./components/steps/Generating/Generating";
 import SelectPhotos from "./components/steps/SelectPhotos/SelectPhotos";
 import SelectStyle from "./components/steps/SelectStyle/SelectStyle";
 import UploadDescription from "./components/steps/UploadDescription/UploadDescription";
 import UploadingPhotos from "./components/steps/UploadingPhotos/UploadingPhotos";
 
-const Generate = () => {
+const Generate = (): JSX.Element => {
   const { step } = useStepContext();
 
   const beforeUnloadHandler = async (event: PopStateEvent) => {
@@ -60,13 +59,6 @@ const Generate = () => {
       return <ConfirmPhotos />;
     case "UPLOADING_PHOTOS":
       return <UploadingPhotos />;
-    case "GENERATING":
-      return <Generating />;
-
-    default:
-      break;
   }
-
-  return <>generate!</>;
 };
 export default Generate;
