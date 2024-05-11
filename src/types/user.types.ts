@@ -8,6 +8,6 @@ export type Info = {
   userId: string;
   userName: string;
   requestStatus: PhotoTypes.RequestStatus;
-  createYmdt: number;
-  requestYmdt: number;
+  createYmdt: string;
+  requestYmdt: string;
 };
