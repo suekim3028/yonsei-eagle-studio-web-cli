@@ -2,7 +2,9 @@ import { tokenActions } from "@actions";
 import { photoApis, userApis } from "@apis";
 import { PhotoTypes, UserTypes } from "@types";
 
-const getUserFromToken = async (): Promise<{
+export const getUserFromToken = async (
+  silent?: boolean
+): Promise<{
   userInfo: UserTypes.Info | null;
   photoRequest: PhotoTypes.Request | null;
 }> => {
@@ -16,6 +18,7 @@ const getUserFromToken = async (): Promise<{
   const { data: userInfo, isError } = await userApis.getUserInfo();
 
   if (isError) {
+    if (!silent) throw new Error();
     const { refreshToken } = token || {};
     if (!refreshToken) return { userInfo: null, photoRequest: null };
 
@@ -33,14 +36,16 @@ const getUserFromToken = async (): Promise<{
     return getUserFromToken();
   }
 
-  const { requestId } = userInfo;
-  if (!requestId) return { userInfo, photoRequest: null };
+  const { requestStatus } = userInfo;
+  if (requestStatus === "NOT_REQUESTED")
+    return { userInfo, photoRequest: null };
 
   const { data: photoRequest, isError: photoRequestError } =
-    await photoApis.getPhotoRequest(requestId);
+    await photoApis.getPhotoRequest();
 
   if (photoRequestError) {
-    throw new Error();
+    if (silent) throw new Error();
+    return { userInfo, photoRequest: null };
   }
 
   return { userInfo, photoRequest };

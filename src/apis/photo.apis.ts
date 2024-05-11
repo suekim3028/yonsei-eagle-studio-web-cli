@@ -42,13 +42,19 @@ export const createPhotoRequest = (req: CreatePhotoRequestReq) =>
  * 이미지 처리 요청 정보 가져오기
  */
 
-export const getPhotoRequest = (requestId: number) =>
+export const getPhotoRequestById = (requestId: string) =>
   API().get<PhotoTypes.Request>(`photo-request/${requestId}`);
+
+/**
+ * 이미지 처리 요청 정보 가져오기
+ */
+export const getPhotoRequest = () =>
+  API().get<PhotoTypes.Request>(`photo-request`);
 
 /**
  * 이미지 처리 요청 상태 확인
  */
-export const checkRequestStatus = (requestId?: number) =>
+export const checkRequestStatus = (requestId?: string) =>
   API().get<{ requestStatus: PhotoTypes.RequestStatus }>(
     `photo-request/check${requestId ? `/${requestId}` : ""}`
   );

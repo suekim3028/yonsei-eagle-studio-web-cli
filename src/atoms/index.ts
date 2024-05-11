@@ -1,6 +1,5 @@
-import { photoApis } from "@apis";
-import { UserTypes } from "@types";
-import { atom, atomFamily, selector } from "recoil";
+import { PhotoTypes, UserTypes } from "@types";
+import { atom, selector } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist();
@@ -18,11 +17,7 @@ export const hasUserState = selector({
   },
 });
 
-export const photoRequestState = atomFamily({
+export const photoRequestState = atom<PhotoTypes.Request | null>({
   key: "photoRequest",
-  default: async (requestId: string) => {
-    const { data, isError } = await photoApis.getPhotoRequest(requestId);
-    if (isError) throw new Error();
-    return data;
-  },
+  default: null,
 });

@@ -1,13 +1,16 @@
 "use client";
 
-import { userHooks } from "@hooks";
+import { userActions } from "@actions";
+import { photoRequestState, userState } from "@atoms";
 import { WebPushManager } from "@lib";
 import { commonHooks } from "@web-core";
 import React, { useRef } from "react";
+import { useSetRecoilState } from "recoil";
 
 const Initializer = ({ children }: { children: React.ReactNode }) => {
   const initiated = useRef(false);
-  const { initUser } = userHooks.useAuth();
+  const setUserInfo = useSetRecoilState(userState);
+  const setPhotoRequest = useSetRecoilState(photoRequestState);
 
   commonHooks.useAsyncEffect(async () => {
     if (initiated.current) return;
@@ -23,7 +26,10 @@ const Initializer = ({ children }: { children: React.ReactNode }) => {
       WebPushManager.initialize();
     }
 
-    await initUser();
+    const { userInfo, photoRequest } = await userActions.getUserFromToken(true);
+    // TODO: photoRequest 있으면 generating으로
+    setUserInfo(userInfo);
+    setPhotoRequest(photoRequest);
   }, []);
 
   return children;

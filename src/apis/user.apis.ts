@@ -42,7 +42,7 @@ export const login = async (payload: LoginRequest) =>
         message: "로그인 중 에러가 발생했습니다. 다시 시도해주세요.",
         value: {},
       },
-      dummyData: dummyToken,
+      // dummyData: dummyToken,
     }
   );
 
@@ -53,7 +53,7 @@ export const kakaoLogin = async (code: string) =>
       message: "로그인 중 에러가 발생했습니다. 다시 시도해주세요.",
       value: {},
     },
-    dummyData: dummyToken,
+    // dummyData: dummyToken,
   });
 export const test = async () => null;
 
@@ -73,7 +73,11 @@ export const refreshLogin = async (payload: RefreshLoginRequest) =>
  */
 
 export const getUserInfo = () =>
-  API().get<UserTypes.Info>("/user", undefined, { dummyData: dummyUser });
+  API().get<UserTypes.Info>(
+    "/user",
+    undefined
+    //  { dummyData: dummyUser }
+  );
 
 /**
  * 유저 정보 삭제

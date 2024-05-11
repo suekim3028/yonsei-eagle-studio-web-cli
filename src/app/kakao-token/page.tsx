@@ -1,39 +1,49 @@
 "use client";
-import { tokenActions } from "@actions";
+
+import { tokenActions, userActions } from "@actions";
 import { userApis } from "@apis";
-import { userHooks } from "@hooks";
+import { photoRequestState, userState } from "@atoms";
 import { commonHooks } from "@web-core";
 import { useRouter } from "next/navigation";
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
+import { useSetRecoilState } from "recoil";
 
 const KakaoToken = ({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
-  const { initUser } = userHooks.useAuth();
   const router = useRouter();
-  const effected = useRef(false);
+  const setUserInfo = useSetRecoilState(userState);
+  const setPhotoRequest = useSetRecoilState(photoRequestState);
 
-  commonHooks.useAsyncEffect(async () => {
-    if (effected.current) return;
-    effected.current = true;
-    const code = searchParams["code"];
-    if (typeof code != "string") {
-      router.replace("/sign-in");
-    } else {
-      const { isError, data: token } = await userApis.kakaoLogin(code);
-      if (isError) {
-        router.replace("/sign-in");
-      } else {
-        tokenActions.set(token);
-        const user = await initUser();
-        if (!user) alert("로그인 중 오류가 발생했습니다.");
-        router.replace(user ? "/generate" : "/sign-in");
-      }
-    }
+  const handleError = useCallback(() => {
+    // TODO: 에러보여주기
+    router.replace("/sign-in");
   }, []);
 
+  const initialRef = useRef(false);
+  commonHooks.useAsyncEffect(async () => {
+    if (initialRef.current) return;
+    initialRef.current = true;
+    const code = searchParams["code"];
+    if (typeof code != "string") return handleError();
+
+    const { isError, data: token } = await userApis.kakaoLogin(code);
+    if (isError) return handleError();
+    tokenActions.set(token);
+
+    try {
+      const { userInfo, photoRequest } = await userActions.getUserFromToken();
+      if (!userInfo) return handleError();
+
+      setUserInfo(userInfo);
+      setPhotoRequest(photoRequest);
+      router.replace("/generate");
+    } catch (e) {
+      return handleError();
+    }
+  }, []);
   return <>Loading...</>;
 };
 
