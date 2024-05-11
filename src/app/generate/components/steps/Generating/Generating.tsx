@@ -1,12 +1,12 @@
 import { useStepContext } from "@app/generate/StepContext";
-import { Button, Flex, Text } from "@components";
+import { Flex, Text } from "@components";
 import { WebPushManager } from "@lib";
-import { commonHooks } from "@web-core";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { isIOS, isMacOs } from "react-device-detect";
 import { PushAvailableIOS } from "./components/PushAvailableIOS";
 const Generating = () => {
   const { style } = useStepContext();
+
   const [status, setStatus] = useState<"NO_WORKER" | "IOS" | "ANDROID">(
     WebPushManager.status === "NO_SERVICE_WORKER"
       ? "NO_WORKER"

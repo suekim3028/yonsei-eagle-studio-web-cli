@@ -2,9 +2,9 @@
 
 import { useStepContext } from "@app/generate/StepContext";
 import { Button, Flex, NavBar, Text } from "@components";
+import { GEN_CONSTS } from "@consts";
 import { useRef } from "react";
 import ScreenTemplate from "../../ScreenTemplate/ScreenTemplate";
-import { GEN_CONSTS } from "@consts";
 
 const { MIN: NUM_MIN, MAX: NUM_MAX } = GEN_CONSTS.NUM_OF_PHOTOS;
 const SelectPhotos = () => {
@@ -15,16 +15,14 @@ const SelectPhotos = () => {
   const handleOnFileChange: React.ChangeEventHandler<HTMLInputElement> = async (
     e
   ) => {
-    console.log("============");
     const { files: fileList } = e.target;
-    console.log({ fileList });
 
     if (!fileList) {
       alert(`사진을 최소 ${NUM_MIN}장 이상 등록해주세요!`);
       return;
     }
 
-    const images = Array.from({ length: fileList.length }, (_, i) => i).flatMap(
+    const files = Array.from({ length: fileList.length }, (_, i) => i).flatMap(
       (i) => {
         const file = fileList.item(i);
         if (!file) return [];
@@ -32,33 +30,18 @@ const SelectPhotos = () => {
       }
     );
 
-    console.log({ images });
+    setPhotos(files);
 
-    const promises = images.map((image) => {
-      return new Promise((resolve: (value: string | null) => void) => {
-        const fileReader = new FileReader();
-        fileReader.onload = (e) => {
-          if (!e.target?.result) return resolve(null);
-          resolve(e.target.result as string);
-        };
-        fileReader.readAsDataURL(image);
-      });
-    });
-    const imageUrls = (await Promise.all(promises)).filter(
-      (i) => typeof i === "string"
-    ) as string[];
-
-    if (GEN_CONSTS.NUM_OF_PHOTOS.MIN > imageUrls.length) {
+    if (GEN_CONSTS.NUM_OF_PHOTOS.MIN > files.length) {
       alert(`사진을 최소 ${NUM_MIN}장 이상 등록해주세요!`);
       return;
     }
 
-    if (imageUrls.length > GEN_CONSTS.NUM_OF_PHOTOS.MAX) {
+    if (files.length > GEN_CONSTS.NUM_OF_PHOTOS.MAX) {
       alert(`사진을 ${NUM_MAX}장 이하로 등록해주세요!`);
       return;
     }
 
-    setPhotos(imageUrls);
     goNext("SELECT_PHOTOS");
   };
 

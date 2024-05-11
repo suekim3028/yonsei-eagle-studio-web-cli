@@ -2,15 +2,36 @@
 
 import { useStepContext } from "@app/generate/StepContext";
 import { Button, Flex, NavBar, Text } from "@components";
+import { commonHooks } from "@web-core";
+import { useState } from "react";
 import ScreenTemplate from "../../ScreenTemplate/ScreenTemplate";
 
 const ConfirmPhotos = () => {
   const { goNext, goPrev: _goPrev, photos, setPhotos } = useStepContext();
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   const goPrev = () => {
     setPhotos([]);
     _goPrev("CONFIRM_PHOTOS");
   };
+
+  commonHooks.useAsyncEffect(async () => {
+    const promises = photos.map((image) => {
+      return new Promise((resolve: (value: string | null) => void) => {
+        const fileReader = new FileReader();
+        fileReader.onload = (e) => {
+          if (!e.target?.result) return resolve(null);
+          resolve(e.target.result as string);
+        };
+        fileReader.readAsDataURL(image);
+      });
+    });
+    const _imageUrls = (await Promise.all(promises)).filter(
+      (i) => typeof i === "string"
+    ) as string[];
+
+    setImageUrls(_imageUrls);
+  }, [photos]);
 
   return (
     <ScreenTemplate mention={`이 사진들로 AI 프로필을 만들까요?`}>
@@ -24,9 +45,10 @@ const ConfirmPhotos = () => {
             rowGap: 12,
           }}
         >
-          {photos.map((photo) => (
+          {imageUrls.map((imageUrl) => (
             <img
-              src={photo}
+              src={imageUrl}
+              key={imageUrl}
               style={{
                 aspectRatio: "1/1.3",
                 width: "100%",

@@ -30,6 +30,7 @@ const KakaoToken = ({
     if (typeof code != "string") return handleError();
 
     const { isError, data: token } = await userApis.kakaoLogin(code);
+
     if (isError) return handleError();
     tokenActions.set(token);
 
@@ -44,6 +45,7 @@ const KakaoToken = ({
       return handleError();
     }
   }, []);
+
   return <>Loading...</>;
 };
 
