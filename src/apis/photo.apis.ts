@@ -22,9 +22,23 @@ export const getPhotoLinkId = () =>
  */
 type UploadPhotoReq = {
   imageId: string;
+  data: FormData;
 };
-export const uploadPhoto = ({ imageId }: UploadPhotoReq) =>
-  API().post(`/photo/${imageId}`);
+
+export const uploadPhoto = ({ imageId, data }: UploadPhotoReq) =>
+  API().post(`/photo/${imageId}`, {
+    isMultipartFormData: true,
+    body: data,
+  });
+
+export const uploadPhotoTest = ({ imageId, data }: UploadPhotoReq) =>
+  API().post(
+    `/photo/${imageId}`,
+    {
+      body: data,
+    },
+    { dummyUrl: "http://localhost:3000/test" }
+  );
 
 /**
  * 이미지 처리 요청 생성
@@ -49,7 +63,16 @@ export const getPhotoRequestById = (requestId: string) =>
  * 이미지 처리 요청 정보 가져오기
  */
 export const getPhotoRequest = () =>
-  API().get<PhotoTypes.Request>(`photo-request`);
+  API().get<PhotoTypes.Request>(`photo-request`, undefined, {
+    dummyData: {
+      originalImages: [],
+      requestId: "1",
+      requestStatus: "PROCESSING",
+      userId: "1",
+      createYmdt: 0,
+      updateYmdt: 1,
+    },
+  });
 
 /**
  * 이미지 처리 요청 상태 확인

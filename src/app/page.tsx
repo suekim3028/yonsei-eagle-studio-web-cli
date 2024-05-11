@@ -3,7 +3,7 @@ import { StartButtons } from "@components/app";
 import { APP_CONSTS } from "@consts";
 import * as S from "./styles";
 
-export default function Home() {
+const Home = () => {
   return (
     <S.Main>
       <Flex w={"100%"} py={"12px"} px={"20px"}>
@@ -68,4 +68,6 @@ export default function Home() {
       </Flex>
     </S.Main>
   );
-}
+};
+
+export default Home;

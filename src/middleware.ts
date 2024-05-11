@@ -1,20 +1,19 @@
 import { NextResponse, type NextRequest } from "next/server";
 
+const hasToken = (request: NextRequest) =>
+  !!request.cookies.get("token")?.value;
+
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get("token")?.value;
-  console.log("MIDDLEWARE-", token, request.nextUrl.pathname);
   const pathname = request.nextUrl.pathname;
-  if (token) {
-    if (pathname.startsWith("/sign-in")) {
-      return Response.redirect(new URL("/", request.url));
-    }
-  } else {
-    if (pathname.startsWith("/generate")) {
-      return Response.redirect(new URL("/", request.url));
-    }
+  if (pathname.startsWith("/sign-in") && hasToken(request)) {
+    return Response.redirect(new URL("/", request.url));
   }
 
-  if (pathname.startsWith("/kakao-login")) {
+  if (pathname.startsWith("/generate") && !hasToken(request)) {
+    return Response.redirect(new URL("/", request.url));
+  }
+
+  if (pathname.startsWith("/kakao-login") && hasToken(request)) {
     const url = new URL(`https://kauth.kakao.com/oauth/authorize`, request.url);
 
     url.searchParams.set(

@@ -15,7 +15,9 @@ export const getUserFromToken = async (
     return { userInfo: null, photoRequest: null };
   }
 
-  const { data: userInfo, isError } = await userApis.getUserInfo();
+  const { data: _userInfo, isError } = await userApis.getUserInfo();
+
+  // console.log({ userInfo });
 
   if (isError) {
     if (!silent) throw new Error();
@@ -35,6 +37,11 @@ export const getUserFromToken = async (
     console.log("[useUser] TOKEN REFRESHED!");
     return getUserFromToken();
   }
+
+  const userInfo: UserTypes.Info = {
+    ..._userInfo,
+    // requestStatus: "PROCESSING",
+  };
 
   const { requestStatus } = userInfo;
   if (requestStatus === "NOT_REQUESTED")

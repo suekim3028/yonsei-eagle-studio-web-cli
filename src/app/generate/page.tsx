@@ -1,9 +1,11 @@
 "use client";
 
+import { photoRequestState } from "@atoms";
 import { jsUtils } from "@web-core";
-import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { useRecoilValue } from "recoil";
 import { useStepContext } from "./StepContext";
+import PhotoRequest from "./components/PhotoRequest/PhotoRequest";
 import ConfirmPhotos from "./components/steps/ConfirmPhotos/ConfirmPhotos";
 import Generating from "./components/steps/Generating/Generating";
 import SelectPhotos from "./components/steps/SelectPhotos/SelectPhotos";
@@ -11,9 +13,9 @@ import SelectStyle from "./components/steps/SelectStyle/SelectStyle";
 import UploadDescription from "./components/steps/UploadDescription/UploadDescription";
 import UploadingPhotos from "./components/steps/UploadingPhotos/UploadingPhotos";
 
-export default function Generate() {
+const Generate = () => {
   const { step } = useStepContext();
-  const router = useRouter();
+
   const beforeUnloadHandler = async (event: PopStateEvent) => {
     // Recommended
     event.preventDefault();
@@ -44,6 +46,9 @@ export default function Generate() {
     }
   }, []);
 
+  const photoRequest = useRecoilValue(photoRequestState);
+  if (photoRequest) return <PhotoRequest />;
+
   switch (step) {
     case "SELECT_STYLE":
       return <SelectStyle />;
@@ -63,4 +68,5 @@ export default function Generate() {
   }
 
   return <>generate!</>;
-}
+};
+export default Generate;
