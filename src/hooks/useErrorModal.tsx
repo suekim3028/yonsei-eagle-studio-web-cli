@@ -11,7 +11,6 @@ export const useErrorModal = () => {
           title={"앗! 잠시 후 다시 시도해 주세요"}
           body={errorMsg}
           yesText="확인"
-          noText="아니"
         />
       ),
       closeOnDim: true,
