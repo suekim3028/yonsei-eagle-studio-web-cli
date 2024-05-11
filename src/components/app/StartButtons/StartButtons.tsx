@@ -1,12 +1,13 @@
 "use client";
-import { UserAtoms } from "@atoms";
+
+import { hasUserState } from "@atoms";
 import { Flex } from "@components";
 import Button from "@components/Button/Button";
 import { useRouter } from "next/navigation";
 import { useRecoilValue } from "recoil";
 
 const StartButtons = () => {
-  const hasUser = useRecoilValue(UserAtoms.hasUserState);
+  const hasUser = useRecoilValue(hasUserState);
   const router = useRouter();
 
   return (
