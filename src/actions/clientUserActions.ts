@@ -40,8 +40,10 @@ export const getUserFromToken = async (
 
   const userInfo: UserTypes.Info = {
     ..._userInfo,
-    // requestStatus: "PROCESSING",
+    requestStatus: "PROCESSING",
   };
+
+  console.log({ userInfo });
 
   const { requestStatus } = userInfo;
   if (requestStatus === "NOT_REQUESTED")

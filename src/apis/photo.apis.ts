@@ -5,7 +5,24 @@
 // "updateYmdt": Datetime,
 // "originalImages": List[Photo]
 
-import { PhotoTypes } from "@types";
+const dummyPhotoRequest: PhotoTypes.Request = {
+  originalImages: [],
+  requestId: "1",
+  requestStatus: "PROCESSING",
+  userId: "1",
+  createYmdt: "2024-05-11T09:02:09.866",
+  updateYmdt: "2024-05-11T09:02:09.866",
+};
+
+const dummyUser: UserTypes.Info = {
+  userId: "663f341106c71e69673aa130",
+  userName: "김수빈",
+  requestStatus: "PROCESSING",
+  createYmdt: "2024-05-11T09:02:09.866",
+  requestYmdt: "2024-05-11T09:02:09.866",
+};
+
+import { PhotoTypes, UserTypes } from "@types";
 import API from "./API";
 
 /**
@@ -64,14 +81,7 @@ export const getPhotoRequestById = (requestId: string) =>
  */
 export const getPhotoRequest = () =>
   API().get<PhotoTypes.Request>(`photo-request`, undefined, {
-    dummyData: {
-      originalImages: [],
-      requestId: "1",
-      requestStatus: "PROCESSING",
-      userId: "1",
-      createYmdt: 0,
-      updateYmdt: 1,
-    },
+    dummyData: dummyPhotoRequest,
   });
 
 /**

@@ -17,14 +17,14 @@ export type Info = {
   userId: string;
   imageUrl: string;
   imageStatus: Status;
-  createYmdt: number;
+  createYmdt: string;
 };
 
 export type Request = {
   requestId: string;
   userId: string;
   requestStatus: RequestStatus;
-  createYmdt: number;
-  updateYmdt: number;
+  createYmdt: string;
+  updateYmdt: string;
   originalImages: Info[];
 };

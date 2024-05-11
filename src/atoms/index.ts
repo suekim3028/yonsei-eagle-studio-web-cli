@@ -19,7 +19,6 @@ export const hasUserState = selector({
 
 export const photoRequestState = atom<PhotoTypes.Request | null>({
   key: "photoRequest",
-  default: null,
 });
 
 export const recoilChecker = () => {
