@@ -4,7 +4,7 @@ import { WebPushManager } from "@lib";
 import { useState } from "react";
 import { isIOS, isMacOs } from "react-device-detect";
 import { PushAvailableIOS } from "./components/PushAvailableIOS";
-const Generating = () => {
+const Result = () => {
   const { style } = useStepContext();
 
   const [status, setStatus] = useState<"NO_WORKER" | "IOS" | "ANDROID">(
@@ -43,4 +43,4 @@ const Generating = () => {
   );
 };
 
-export default Generating;
+export default Result;

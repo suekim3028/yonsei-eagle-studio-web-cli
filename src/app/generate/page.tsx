@@ -3,9 +3,10 @@
 import { photoRequestState } from "@atoms";
 import { jsUtils } from "@web-core";
 import { useEffect, useRef } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 import { useStepContext } from "./StepContext";
-import PhotoRequest from "./components/PhotoRequest/PhotoRequest";
+import Loading from "./components/Loading/Loading";
+import Result from "./components/Result/Result";
 import ConfirmPhotos from "./components/steps/ConfirmPhotos/ConfirmPhotos";
 import SelectPhotos from "./components/steps/SelectPhotos/SelectPhotos";
 import SelectStyle from "./components/steps/SelectStyle/SelectStyle";
@@ -45,8 +46,11 @@ const Generate = (): JSX.Element => {
     }
   }, []);
 
+  const loadable = useRecoilValueLoadable(photoRequestState);
   const photoRequest = useRecoilValue(photoRequestState);
-  if (photoRequest) return <PhotoRequest />;
+
+  if (loadable.state === "loading") return <Loading />;
+  if (photoRequest) return <Result />;
 
   switch (step) {
     case "SELECT_STYLE":
