@@ -16,7 +16,6 @@ const ErrorModal = ({
       alignItems={"center"}
       justifyContent={"center"}
       w="100%"
-      py={20}
     >
       <img
         src={"/images/crying_eagle.svg"}
@@ -31,9 +30,16 @@ const ErrorModal = ({
         justifyContent={"center"}
         borderRadius={20}
         py={24}
+        mx={20}
         px={40}
+        flex={1}
       >
-        <Text type={"18_Medium_Multi"} color="YONSEI_NAVY" mb={20}>
+        <Text
+          type={"18_Medium_Multi"}
+          color="YONSEI_NAVY"
+          mb={20}
+          textAlign={"center"}
+        >
           {title}
         </Text>
         <Text type="16_Light_Multi" color="YONSEI_NAVY" textAlign={"center"}>
@@ -68,7 +74,7 @@ const ErrorModal = ({
   );
 };
 
-type ErrorModalProps = {
+export type ErrorModalProps = {
   title: string;
   body: string;
   yesText: string;
