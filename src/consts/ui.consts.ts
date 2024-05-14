@@ -11,3 +11,8 @@ export const THEME: Record<UiTypes.ColorKey, string> = {
   BLUE: "#0099FF",
   BABY_BLUE: "#EAF5FF",
 };
+
+export const WINDOW = {
+  MAX_WIDTH: 700,
+  MIN_WIDTH: 300,
+};
