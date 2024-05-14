@@ -33,7 +33,6 @@ const Initializer = ({ children }: { children: React.ReactNode }) => {
 
     setUserInfo(userInfo);
     setPhotoRequest(photoRequest);
-    if (photoRequest) router.push("/generate");
   }, []);
 
   return children;

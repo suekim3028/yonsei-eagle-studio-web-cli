@@ -1,1 +1,1 @@
-export const testInner = () => console.log("?");
+export * as commonUtils from "./common.utils";
