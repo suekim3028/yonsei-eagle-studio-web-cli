@@ -4,6 +4,7 @@ import { PhotoTypes } from "@types";
 import Image from "next/image";
 import React, { useRef } from "react";
 import { PushAvailable } from "../components/PushAvailable";
+import PushUnavailable from "../components/PushUnavailable";
 import Timer from "../components/Timer";
 
 const Processing = ({ request }: { request: PhotoTypes.Request }) => {
@@ -41,7 +42,7 @@ const Processing = ({ request }: { request: PhotoTypes.Request }) => {
           <Timer {...request} />
         </Flex>
       </Flex>
-      {hasPushManager ? <PushAvailable /> : <></>}
+      {hasPushManager ? <PushAvailable /> : <PushUnavailable />}
     </Flex>
   );
 };
