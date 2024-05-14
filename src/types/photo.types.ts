@@ -9,7 +9,8 @@ export type RequestStatus =
   | "ERROR" // 이미지 처리 과정에서 에러 발생
   | "COMPLETED"; // 이미지 처리 완료
 
-export type ProcessType = "NORMAL";
+// TODO
+export type ProcessType = "F" | "M";
 
 export type Info = {
   imageId: string;
@@ -27,4 +28,5 @@ export type Request = {
   createYmdt: string;
   updateYmdt: string;
   originalImages: Info[];
+  imageProcessType: ProcessType;
 };

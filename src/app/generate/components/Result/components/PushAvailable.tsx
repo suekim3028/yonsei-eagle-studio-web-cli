@@ -3,7 +3,7 @@ import { WebPushManager } from "@lib";
 import AlternativeLinkSection from "./AltenativeLinkSection";
 import NotiSection from "./NotiSection";
 
-export const PushAvailableIOS = () => {
+export const PushAvailable = () => {
   const handleOnClickNoti = () => {
     WebPushManager.subscribe();
   };
