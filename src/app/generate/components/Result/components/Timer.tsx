@@ -25,7 +25,7 @@ const Timer = ({ createYmdt }: Pick<PhotoTypes.Request, "createYmdt">) => {
 
   commonHooks.useEverySecondEffect(
     useCallback((now) => {
-      setLeftSeconds(calcDiff(now));
+      setLeftSeconds(Math.max(calcDiff(now), 0));
     }, [])
   );
 

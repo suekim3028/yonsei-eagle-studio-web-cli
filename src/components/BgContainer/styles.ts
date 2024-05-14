@@ -7,9 +7,9 @@ export const Circle = styled.div`
   width: 130dvw;
   height: 130dvw;
   left: -15dvw;
-  background-color: rgba(208, 233, 255, 1);
+  background-color: #d0e9ff;
   border-radius: 50%;
   position: absolute;
-  ${styledUtils.blur(35)}
+  ${styledUtils.blur(34.1)}
   z-index: 0;
 `;

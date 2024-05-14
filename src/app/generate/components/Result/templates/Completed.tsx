@@ -1,8 +1,10 @@
 import { Button, Flex, Text } from "@components";
 import { PhotoTypes } from "@types";
+import { commonUtils } from "@utils";
 import { jsUtils } from "@web-core";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
+import CompletedLanding from "../components/CompletedLanding";
 
 const INITIAL_FRAME_ID = 2;
 const FRAME_NUM = 8;
@@ -25,13 +27,33 @@ const BG: { start: string; end: string }[] = [
   },
 ];
 
-const Completed = ({ resultImage }: { resultImage: PhotoTypes.Info }) => {
-  const { imageUrl } = resultImage;
+const Completed = ({
+  resultImage,
+  imageProcessType,
+}: {
+  imageProcessType: PhotoTypes.ProcessType;
+  resultImage: PhotoTypes.Info;
+}) => {
+  const [showResult, onShowResult] = useState(false);
+
+  const { imageUrl } = resultImage || {};
   const background = jsUtils.getRandomArrItem(BG);
 
   const downloadImage = () => {
-    //
+    // TODO
   };
+
+  if (!showResult)
+    return (
+      <CompletedLanding
+        {...{
+          resultImage,
+          imageProcessType,
+        }}
+        show={() => onShowResult(true)}
+      />
+    );
+
   return (
     <Flex
       direction={"column"}
@@ -141,7 +163,11 @@ const Completed = ({ resultImage }: { resultImage: PhotoTypes.Info }) => {
         textAlign={"center"}
       >{`@instagram_id 를 태그해주면 기쁠거에요!\n즐거운 아카라카 되세요 🤍`}</Text>
       <Flex mt={80} direction={"column"}>
-        <Button type={"WHITE"} title={"친구에게 알려주기"} />
+        <Button
+          type={"WHITE"}
+          title={"친구에게 알려주기"}
+          onClick={commonUtils.sharedPage}
+        />
         <Button type={"WHITE"} title={"처음으로"} mt={12} />
       </Flex>
     </Flex>

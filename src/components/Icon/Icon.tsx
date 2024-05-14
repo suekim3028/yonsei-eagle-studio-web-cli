@@ -26,6 +26,7 @@ export const ICON_NAMES = [
   "bell",
   "lock",
   "instagram",
+  "confetti",
 ] as const;
 export type IconNames = (typeof ICON_NAMES)[number];
 
