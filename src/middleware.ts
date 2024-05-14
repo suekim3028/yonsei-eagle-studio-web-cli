@@ -6,15 +6,15 @@ const hasToken = (request: NextRequest) =>
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   if (pathname.startsWith("/sign-in") && hasToken(request)) {
-    return NextResponse.rewrite(new URL("/", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   if (pathname.startsWith("/generate") && !hasToken(request)) {
-    return NextResponse.rewrite(new URL("/", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   if (pathname.startsWith("/kakao-token") && hasToken(request)) {
-    return NextResponse.rewrite(new URL("/generate", request.url));
+    return NextResponse.redirect(new URL("/generate", request.url));
   }
 }
 
