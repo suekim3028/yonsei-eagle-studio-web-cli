@@ -14,50 +14,38 @@ const UploadingPhotos = () => {
   const setPhotoRequest = useSetRecoilState(photoRequestState);
   const { showError } = useErrorModal();
 
-  const uploadPhotos = async () => {
-    try {
-      const photoIds = await Promise.all(
-        photos.slice(0, 1).map(
-          (photo) =>
-            new Promise(async (resolve: (photoId: string) => void, reject) => {
-              console.log("===1===", { photo });
+  const uploadPhotos = async (
+    index: number,
+    array: string[]
+  ): Promise<string[]> => {
+    if (index >= photos.length) return array;
+    const photo = photos[index];
 
-              const { data: imageIdData, isError: linkIdError } =
-                await photoApis.getPhotoLinkId();
+    console.log("===1===", { photo });
 
-              console.log("===2===", imageIdData);
+    const { data: imageIdData, isError: linkIdError } =
+      await photoApis.getPhotoLinkId();
 
-              if (linkIdError) {
-                reject();
-                return;
-              }
+    console.log("===2===", imageIdData);
 
-              const formData = new FormData();
-              formData.append("Filedata", photo);
+    if (linkIdError) throw new Error();
 
-              console.log("===3===", formData);
+    const formData = new FormData();
+    formData.append("Filedata", photo);
 
-              const { data: photoUpload, isError: photoUploadError } =
-                await photoApis.uploadPhoto({
-                  imageId: imageIdData.imageId,
-                  data: formData,
-                });
+    console.log("===3===", formData);
 
-              console.log("===4===", { photoUploadError, photoUpload });
+    const { data: photoUpload, isError: photoUploadError } =
+      await photoApis.uploadPhoto({
+        imageId: imageIdData.imageId,
+        data: formData,
+      });
 
-              if (!photoUploadError) reject();
+    console.log("===4===", { photoUploadError, photoUpload });
 
-              resolve(imageIdData.imageId);
-            })
-        )
-      );
-      console.log("===6===", photoIds);
+    // if (photoUploadError) throw new Error();
 
-      return photoIds;
-    } catch (e) {
-      handleError();
-      return null;
-    }
+    return uploadPhotos(index + 1, [...array, index.toString()]);
   };
 
   const handleError = () => {
@@ -72,24 +60,29 @@ const UploadingPhotos = () => {
     firstRender.current = true;
 
     WebPushManager.initialize();
-    const photoIds = await uploadPhotos();
-    if (!photoIds) return;
-    const { isError: uploadPhotoError } = await photoApis.createPhotoRequest({
-      imageList: photoIds,
-      imageProcessType: "NORMAL",
-    });
+    try {
+      const photoIds = await uploadPhotos(0, []);
+      console.log(photoIds);
+      const { isError: createRequestError } =
+        await photoApis.createPhotoRequest({
+          imageList: photoIds,
+          imageProcessType: "NORMAL",
+        });
 
-    console.log("===7===", uploadPhotoError);
-    if (uploadPhotoError) return handleError();
+      console.log("===7===", createRequestError);
+      if (createRequestError) throw new Error();
 
-    const { data: photoRequest, isError: requestPhotoError } =
-      await photoApis.getPhotoRequest();
+      const { data: photoRequest, isError: requestPhotoError } =
+        await photoApis.getPhotoRequest();
 
-    console.log("===8===", { photoRequest });
+      console.log("===8===", { photoRequest });
 
-    if (requestPhotoError) return handleError();
+      if (requestPhotoError) throw new Error();
 
-    setPhotoRequest(photoRequest);
+      setPhotoRequest(photoRequest);
+    } catch (e) {
+      return handleError();
+    }
   }, []);
 
   return (
