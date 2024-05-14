@@ -18,8 +18,9 @@ const Initializer = ({ children }: { children: React.ReactNode }) => {
 
     if (!window.Kakao.isInitialized()) {
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY);
+      console.log(`kakao initialized`);
     } else {
-      console.log(`kakao initialized: ${window.Kakao.isInitialized()}`);
+      console.log(`kakao already initialized`);
     }
 
     if (!WebPushManager.initialized) {

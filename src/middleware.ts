@@ -6,27 +6,15 @@ const hasToken = (request: NextRequest) =>
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   if (pathname.startsWith("/sign-in") && hasToken(request)) {
-    return Response.redirect(new URL("/", request.url));
+    return NextResponse.rewrite(new URL("/", request.url));
   }
 
   if (pathname.startsWith("/generate") && !hasToken(request)) {
-    return Response.redirect(new URL("/", request.url));
+    return NextResponse.rewrite(new URL("/", request.url));
   }
 
-  if (pathname.startsWith("/kakao-login") && hasToken(request)) {
-    const url = new URL(`https://kauth.kakao.com/oauth/authorize`, request.url);
-
-    url.searchParams.set(
-      "client_id",
-      process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY
-    );
-    url.searchParams.set(
-      "redirect_uri",
-      `${process.env.NEXT_PUBLIC_WEB_URL}kakao-token`
-    );
-    url.searchParams.set("response_type", "code");
-
-    return NextResponse.rewrite(url);
+  if (pathname.startsWith("/kakao-token") && hasToken(request)) {
+    return NextResponse.rewrite(new URL("/generate", request.url));
   }
 }
 

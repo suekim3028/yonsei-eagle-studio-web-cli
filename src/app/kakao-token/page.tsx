@@ -28,13 +28,14 @@ const KakaoToken = ({
   commonHooks.useAsyncEffect(async () => {
     if (initialRef.current) return;
     initialRef.current = true;
+    if (await tokenActions.get()) return;
     const code = searchParams["code"];
     if (typeof code != "string") return handleError();
 
     const { isError, data: token } = await userApis.kakaoLogin(code);
 
     if (isError) return handleError();
-    tokenActions.set(token);
+    await tokenActions.set(token);
 
     try {
       const { userInfo, photoRequest } = await userActions.getUserFromToken();
