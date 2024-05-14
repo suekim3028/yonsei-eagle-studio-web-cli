@@ -44,7 +44,7 @@ const ConfirmPhotos = () => {
   return (
     <ScreenTemplate mention={`이 사진들로 AI 프로필을 만들까요?`}>
       <NavBar onClick={goPrev} />
-      <Flex w="100%" px={20} direction={"column"} alignItems={"center"}>
+      <Flex w="100%" px={20} pb={20} direction={"column"} alignItems={"center"}>
         <Button
           type={"BABY_GRAY"}
           title={"다시 등록하기"}
