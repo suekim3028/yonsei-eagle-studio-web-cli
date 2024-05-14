@@ -29,4 +29,5 @@ export type Request = {
   updateYmdt: string;
   originalImages: Info[];
   imageProcessType: ProcessType;
+  resultImage: Info | null;
 };
