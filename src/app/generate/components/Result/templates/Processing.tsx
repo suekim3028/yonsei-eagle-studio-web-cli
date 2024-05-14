@@ -1,6 +1,7 @@
 import { Flex, Text } from "@components";
 import { WebPushManager } from "@lib";
 import { PhotoTypes } from "@types";
+import Image from "next/image";
 import React, { useRef } from "react";
 import { PushAvailable } from "../components/PushAvailable";
 import Timer from "../components/Timer";
@@ -25,7 +26,8 @@ const Processing = ({ request }: { request: PhotoTypes.Request }) => {
       </Flex>
       <Flex w="100%" justifyContent={"center"}>
         <Flex position="relative">
-          <img
+          <Image
+            alt={"waiting state result"}
             src={`/images/blur_result/${
               request.imageProcessType === "F" ? "F" : "M"
             }.png`}

@@ -1,5 +1,6 @@
 import { Button, Flex, Text } from "@components";
 import { APP_CONSTS } from "@consts";
+import Image from "next/image";
 import KakaoLoginButton from "./components/KakaoLoginButton";
 
 export default function SignIn() {
@@ -11,14 +12,16 @@ export default function SignIn() {
       justifyContent={"center"}
       direction={"column"}
     >
-      <img
+      <Image
         src={"/images/logo_title.png"}
+        alt={"logo title"}
         width={141.46}
         height={82.26}
         style={{ width: 141.46, height: 82.26, margin: "20px 0px" }}
       />
       <Flex direction={"column"} py={20} alignItems={"center"} px={20}>
-        <img
+        <Image
+          alt={"logo title"}
           src={"/images/logo_icon.svg"}
           width={112}
           height={104}

@@ -1,4 +1,5 @@
 import { BgContainer, Flex, Text } from "@components";
+import Image from "next/image";
 import * as S from "./styles";
 const ScreenTemplate = ({
   children,
@@ -11,7 +12,8 @@ const ScreenTemplate = ({
     <BgContainer>
       {children[0]}
       <Flex w="100%" direction={"row"} px={20} mb={20}>
-        <img
+        <Image
+          alt={"talking eagle"}
           src={"/images/talking_eagle.svg"}
           width={66.32}
           height={62.98}

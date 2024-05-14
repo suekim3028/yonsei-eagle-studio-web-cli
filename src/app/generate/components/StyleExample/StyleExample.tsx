@@ -5,6 +5,7 @@ import Image from "next/image";
 
 const StyleExample = ({ type, selected, onClick, idx }: StyleExampleProps) => {
   const isSelected = selected === type;
+
   return (
     <Flex
       direction={"column"}
@@ -14,15 +15,19 @@ const StyleExample = ({ type, selected, onClick, idx }: StyleExampleProps) => {
       cursor={"pointer"}
     >
       <Image
-        src={`images/process_type_example/${type === "F" ? "F" : "M"}.png`}
+        src={`/images/process_type_example/${type === "F" ? "F" : "M"}.png`}
         alt="Process Type Example"
+        width={IMAGE_WIDTH}
+        height={IMAGE_HEIGHT}
         style={{
           outline: isSelected
             ? `5px solid ${UI_CONSTS.THEME["YONSEI_NAVY"]}`
             : undefined,
           borderRadius: 40,
           opacity: selected !== null && !isSelected ? 0.2 : 1,
+
           width: "100%",
+          flex: 1,
         }}
       />
       <Button
@@ -34,6 +39,9 @@ const StyleExample = ({ type, selected, onClick, idx }: StyleExampleProps) => {
     </Flex>
   );
 };
+
+const IMAGE_WIDTH = 160 * 2;
+const IMAGE_HEIGHT = 220 * 2;
 
 type StyleExampleProps = {
   type: PhotoTypes.ProcessType;

@@ -1,10 +1,12 @@
 import { Flex } from "@components";
 import { L } from "@web-core";
+import Image from "next/image";
 
 const Icon = ({ name, size, ...flexProps }: IconsProps) => {
   return (
     <Flex {...flexProps}>
-      <img
+      <Image
+        alt={`${name} icon`}
         src={`/icons/${name}.svg`}
         width={size}
         height={size}

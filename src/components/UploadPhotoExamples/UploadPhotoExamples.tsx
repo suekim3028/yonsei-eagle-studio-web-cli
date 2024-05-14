@@ -1,4 +1,5 @@
 import { Flex, Text } from "@components";
+import Image from "next/image";
 
 const UploadPhotoExamples = () => {
   const badDescriptions = [
@@ -29,7 +30,8 @@ const UploadPhotoExamples = () => {
               ml={idx === 0 ? 0 : 12}
               py={16}
             >
-              <img
+              <Image
+                alt={"photo example"}
                 src={`/images/photo_examples/${type}_${idx + 1}.png`}
                 width={112}
                 height={128}

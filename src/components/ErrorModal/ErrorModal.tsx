@@ -1,5 +1,6 @@
 import { Button, Flex, Text } from "@components";
 import { ModalManager } from "@web-core";
+import Image from "next/image";
 
 const ErrorModal = ({
   title,
@@ -17,7 +18,8 @@ const ErrorModal = ({
       justifyContent={"center"}
       w="100%"
     >
-      <img
+      <Image
+        alt="crying eagle"
         src={"/images/crying_eagle.svg"}
         width={80}
         height={80}

@@ -3,6 +3,7 @@
 import { useStepContext } from "@app/generate/StepContext";
 import { Button, Flex, NavBar } from "@components";
 import { ModalManager, commonHooks } from "@web-core";
+import Image from "next/image";
 import { useState } from "react";
 import PhotoExamplesModal from "../../PhotoExamplesModal/PhotoExamplesModal";
 import ScreenTemplate from "../../ScreenTemplate/ScreenTemplate";
@@ -72,9 +73,12 @@ const ConfirmPhotos = () => {
           }}
         >
           {imageUrls.map((imageUrl, idx) => (
-            <img
+            <Image
               src={imageUrl}
               key={`IMAGE_${idx}`}
+              width={110}
+              height={143}
+              alt={"selected image"}
               style={{
                 aspectRatio: "1/1.3",
                 width: "100%",
