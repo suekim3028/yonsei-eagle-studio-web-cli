@@ -1,46 +1,44 @@
 import { Button, Flex } from "@components";
 import { UI_CONSTS } from "@consts";
+import { PhotoTypes } from "@types";
+import Image from "next/image";
 
-const StyleExample = ({
-  style,
-  selectedStyle,
-  onClick,
-  idx,
-}: StyleExampleProps) => {
-  const isSelected = selectedStyle === style;
+const StyleExample = ({ type, selected, onClick, idx }: StyleExampleProps) => {
+  const isSelected = selected === type;
   return (
     <Flex
       direction={"column"}
       ml={idx === 0 ? 0 : 12}
       flex={1}
-      onClick={() => onClick(style)}
+      onClick={() => onClick(type)}
       cursor={"pointer"}
     >
-      <img
-        src={`images/style_${style === "A" ? "a" : "b"}.png`}
-        width={"100%"}
+      <Image
+        src={`images/process_type_example/${type === "F" ? "F" : "M"}.png`}
+        alt="Process Type Example"
         style={{
           outline: isSelected
             ? `5px solid ${UI_CONSTS.THEME["YONSEI_NAVY"]}`
             : undefined,
           borderRadius: 40,
-          opacity: selectedStyle !== null && !isSelected ? 0.2 : 1,
+          opacity: selected !== null && !isSelected ? 0.2 : 1,
+          width: "100%",
         }}
       />
       <Button
         mt={20}
         type={isSelected ? "NAVY" : "WHITE"}
         onClick={() => undefined}
-        title={style}
+        title={type}
       />
     </Flex>
   );
 };
 
 type StyleExampleProps = {
-  style: "A" | "B";
-  selectedStyle: "A" | "B" | null;
-  onClick: (style: "A" | "B" | null) => void;
+  type: PhotoTypes.ProcessType;
+  selected: PhotoTypes.ProcessType | null;
+  onClick: (type: PhotoTypes.ProcessType | null) => void;
   idx: number;
 };
 

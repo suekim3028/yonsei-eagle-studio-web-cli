@@ -109,3 +109,5 @@ class WebPushManager {
     return true;
   };
 }
+
+export default new WebPushManager();

@@ -9,7 +9,7 @@ import { useRef } from "react";
 import { useSetRecoilState } from "recoil";
 
 const UploadingPhotos = () => {
-  const { goNext, photos, goPrev } = useStepContext();
+  const { goNext, photos, goPrev, imageProcessType } = useStepContext();
 
   const setPhotoRequest = useSetRecoilState(photoRequestState);
   const { showError } = useErrorModal();
@@ -60,13 +60,14 @@ const UploadingPhotos = () => {
     firstRender.current = true;
 
     WebPushManager.initialize();
+    if (!imageProcessType) return;
     try {
       const photoIds = await uploadPhotos(0, []);
       console.log(photoIds);
       const { isError: createRequestError } =
         await photoApis.createPhotoRequest({
           imageList: photoIds,
-          imageProcessType: "NORMAL",
+          imageProcessType,
         });
 
       console.log("===7===", createRequestError);

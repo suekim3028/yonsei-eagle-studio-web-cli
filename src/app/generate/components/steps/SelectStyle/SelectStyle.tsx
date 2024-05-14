@@ -2,17 +2,18 @@
 
 import { useStepContext } from "@app/generate/StepContext";
 import { Button, Flex, NavBar, Text } from "@components";
+import { PhotoTypes } from "@types";
 import { useRouter } from "next/navigation";
 import ScreenTemplate from "../../ScreenTemplate/ScreenTemplate";
 import StyleExample from "../../StyleExample/StyleExample";
 
-const SelectStyle = () => {
+const SelectProcessType = () => {
   const router = useRouter();
-  const { goNext, style, setStyle } = useStepContext();
+  const { goNext, imageProcessType, setImageProcessType } = useStepContext();
 
   const handleGoNext = () => {
-    if (!style) return;
-    setStyle(style);
+    if (!imageProcessType) return;
+    setImageProcessType(imageProcessType);
     goNext("SELECT_STYLE");
   };
 
@@ -23,13 +24,17 @@ const SelectStyle = () => {
       <NavBar onClick={() => router.replace("/")} />
       <>
         <Flex px={20} w={"100%"} mt={20}>
-          {["A", "B"].map((_style, idx) => (
+          {["F", "M"].map((_imageProcessType, idx) => (
             <StyleExample
               idx={idx}
-              key={_style}
-              style={_style as "A" | "B"}
-              selectedStyle={style}
-              onClick={(style) => setStyle((s) => (s === style ? null : style))}
+              key={_imageProcessType}
+              type={_imageProcessType as PhotoTypes.ProcessType}
+              selected={imageProcessType}
+              onClick={(imageProcessType) =>
+                setImageProcessType((s) =>
+                  s === imageProcessType ? null : imageProcessType
+                )
+              }
             />
           ))}
         </Flex>
@@ -37,7 +42,7 @@ const SelectStyle = () => {
           원하는 프로필 컨셉을 골라주세요
         </Text>
       </>
-      {!!style && (
+      {!!imageProcessType && (
         <Flex w="100%" p={20}>
           <Button
             type={"NAVY_GRADIENT"}
@@ -51,4 +56,4 @@ const SelectStyle = () => {
   );
 };
 
-export default SelectStyle;
+export default SelectProcessType;
