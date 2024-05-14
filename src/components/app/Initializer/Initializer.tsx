@@ -4,6 +4,7 @@ import { userActions } from "@actions";
 import { photoRequestState, userState } from "@atoms";
 import { WebPushManager } from "@lib";
 import { commonHooks } from "@web-core";
+import { useRouter } from "next/navigation";
 import React, { useRef } from "react";
 import { useSetRecoilState } from "recoil";
 
@@ -11,6 +12,7 @@ const Initializer = ({ children }: { children: React.ReactNode }) => {
   const initiated = useRef(false);
   const setUserInfo = useSetRecoilState(userState);
   const setPhotoRequest = useSetRecoilState(photoRequestState);
+  const router = useRouter();
 
   commonHooks.useAsyncEffect(async () => {
     if (initiated.current) return;
@@ -28,9 +30,10 @@ const Initializer = ({ children }: { children: React.ReactNode }) => {
     }
 
     const { userInfo, photoRequest } = await userActions.getUserFromToken(true);
-    // TODO: photoRequest 있으면 generating으로
+
     setUserInfo(userInfo);
     setPhotoRequest(photoRequest);
+    if (photoRequest) router.push("/generate");
   }, []);
 
   return children;

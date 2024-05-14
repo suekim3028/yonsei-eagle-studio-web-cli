@@ -1,19 +1,16 @@
 import { useStepContext } from "@app/generate/StepContext";
 import { Flex, Text } from "@components";
 import { WebPushManager } from "@lib";
-import { useState } from "react";
-import { isIOS, isMacOs } from "react-device-detect";
+import { PhotoTypes } from "@types";
+import { useRef } from "react";
 import { PushAvailableIOS } from "./components/PushAvailableIOS";
-const Result = () => {
+import Timer from "./components/Timer";
+const Result = ({ request }: { request: PhotoTypes.Request }) => {
   const { style } = useStepContext();
 
-  const [status, setStatus] = useState<"NO_WORKER" | "IOS" | "ANDROID">(
-    WebPushManager.status === "NO_SERVICE_WORKER"
-      ? "NO_WORKER"
-      : isIOS || isMacOs
-      ? "IOS"
-      : "ANDROID"
-  );
+  const hasPushManager = useRef(
+    WebPushManager.status === "INITIALIZED"
+  ).current;
 
   const handleOnClickNoti = () => {
     console.log(WebPushManager.status);
@@ -30,12 +27,14 @@ const Result = () => {
       </Flex>
       <Flex w="100%">
         <Flex flex={1} />
-
-        <img
-          src={`/images/style_${style === "A" ? "a" : "b"}.png`}
-          style={{ aspectRatio: "1/1.2", flex: 1, filter: "blur(5px)" }}
-          width={"100%"}
-        />
+        <div style={{ position: "relative" }}>
+          <img
+            src={`/images/style_${style === "A" ? "a" : "b"}.png`}
+            style={{ aspectRatio: "1/1.2", flex: 1, filter: "blur(5px)" }}
+            width={"100%"}
+          />
+          <Timer {...request} />
+        </div>
         <Flex flex={1} />
       </Flex>
       <PushAvailableIOS />
