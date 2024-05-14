@@ -1,5 +1,4 @@
-import { jsUtils } from "@web-core";
-import { redirect } from "next/navigation";
+import { notiApis } from "@apis";
 import webPush from "web-push";
 class WebPushManager {
   private _initialized = false;
@@ -63,13 +62,10 @@ class WebPushManager {
 
   public subscribe = async () => {
     console.log("SUBSCRIBE!");
-    alert(!!this.registration);
 
     const pushManager =
       this.registration?.pushManager ||
       (window as any)?.safari?.pushNotification;
-
-    alert(!!pushManager);
 
     if (!pushManager) return;
 
@@ -83,11 +79,8 @@ class WebPushManager {
       userVisibleOnly: true,
     });
 
-    console.log({ permissionState });
     if (permissionState === "denied") return;
 
-    console.log(subscription);
-    console.log({ json: subscription.toJSON() });
     const json = subscription.toJSON();
     const endpoint = json.endpoint;
     const p256dh = json.keys?.p256dh;
@@ -102,21 +95,17 @@ class WebPushManager {
         auth,
       },
     };
-    console.log(JSON.stringify(_sub));
+
+    const sub = JSON.stringify(_sub);
+
     // TODO: api에 서브스크립션 보내기
     // TEST CODE
-    (async () => {
-      await jsUtils.wait(5);
-      fetch(
-        `https://w84v05fz-3000.asse.devtunnels.ms/send-push?subscription=${JSON.stringify(
-          _sub
-        )}`,
-        {
-          method: "POST",
-        }
-      );
-    })();
+
+    const { isError: subError } = await notiApis.subscribeNoti(sub);
+    if (subError) return false;
+    const { isError: notiError } = await notiApis.createNoti(sub);
+    if (notiError) return false;
+
+    return true;
   };
 }
-
-export default new WebPushManager();

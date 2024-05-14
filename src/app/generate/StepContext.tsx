@@ -1,5 +1,6 @@
 "use client";
 
+import { PhotoTypes } from "@types";
 import React, { createContext, useContext, useMemo, useState } from "react";
 import { STEPS, Step } from "./types";
 
@@ -10,7 +11,8 @@ const StepContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   const step = useMemo(() => STEPS[stepIdx], [stepIdx]);
 
-  const [style, setStyle] = useState<"A" | "B" | null>(null);
+  const [imageProcessType, setImageProcessType] =
+    useState<PhotoTypes.ProcessType | null>(null);
   const [photos, setPhotos] = useState<File[]>([]);
 
   const goNext = (currentStep: Step) => {
@@ -27,11 +29,11 @@ const StepContextProvider = ({ children }: { children: React.ReactNode }) => {
     <StepContext.Provider
       value={{
         step,
-        style,
+        imageProcessType,
         photos,
         goNext,
         goPrev,
-        setStyle,
+        setImageProcessType,
         setPhotos,
       }}
     >
@@ -49,11 +51,13 @@ export default StepContextProvider;
 
 type StepContextValue = {
   step: Step;
-  style: "A" | "B" | null;
+  imageProcessType: PhotoTypes.ProcessType | null;
   photos: File[];
   goNext: (currentStep: Step) => void;
   goPrev: (currentStep: Step) => void;
-  setStyle: React.Dispatch<React.SetStateAction<"A" | "B" | null>>;
+  setImageProcessType: React.Dispatch<
+    React.SetStateAction<PhotoTypes.ProcessType | null>
+  >;
 
   setPhotos: React.Dispatch<React.SetStateAction<File[]>>;
 };
