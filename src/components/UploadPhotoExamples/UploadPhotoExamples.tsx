@@ -1,27 +1,14 @@
 import { Flex, Text } from "@components";
 import Image from "next/image";
-
+import * as S from "./style";
 const UploadPhotoExamples = () => {
-  const badDescriptions = [
-    "❌ 얼굴 일부를 가린",
-    "❌ 전신 사진",
-    "❌ 단체 사진 크롭",
-  ];
+  const badDescriptions = ["얼굴 일부를 가린", "전신 사진", "단체 사진 크롭"];
 
-  const goodDescriptions = [
-    "✅ 정면에서 찍은",
-    "✅ 얼굴 위주 사진",
-    "✅ 배경이 단색인",
-  ];
+  const goodDescriptions = ["정면에서 찍은", "얼굴 위주 사진", "배경이 단색인"];
 
   const renderImages = (type: "good" | "bad") => {
     return (
-      <Flex
-        px={28}
-        style={{ overflowX: "scroll", scrollbarWidth: "none" }}
-        maxW={"100%"}
-        alignSelf={"center"}
-      >
+      <S.ScrollWrapper>
         {(type === "bad" ? badDescriptions : goodDescriptions).map(
           (desc, idx) => (
             <Flex
@@ -37,13 +24,23 @@ const UploadPhotoExamples = () => {
                 height={128}
                 style={{ width: 112, height: 128, borderRadius: 32 }}
               />
-              <Text type="14_Light_Single" color="YONSEI_CHARCOAL" mt={12}>
-                {desc}
-              </Text>
+              <Flex>
+                <Text
+                  type="14_Light_Single"
+                  color="YONSEI_CHARCOAL"
+                  mt={12}
+                  mr={4}
+                >
+                  {type === "good" ? "✅" : "❌"}
+                </Text>
+                <Text type="14_Light_Single" color="YONSEI_CHARCOAL" mt={12}>
+                  {desc}
+                </Text>
+              </Flex>
             </Flex>
           )
         )}
-      </Flex>
+      </S.ScrollWrapper>
     );
   };
   return (
