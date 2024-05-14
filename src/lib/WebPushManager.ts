@@ -1,14 +1,15 @@
 import { notiApis } from "@apis";
+import { jsUtils } from "@web-core";
 import webPush from "web-push";
 class WebPushManager {
   private _initialized = false;
   private _status:
-    | "NO_SERVICE_WORKER"
+    | "NO_PUSH_MANAGER"
     | "NOT_INITIALIZED"
     | "INITIALIZING"
     | "INITIALIZED" = "NOT_INITIALIZED";
 
-  private registration: ServiceWorkerRegistration | null = null;
+  private pushManager: PushManager | null = null;
 
   private registrationWaiter: Promise<null> | null = null;
 
@@ -24,52 +25,52 @@ class WebPushManager {
     await this.registrationWaiter;
   };
 
+  private getPushManager = (
+    registration: ServiceWorkerRegistration
+  ): PushManager | undefined => {
+    return (
+      registration?.pushManager || (window as any)?.safari?.pushNotification
+    );
+  };
+
   public initialize = async () => {
     if (this._initialized) return;
-
-    if (!("serviceWorker" in navigator)) {
-      this._status = "NO_SERVICE_WORKER";
-      console.log("[WEB PUSH] no service worker");
-      this._initialized = true;
-      return;
-    }
     this._status = "INITIALIZING";
 
     this.registrationWaiter = new Promise(
       async (resolve: (value: null) => void) => {
-        const registration = await navigator.serviceWorker.getRegistration();
-        if (registration) {
-          console.log("[WEB PUSH] already registrated");
-          this.registration = registration;
-        } else {
-          console.log("[WEB PUSH] get new registrated");
-          const newRegistration = await navigator.serviceWorker.register(
-            "/service-worker.js",
-            {
-              scope: "/",
-            }
-          );
-          console.log("[WEB PUSH] new registration ended");
-          this.registration = newRegistration;
+        try {
+          if (!("serviceWorker" in navigator)) throw new Error();
+          let registration = await navigator.serviceWorker.getRegistration();
+          if (!registration) {
+            registration = await navigator.serviceWorker.register(
+              "/service-worker.js",
+              {
+                scope: "/",
+              }
+            );
+          }
+          if (!registration) throw new Error();
+
+          const pushManager = this.getPushManager(registration);
+          if (!pushManager) throw new Error();
+          this.pushManager = pushManager;
+          this._status = "INITIALIZED";
+        } catch (e) {
+          this._status = "NO_PUSH_MANAGER";
+        } finally {
+          this._initialized = true;
+          resolve(null);
         }
-        console.log("[WEB PUSH] registration finished");
-        this._status = "INITIALIZED";
-        resolve(null);
-        this._initialized = true;
       }
     );
   };
 
   public subscribe = async () => {
-    console.log("SUBSCRIBE!");
-
-    const pushManager =
-      this.registration?.pushManager ||
-      (window as any)?.safari?.pushNotification;
+    const pushManager = this.pushManager;
 
     if (!pushManager) return;
 
-    console.log("START SUBSCRIBE");
     const subscription: PushSubscription = await pushManager.subscribe({
       applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
       userVisibleOnly: true,
@@ -101,10 +102,12 @@ class WebPushManager {
     // TODO: api에 서브스크립션 보내기
     // TEST CODE
 
+    // const { isError: notiError } = await notiApis.createNoti(sub);
+    // if (notiError) return false;
+
+    await jsUtils.wait(2);
     const { isError: subError } = await notiApis.subscribeNoti(sub);
     if (subError) return false;
-    const { isError: notiError } = await notiApis.createNoti(sub);
-    if (notiError) return false;
 
     return true;
   };
