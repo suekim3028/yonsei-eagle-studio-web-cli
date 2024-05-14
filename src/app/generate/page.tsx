@@ -48,8 +48,10 @@ const Generate = (): JSX.Element => {
 
   const loadable = useRecoilValueLoadable(photoRequestState);
   if (loadable.state === "loading") return <Loading />;
-
-  if (loadable.state === "hasValue" && !!loadable.getValue()) return <Result />;
+  if (loadable.state === "hasValue") {
+    const request = loadable.getValue();
+    if (request) return <Result request={request} />;
+  }
 
   switch (step) {
     case "SELECT_STYLE":
