@@ -3,9 +3,8 @@ import { PhotoTypes } from "@types";
 import { commonUtils } from "@utils";
 import { jsUtils } from "@web-core";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CompletedLanding from "../components/CompletedLanding";
-
 const INITIAL_FRAME_ID = 2;
 const FRAME_NUM = 8;
 const BG: { start: string; end: string }[] = [
@@ -36,12 +35,77 @@ const Completed = ({
 }) => {
   const [showResult, onShowResult] = useState(false);
 
+  const [imageUrlList, setImageUrlList] = useState<(string | null)[]>(
+    Array.from({ length: FRAME_NUM }, () => null)
+  );
+
   const { imageUrl } = resultImage || {};
   const background = jsUtils.getRandomArrItem(BG);
 
   const downloadImage = () => {
     // TODO
   };
+
+  const imageLoadRef = useRef(
+    new Promise((resolve: (value: HTMLImageElement) => void) => {
+      const image = document.createElement("img");
+      image.crossOrigin = "anonymous";
+      image.addEventListener("load", () => {
+        console.log("LOAD!");
+        resolve(image);
+      });
+      image.src = imageUrl;
+    })
+  ).current;
+
+  const RATIO = 1.1156096897;
+  const BORDER_RATIO = 0.04337915079;
+  const BG_WIDTH = 1200;
+  const BG_HEIGHT = BG_WIDTH * RATIO;
+  const BORDER_START = BG_WIDTH * BORDER_RATIO;
+  const IMAGE_SIZE = BG_WIDTH * (1 - BORDER_RATIO * 2);
+
+  useEffect(() => {
+    Array.from({ length: FRAME_NUM }, (_, i) => {
+      const bgImage = document.createElement("img");
+      bgImage.crossOrigin = "anonymous";
+      const canvas = document.createElement("canvas");
+      canvas.width = BG_WIDTH;
+      canvas.height = BG_HEIGHT;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      const gradient = ctx.createLinearGradient(
+        BG_WIDTH * 0.5,
+        0,
+        BG_WIDTH * 0.5,
+        BG_HEIGHT
+      );
+      gradient.addColorStop(0, background.start);
+      gradient.addColorStop(1, background.end);
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, BG_WIDTH, BG_HEIGHT);
+
+      bgImage.addEventListener("load", async () => {
+        const image = await imageLoadRef;
+        console.log({ image });
+
+        ctx.drawImage(
+          image,
+          BORDER_START,
+          BORDER_START,
+          IMAGE_SIZE,
+          IMAGE_SIZE
+        );
+        ctx.drawImage(bgImage, 0, 0, BG_WIDTH, BG_HEIGHT);
+        const dataUrl = canvas.toDataURL("image/png");
+        console.log({ dataUrl });
+
+        setImageUrlList((p) => [...p.slice(0, i), dataUrl, ...p.slice(i + 1)]);
+      });
+      bgImage.src = `/images/frames/frame-${i}.png`;
+    });
+  }, []);
 
   if (!showResult)
     return (
@@ -74,34 +138,18 @@ const Completed = ({
 
       <Flex w={"100%"}>
         <Flex overflowX={"scroll"} gap={5} px={20}>
-          {Array.from({ length: FRAME_NUM }, (_, i) => {
+          {imageUrlList.map((imageUrl, i) => {
+            if (!imageUrl) return <></>;
             return (
-              <Flex
-                w={286.84}
-                h={320}
-                position={"relative"}
-                background={`linear-gradient(180deg, ${background.start}, ${background.end})`}
-              >
-                <Image
-                  alt={"image"}
-                  src={imageUrl}
-                  width={261.14}
-                  height={261.14}
-                  style={{
-                    position: "absolute",
-                    top: 12.75,
-                    left: 12.75,
-                    zIndex: 0,
-                  }}
-                />
-                <Image
-                  style={{ zIndex: 1 }}
-                  alt={`image_frame_${i}`}
-                  src={`/images/frames/frame-${i}.png`}
-                  width={286.64}
-                  height={320}
-                />
-              </Flex>
+              <Image
+                key={imageUrl}
+                style={{ zIndex: 1 }}
+                alt={`result_image_${i}`}
+                src={imageUrl}
+                width={286.64}
+                height={320}
+                crossOrigin="anonymous"
+              />
             );
           })}
         </Flex>
