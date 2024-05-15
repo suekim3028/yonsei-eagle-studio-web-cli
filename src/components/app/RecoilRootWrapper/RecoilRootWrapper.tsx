@@ -1,10 +1,10 @@
 "use client";
 
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { RecoilRoot } from "recoil";
 
 const RecoilRootWrapper = ({ children }: { children: ReactNode }) => (
   <RecoilRoot>{children}</RecoilRoot>
 );
 
-export default RecoilRootWrapper;
+export default React.memo(RecoilRootWrapper);
