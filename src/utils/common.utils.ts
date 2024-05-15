@@ -3,11 +3,13 @@ import { webUtils } from "@web-core";
 export const sharePage = async () => {
   const url = process.env.NEXT_PUBLIC_WEB_URL;
 
-  const canShare = navigator.canShare({
-    title: "독수리 사진관",
-    text: "아카라카 기념 나만의 Ai 프로필 확인하러 가기!",
-    url,
-  });
+  const canShare =
+    "canShare" in navigator &&
+    navigator.canShare({
+      title: "독수리 사진관",
+      text: "아카라카 기념 나만의 Ai 프로필 확인하러 가기!",
+      url,
+    });
 
   if (canShare) {
     try {
