@@ -13,7 +13,8 @@ export const userStateQueryId = atom<number>({
 export const userState = selector<UserTypes.Info | null>({
   key: "user",
   get: async ({ get }) => {
-    get(userStateQueryId);
+    const id = get(userStateQueryId);
+    if (!id) return null;
     const { data, isError } = await userApis.getUserInfo();
     if (isError) return null;
     return data;
