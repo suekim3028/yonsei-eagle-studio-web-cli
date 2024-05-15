@@ -36,8 +36,6 @@ export const getUserFromToken = async (
     return getUserFromToken();
   }
 
-  console.log({ userInfo });
-
   const { requestStatus } = userInfo;
   if (requestStatus === "NOT_REQUESTED")
     return { userInfo, photoRequest: null };

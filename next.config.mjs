@@ -6,6 +6,20 @@ const nextConfig = {
     styledComponents: true,
     removeConsole: process.env.NODE_ENV === "production",
   },
+  experimental: {
+    serverActions: {
+      // allowedOrigins: ["w84v05fz-3000.asse.devtunnels.ms"],
+    },
+  },
+
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

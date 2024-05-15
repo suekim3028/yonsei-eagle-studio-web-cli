@@ -8,10 +8,20 @@
 const dummyPhotoRequest: PhotoTypes.Request = {
   originalImages: [],
   requestId: "1",
-  requestStatus: "PROCESSING",
+  requestStatus: "COMPLETED",
   userId: "1",
-  createYmdt: "2024-05-11T09:02:09.866",
-  updateYmdt: "2024-05-11T09:02:09.866",
+  createYmdt: "2024-05-14T13:02:09.866",
+  updateYmdt: "2024-05-14T13:02:09.866",
+  imageProcessType: "F",
+  resultImage: {
+    imageId: "1",
+    imageStatus: "PROCESSED",
+    createYmdt: "2024-05-14T13:02:09.866",
+    imageUrl:
+      "https://static.vecteezy.com/system/resources/previews/029/284/491/large_2x/cheerful-brunette-business-woman-isolated-png.png",
+    requestId: "1",
+    userId: "1",
+  },
 };
 
 const dummyUser: UserTypes.Info = {
@@ -32,7 +42,9 @@ type GetPhotoLinkIdRes = {
   imageId: string;
 };
 export const getPhotoLinkId = () =>
-  API().post<GetPhotoLinkIdRes>("/photo/request");
+  API().post<GetPhotoLinkIdRes>("/photo/request", undefined, {
+    // dummyData: { imageId: "2" },
+  });
 
 /**
  * 이미지 링크에 업로드
@@ -43,18 +55,13 @@ type UploadPhotoReq = {
 };
 
 export const uploadPhoto = ({ imageId, data }: UploadPhotoReq) =>
-  API().post(`/photo/${imageId}`, {
-    isMultipartFormData: true,
-    body: data,
-  });
-
-export const uploadPhotoTest = ({ imageId, data }: UploadPhotoReq) =>
   API().post(
     `/photo/${imageId}`,
     {
+      isMultipartFormData: true,
       body: data,
-    },
-    { dummyUrl: "http://localhost:3000/test" }
+    }
+    // { dummyUrl: "http://localhost:3000/test" }
   );
 
 /**
@@ -67,7 +74,11 @@ type CreatePhotoRequestReq = {
 };
 
 export const createPhotoRequest = (req: CreatePhotoRequestReq) =>
-  API().post("/photo-request", { body: req });
+  API().post(
+    "/photo-request",
+    { body: req }
+    // { dummyData: { success: true } }
+  );
 
 /**
  * 이미지 처리 요청 정보 가져오기
@@ -81,7 +92,7 @@ export const getPhotoRequestById = (requestId: string) =>
  */
 export const getPhotoRequest = () =>
   API().get<PhotoTypes.Request>(`photo-request`, undefined, {
-    dummyData: dummyPhotoRequest,
+    // dummyData: dummyPhotoRequest,
   });
 
 /**

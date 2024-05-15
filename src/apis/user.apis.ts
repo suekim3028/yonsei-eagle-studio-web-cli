@@ -3,7 +3,7 @@ import API from "./API";
 
 const dummyUser: UserTypes.Info = {
   createYmdt: "2024-05-11T09:02:09.866",
-  requestStatus: "PROCESSING",
+  requestStatus: "COMPLETED",
   requestYmdt: "2024-05-11T09:02:09.866",
   userId: "1",
   userName: "김수빈",
@@ -73,11 +73,9 @@ export const refreshLogin = async (payload: RefreshLoginRequest) =>
  */
 
 export const getUserInfo = () =>
-  API().get<UserTypes.Info>(
-    "/user/info",
-    undefined
-    // { dummyData: dummyUser }
-  );
+  API().get<UserTypes.Info>("/user/info", undefined, {
+    // dummyData: dummyUser
+  });
 
 /**
  * 유저 정보 삭제
