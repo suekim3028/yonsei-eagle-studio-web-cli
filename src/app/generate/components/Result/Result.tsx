@@ -15,7 +15,10 @@ const Result = ({ request }: { request: PhotoTypes.Request }) => {
         return <Processing request={request} />;
       case "COMPLETED":
         return request.resultImage ? (
-          <Completed resultImage={request.resultImage} />
+          <Completed
+            resultImage={request.resultImage}
+            imageProcessType={request.imageProcessType}
+          />
         ) : (
           <Processing request={request} />
         );
