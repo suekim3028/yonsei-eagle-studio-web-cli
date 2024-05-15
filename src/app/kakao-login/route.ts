@@ -9,7 +9,7 @@ export const GET = async (req: NextRequest) => {
   );
   url.searchParams.set(
     "redirect_uri",
-    `${process.env.NEXT_PUBLIC_WEB_URL}kakao-token`
+    `${process.env.NEXT_PUBLIC_WEB_URL}/kakao-token`
   );
   url.searchParams.set("response_type", "code");
 
