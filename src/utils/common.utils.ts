@@ -1,6 +1,6 @@
 import { webUtils } from "@web-core";
 
-export const sharedPage = async () => {
+export const sharePage = async () => {
   const url = process.env.NEXT_PUBLIC_WEB_URL;
 
   const canShare = navigator.canShare({

@@ -23,7 +23,9 @@ export const userState = selector<UserTypes.Info | null>({
 export const photoRequestState = selector<PhotoTypes.Request | null>({
   key: "photoRequest",
   get: async ({ get }) => {
-    get(userStateQueryId);
+    const user = get(userState);
+    if (!user || user.requestStatus === "NOT_REQUESTED") return null;
+
     const { data, isError } = await photoApis.getPhotoRequest();
     if (isError) return null;
     return data;

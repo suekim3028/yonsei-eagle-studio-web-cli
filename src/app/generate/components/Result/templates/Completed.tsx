@@ -214,7 +214,7 @@ const Completed = ({
         <Button
           type={"WHITE"}
           title={"친구에게 알려주기"}
-          onClick={commonUtils.sharedPage}
+          onClick={commonUtils.sharePage}
         />
         <Button type={"WHITE"} title={"처음으로"} mt={12} />
       </Flex>

@@ -29,7 +29,7 @@ const UploadingPhotos = () => {
     if (linkIdError) throw new Error();
 
     const formData = new FormData();
-    formData.append("Filedata", photo);
+    formData.append("file", photo);
 
     console.log("===3===", formData);
 
@@ -41,7 +41,7 @@ const UploadingPhotos = () => {
 
     console.log("===4===", { photoUploadError, photoUpload });
 
-    // if (photoUploadError) throw new Error();
+    if (photoUploadError) throw new Error();
 
     return uploadPhotos(index + 1, [...array, index.toString()]);
   };
