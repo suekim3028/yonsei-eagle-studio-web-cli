@@ -28,7 +28,6 @@ const KakaoToken = ({
   commonHooks.useAsyncEffect(async () => {
     if (initialRef.current) return;
     initialRef.current = true;
-    if (await tokenActions.get()) return;
     const code = searchParams["code"];
     if (typeof code != "string") return handleError();
 

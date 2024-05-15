@@ -4,7 +4,7 @@ const nextConfig = {
 
   compiler: {
     styledComponents: true,
-    removeConsole: process.env.NODE_ENV === "production",
+    // removeConsole: process.env.NODE_ENV === "production",
   },
   experimental: {
     serverActions: {
