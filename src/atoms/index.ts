@@ -1,29 +1,31 @@
+import { photoApis, userApis } from "@apis";
 import { PhotoTypes, UserTypes } from "@types";
-import { atom, selector, useRecoilStoreID } from "recoil";
+import { atom, selector } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist();
 
-export const userState = atom<UserTypes.Info | null>({
-  key: "user",
-  default: null,
+export const userStateQueryId = atom<number>({
+  key: "userStateQueryId",
+  default: 0,
 });
 
-export const hasUserState = selector({
-  key: "hasUserState",
-  get: ({ get }) => {
-    const user = get(userState);
-    return !!user;
+export const userState = selector<UserTypes.Info | null>({
+  key: "user",
+  get: async ({ get }) => {
+    get(userStateQueryId);
+    const { data, isError } = await userApis.getUserInfo();
+    if (isError) return null;
+    return data;
   },
 });
 
-export const photoRequestState = atom<PhotoTypes.Request | null>({
+export const photoRequestState = selector<PhotoTypes.Request | null>({
   key: "photoRequest",
+  get: async ({ get }) => {
+    get(userStateQueryId);
+    const { data, isError } = await photoApis.getPhotoRequest();
+    if (isError) return null;
+    return data;
+  },
 });
-
-export const recoilChecker = () => {
-  const id = useRecoilStoreID();
-  return {
-    logStoreId: () => console.log(id),
-  };
-};

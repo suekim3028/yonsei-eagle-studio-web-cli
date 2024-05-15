@@ -1,11 +1,9 @@
 "use client";
 
-import { photoRequestState } from "@atoms";
+import { useUser } from "@hooks";
 import { jsUtils } from "@web-core";
 import { useEffect, useRef } from "react";
-import { useRecoilValueLoadable } from "recoil";
 import { useStepContext } from "./StepContext";
-import Loading from "./components/Loading/Loading";
 import Result from "./components/Result/Result";
 import ConfirmPhotos from "./components/steps/ConfirmPhotos/ConfirmPhotos";
 import SelectPhotos from "./components/steps/SelectPhotos/SelectPhotos";
@@ -35,6 +33,7 @@ const Generate = (): JSX.Element => {
   };
 
   const added = useRef(false);
+
   useEffect(() => {
     if (!added.current) {
       added.current = true;
@@ -46,12 +45,10 @@ const Generate = (): JSX.Element => {
     }
   }, []);
 
-  const loadable = useRecoilValueLoadable(photoRequestState);
-  if (loadable.state === "loading") return <Loading />;
-  if (loadable.state === "hasValue") {
-    const request = loadable.getValue();
-    if (request) return <Result request={request} />;
-  }
+  const { user, photoRequest } = useUser();
+
+  const request = photoRequest.getValue();
+  if (request) return <Result request={request} />;
 
   switch (step) {
     case "SELECT_STYLE":

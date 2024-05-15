@@ -1,20 +1,17 @@
 "use client";
 
-import { tokenActions, userActions } from "@actions";
+import { tokenActions } from "@actions";
 import { userApis } from "@apis";
-import { photoRequestState, userState } from "@atoms";
-import { useErrorModal } from "@hooks";
+import { useErrorModal, useRefetchUser } from "@hooks";
 import { commonHooks } from "@web-core";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useRef } from "react";
-import { useSetRecoilState } from "recoil";
 
 const KakaoToken = () => {
   const searchParams = useSearchParams();
 
   const router = useRouter();
-  const setUserInfo = useSetRecoilState(userState);
-  const setPhotoRequest = useSetRecoilState(photoRequestState);
+  const refetchUser = useRefetchUser();
   const { showError } = useErrorModal();
 
   const handleError = useCallback(() => {
@@ -32,7 +29,7 @@ const KakaoToken = () => {
 
     const code = searchParams.get("code");
 
-    if (typeof code != "string") return handleError();
+    if (!code || typeof code != "string") return handleError();
 
     const { isError, data: token } = await userApis.kakaoLogin(code);
 
@@ -40,11 +37,8 @@ const KakaoToken = () => {
     await tokenActions.set(token);
 
     try {
-      const { userInfo, photoRequest } = await userActions.getUserFromToken();
-      if (!userInfo) return handleError();
+      refetchUser();
 
-      setUserInfo(userInfo);
-      setPhotoRequest(photoRequest);
       router.replace("/generate");
     } catch (e) {
       return handleError();

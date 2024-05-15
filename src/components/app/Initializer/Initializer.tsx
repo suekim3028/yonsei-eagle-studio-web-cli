@@ -1,18 +1,12 @@
 "use client";
 
-import { userActions } from "@actions";
-import { photoRequestState, userState } from "@atoms";
 import { WebPushManager } from "@lib";
 import { commonHooks } from "@web-core";
-import { useRouter } from "next/navigation";
 import React, { useRef } from "react";
-import { useSetRecoilState } from "recoil";
 
-const Initializer = ({ children }: { children: React.ReactNode }) => {
+const Initializer = () => {
   const initiated = useRef(false);
-  const setUserInfo = useSetRecoilState(userState);
-  const setPhotoRequest = useSetRecoilState(photoRequestState);
-  const router = useRouter();
+  console.log("===INITIALIZER!");
 
   commonHooks.useAsyncEffect(async () => {
     if (initiated.current) return;
@@ -28,14 +22,9 @@ const Initializer = ({ children }: { children: React.ReactNode }) => {
     if (!WebPushManager.initialized) {
       WebPushManager.initialize();
     }
-
-    const { userInfo, photoRequest } = await userActions.getUserFromToken(true);
-
-    setUserInfo(userInfo);
-    setPhotoRequest(photoRequest);
   }, []);
 
-  return children;
+  return <></>;
 };
 
 export default React.memo(Initializer);

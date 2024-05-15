@@ -1,13 +1,10 @@
 "use client";
 
-import { hasUserState } from "@atoms";
 import { Flex } from "@components";
 import Button from "@components/Button/Button";
 import { useRouter } from "next/navigation";
-import { useRecoilValue } from "recoil";
 
 const StartButtons = () => {
-  const hasUser = useRecoilValue(hasUserState);
   const router = useRouter();
 
   return (
@@ -17,7 +14,7 @@ const StartButtons = () => {
         type={"NAVY_GRADIENT"}
         stretch
         onClick={() => {
-          router.push(hasUser ? "/generate" : "/sign-in");
+          router.push("/generate");
         }}
       />
       <Button title={"친구에게 알려주기"} type={"WHITE"} size={"M"} mt={8} />

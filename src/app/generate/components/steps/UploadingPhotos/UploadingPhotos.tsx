@@ -1,18 +1,16 @@
 import { photoApis } from "@apis";
 import { useStepContext } from "@app/generate/StepContext";
-import { photoRequestState } from "@atoms";
 import { Flex, Text } from "@components";
-import { useErrorModal } from "@hooks";
+import { useErrorModal, useRefetchUser } from "@hooks";
 import { WebPushManager } from "@lib";
 import { commonHooks } from "@web-core";
 import { useRef } from "react";
-import { useSetRecoilState } from "recoil";
 
 const UploadingPhotos = () => {
   const { goNext, photos, goPrev, imageProcessType } = useStepContext();
 
-  const setPhotoRequest = useSetRecoilState(photoRequestState);
   const { showError } = useErrorModal();
+  const refetchUser = useRefetchUser();
 
   const uploadPhotos = async (
     index: number,
@@ -73,14 +71,7 @@ const UploadingPhotos = () => {
       console.log("===7===", createRequestError);
       if (createRequestError) throw new Error();
 
-      const { data: photoRequest, isError: requestPhotoError } =
-        await photoApis.getPhotoRequest();
-
-      console.log("===8===", { photoRequest });
-
-      if (requestPhotoError) throw new Error();
-
-      setPhotoRequest(photoRequest);
+      refetchUser();
     } catch (e) {
       return handleError();
     }
