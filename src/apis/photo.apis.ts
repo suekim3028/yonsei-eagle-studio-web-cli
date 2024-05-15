@@ -61,7 +61,7 @@ export const uploadPhoto = ({ imageId, data }: UploadPhotoReq) =>
       isMultipartFormData: true,
       body: data,
     }
-    // { dummyUrl: "http://localhost:3000/test" }
+    // { dummyData: { success: true } }
   );
 
 /**
@@ -77,6 +77,7 @@ export const createPhotoRequest = (req: CreatePhotoRequestReq) =>
   API().post(
     "/photo-request",
     { body: req }
+    //
     // { dummyData: { success: true } }
   );
 

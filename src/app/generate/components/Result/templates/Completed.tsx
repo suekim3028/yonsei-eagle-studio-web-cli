@@ -3,6 +3,7 @@ import { PhotoTypes } from "@types";
 import { commonUtils } from "@utils";
 import { jsUtils } from "@web-core";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import CompletedLanding from "../components/CompletedLanding";
 const INITIAL_FRAME_ID = 2;
@@ -42,6 +43,7 @@ const Completed = ({
   const { imageUrl } = resultImage || {};
   const background = jsUtils.getRandomArrItem(BG);
 
+  const router = useRouter();
   const downloadImage = () => {
     // TODO
   };
@@ -131,7 +133,13 @@ const Completed = ({
         <Text type="16_Light_Single" color="YONSEI_NAVY">
           {12}번째 독수리님
         </Text>
-        <Text type="20_Bold_Single" fontSize={28} lineHeight={"33.6px"} mt={12}>
+        <Text
+          type="20_Bold_Single"
+          fontSize={28}
+          lineHeight={"33.6px"}
+          mt={12}
+          color="WHITE"
+        >
           내 AI 프로필 완성!
         </Text>
       </Flex>
@@ -209,14 +217,19 @@ const Completed = ({
         type="14_Light_Multi"
         color={"WHITE"}
         textAlign={"center"}
-      >{`@instagram_id 를 태그해주면 기쁠거에요!\n즐거운 아카라카 되세요 🤍`}</Text>
+      >{`@instagram_id 를 태그해주면 기쁠거에요!\n즐거운 대동제 되세요 🤍`}</Text>
       <Flex mt={80} direction={"column"}>
         <Button
           type={"WHITE"}
           title={"친구에게 알려주기"}
           onClick={commonUtils.sharePage}
         />
-        <Button type={"WHITE"} title={"처음으로"} mt={12} />
+        <Button
+          type={"WHITE"}
+          title={"처음으로"}
+          mt={12}
+          onClick={() => router.replace("/")}
+        />
       </Flex>
     </Flex>
   );
