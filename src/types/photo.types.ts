@@ -5,7 +5,7 @@ export type Status =
 
 export type RequestStatus =
   | "NOT_REQUESTED" // 이미지 요청이 이루어지지 않은 상태
-  | "WAITING" // 이미지 처리 중
+  | "PROCESSING" // 이미지 처리 중
   | "ERROR" // 이미지 처리 과정에서 에러 발생
   | "COMPLETED"; // 이미지 처리 완료
 
