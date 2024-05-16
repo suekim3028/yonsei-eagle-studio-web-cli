@@ -46,7 +46,7 @@ const UploadingPhotos = () => {
 
     if (photoUploadError) throw new Error();
 
-    return uploadPhotos(index + 1, [...array, index.toString()]);
+    return uploadPhotos(index + 1, [...array, imageIdData.imageId]);
   };
 
   const handleError = () => {
