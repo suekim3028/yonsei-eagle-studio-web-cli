@@ -36,8 +36,11 @@ const Completed = ({
 }) => {
   const [showResult, onShowResult] = useState(false);
 
-  const [imageUrlList, setImageUrlList] = useState<(string | null)[]>(
+  const [_imageUrlList, setImageUrlList] = useState<(string | null)[]>(
     Array.from({ length: FRAME_NUM }, () => null)
+  );
+  const imageUrlList = _imageUrlList.flatMap((imageUrl): string[] =>
+    imageUrl ? [imageUrl] : []
   );
 
   const { imageUrl } = resultImage || {};
@@ -45,17 +48,14 @@ const Completed = ({
 
   const router = useRouter();
   const downloadImage = () => {
-    // TODO
+    jsUtils.downloadImages(imageUrlList);
   };
 
   const imageLoadRef = useRef(
     new Promise((resolve: (value: HTMLImageElement) => void) => {
       const image = document.createElement("img");
       image.crossOrigin = "anonymous";
-      image.addEventListener("load", () => {
-        console.log("LOAD!");
-        resolve(image);
-      });
+      image.addEventListener("load", () => resolve(image));
       image.src = imageUrl;
     })
   ).current;
@@ -146,20 +146,17 @@ const Completed = ({
 
       <Flex w={"100%"}>
         <Flex overflowX={"scroll"} gap={5} px={20}>
-          {imageUrlList.map((imageUrl, i) => {
-            if (!imageUrl) return <></>;
-            return (
-              <Image
-                key={imageUrl}
-                style={{ zIndex: 1 }}
-                alt={`result_image_${i}`}
-                src={imageUrl}
-                width={286.64}
-                height={320}
-                crossOrigin="anonymous"
-              />
-            );
-          })}
+          {imageUrlList.map((imageUrl, i) => (
+            <Image
+              key={imageUrl}
+              style={{ zIndex: 1 }}
+              alt={`result_image_${i}`}
+              src={imageUrl}
+              width={286.64}
+              height={320}
+              crossOrigin="anonymous"
+            />
+          ))}
         </Flex>
       </Flex>
       <Flex w="100%" py={36}></Flex>
