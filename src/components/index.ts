@@ -11,6 +11,7 @@ import BgContainer from "./BgContainer/BgContainer";
 import type { ErrorModalProps } from "./ErrorModal/ErrorModal";
 import ErrorModal from "./ErrorModal/ErrorModal";
 import type { IconNames } from "./Icon/Icon";
+import Loader from "./Loader/Loader";
 import type { FontType } from "./Text";
 import UploadPhotoExamples from "./UploadPhotoExamples/UploadPhotoExamples";
 const Flex = L.FlexComponentGenerator(UI_CONSTS.THEME);
@@ -24,6 +25,7 @@ export {
   FontType,
   Icon,
   IconNames,
+  Loader,
   NavBar,
   Text,
   UploadPhotoExamples,

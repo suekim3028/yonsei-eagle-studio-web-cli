@@ -1,13 +1,7 @@
-import { Flex, Text } from "@components";
+import { Loader } from "@components";
 
-// TODO
-const Loading = () => {
-  return (
-    <Flex p={20} alignItems={"center"} justifyContent={"center"}>
-      <Text type={"20_Medium_Multi"}>생성화면 로딩중!!!</Text>
-      <Text type={"20_Medium_Multi"}>디자인 적용할 예정!!!</Text>
-    </Flex>
-  );
-};
-
-export default Loading;
+export default () => (
+  <Loader
+    mention={`프로필 생성 여부를 확인하는 중입니다.\n조금만 기다려주세요!`}
+  />
+);
