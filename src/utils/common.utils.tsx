@@ -1,4 +1,5 @@
-import { webUtils } from "@web-core";
+import { ErrorModal, ErrorModalProps } from "@components";
+import { ModalManager, webUtils } from "@web-core";
 
 export const sharePage = async () => {
   const url = process.env.NEXT_PUBLIC_WEB_URL;
@@ -24,4 +25,24 @@ export const sharePage = async () => {
   } else {
     webUtils.copyToClipboard(url, () => alert("링크 복사가 완료되었어요!"));
   }
+};
+
+export const showError = (errorMsg: string) => {
+  ModalManager.show({
+    Component: (
+      <ErrorModal
+        title={"앗! 잠시 후 다시 시도해 주세요"}
+        body={errorMsg}
+        yesText="확인"
+      />
+    ),
+    closeOnDim: true,
+  });
+};
+
+export const showConfirmPopup = (props: ErrorModalProps) => {
+  ModalManager.show({
+    Component: <ErrorModal {...props} />,
+    closeOnDim: true,
+  });
 };

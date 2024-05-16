@@ -47,19 +47,7 @@ const ErrorModal = ({
         <Text type="16_Light_Multi" color="YONSEI_NAVY" textAlign={"center"}>
           {body}
         </Text>
-        <Flex w="100%" mt={20}>
-          {!!noText && (
-            <Button
-              stretch
-              title={noText}
-              onClick={() => {
-                onPressNo && onPressNo();
-                close();
-              }}
-              type={"WHITE"}
-              size="M"
-            />
-          )}
+        <Flex w="100%" mt={20} direction={"column"}>
           <Button
             stretch
             title={yesText}
@@ -70,6 +58,18 @@ const ErrorModal = ({
             type={"NAVY"}
             size="M"
           />
+          {!!noText && (
+            <Text
+              type={"16_Light_Single"}
+              color="YONSEI_CHARCOAL"
+              onClick={() => {
+                close();
+                onPressNo && onPressNo();
+              }}
+            >
+              {noText}
+            </Text>
+          )}
         </Flex>
       </Flex>
     </Flex>

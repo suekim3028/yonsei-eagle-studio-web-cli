@@ -84,6 +84,7 @@ const UploadingPhotos = () => {
       <Text type="16_Light_Multi" color="YONSEI_NAVY">
         독수리가 사진을 전달하는 중... 🦅
       </Text>
+      
     </Flex>
   );
 };
