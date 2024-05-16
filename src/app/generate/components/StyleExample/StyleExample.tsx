@@ -15,7 +15,9 @@ const StyleExample = ({ type, selected, onClick, idx }: StyleExampleProps) => {
       cursor={"pointer"}
     >
       <Image
-        src={`/images/process_type_example/${type === "F" ? "F" : "M"}.png`}
+        src={`/images/process_type_example/${
+          type === "FEMALE" ? "F" : "M"
+        }.png`}
         alt="Process Type Example"
         width={IMAGE_WIDTH}
         height={IMAGE_HEIGHT}

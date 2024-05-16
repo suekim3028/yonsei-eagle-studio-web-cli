@@ -26,7 +26,7 @@ const Processing = ({ request }: { request: PhotoTypes.Request }) => {
             <Image
               alt={"waiting state result"}
               src={`/images/blur_result/${
-                request.imageProcessType === "F" ? "F" : "M"
+                request.imageProcessType === "FEMALE" ? "F" : "M"
               }.png`}
               style={{
                 width: 198,

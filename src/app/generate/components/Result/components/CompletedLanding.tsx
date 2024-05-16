@@ -27,7 +27,7 @@ const CompletedLanding = ({
           <Image
             alt={"waiting state result"}
             src={`/images/blur_result/${
-              imageProcessType === "F" ? "F" : "M"
+              imageProcessType === "FEMALE" ? "F" : "M"
             }.png`}
             style={{
               width: 198,

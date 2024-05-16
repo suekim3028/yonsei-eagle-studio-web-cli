@@ -12,7 +12,7 @@ const dummyPhotoRequest: PhotoTypes.Request = {
   userId: "1",
   createYmdt: "2024-05-14T13:02:09.866",
   updateYmdt: "2024-05-14T13:02:09.866",
-  imageProcessType: "F",
+  imageProcessType: "FEMALE",
   resultImage: {
     imageId: "1",
     imageStatus: "PROCESSED",
