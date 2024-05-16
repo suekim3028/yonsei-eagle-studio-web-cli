@@ -1,10 +1,8 @@
 "use client";
 
-import { useUser } from "@hooks";
 import { jsUtils } from "@web-core";
 import { useEffect, useRef } from "react";
 import { useStepContext } from "./StepContext";
-import Result from "./components/Result/Result";
 import ConfirmPhotos from "./components/steps/ConfirmPhotos/ConfirmPhotos";
 import SelectPhotos from "./components/steps/SelectPhotos/SelectPhotos";
 import SelectStyle from "./components/steps/SelectStyle/SelectStyle";
@@ -45,10 +43,10 @@ const Generate = (): JSX.Element => {
     }
   }, []);
 
-  const { user, photoRequest } = useUser();
+  // const { user, photoRequest } = useUser();
 
-  const request = photoRequest.getValue();
-  if (request) return <Result request={request} />;
+  // const request = photoRequest.getValue();
+  // if (request) return <Result request={request} />;
 
   switch (step) {
     case "SELECT_STYLE":

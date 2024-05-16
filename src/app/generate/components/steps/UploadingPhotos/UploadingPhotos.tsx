@@ -50,7 +50,6 @@ const UploadingPhotos = () => {
   };
 
   const handleError = () => {
-    // TODO: 에러 보여주기
     showError("이미지 생성 요청에 실패했어요. ");
     goPrev("UPLOADING_PHOTOS");
   };

@@ -9,6 +9,8 @@ import {
   Text,
   UploadPhotoExamples,
 } from "@components";
+import { APP_CONSTS } from "@consts";
+import Link from "next/link";
 import ScreenTemplate from "../../ScreenTemplate/ScreenTemplate";
 
 const UploadDescription = () => {
@@ -54,13 +56,16 @@ const UploadDescription = () => {
         direction={"column"}
         alignItems={"center"}
       >
-        {
-          // TODO: 개인정보 연결 필요
-        }
         <Flex mb={12} alignItems={"center"}>
-          <Text type={"12_Light_Single"} color={"YONSEI_BABY_GRAY"}>
-            개인정보 수집 및 이용 정책
-          </Text>
+          <Link
+            href={APP_CONSTS.PRIVACY_POLICY_URL}
+            style={{ width: "fit-content" }}
+            target={"_blank"}
+          >
+            <Text type={"12_Light_Single"} color={"YONSEI_BABY_GRAY"}>
+              개인정보 처리방침
+            </Text>
+          </Link>
           <Icon name="chevron_right" size={14} />
         </Flex>
         <Button

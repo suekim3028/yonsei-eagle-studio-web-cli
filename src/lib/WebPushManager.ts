@@ -98,12 +98,6 @@ class WebPushManager {
 
     const sub = JSON.stringify(_sub);
 
-    // TODO: api에 서브스크립션 보내기
-    // TEST CODE
-
-    // const { isError: notiError } = await notiApis.createNoti(sub);
-    // if (notiError) return false;
-
     const { isError: subError } = await notiApis.saveNotiToken(sub);
     if (subError) return false;
 
