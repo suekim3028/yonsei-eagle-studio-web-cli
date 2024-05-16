@@ -11,7 +11,7 @@ const Result = ({ request }: { request: PhotoTypes.Request }) => {
 
   const render = () => {
     switch (request.requestStatus) {
-      case "PROCESSING":
+      case "WAITING":
         return <Processing request={request} />;
       case "COMPLETED":
         return request.resultImage ? (

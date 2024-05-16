@@ -27,7 +27,7 @@ const dummyPhotoRequest: PhotoTypes.Request = {
 const dummyUser: UserTypes.Info = {
   userId: "663f341106c71e69673aa130",
   userName: "김수빈",
-  requestStatus: "PROCESSING",
+  requestStatus: "WAITING",
   createYmdt: "2024-05-11T09:02:09.866",
   requestYmdt: "2024-05-11T09:02:09.866",
 };
