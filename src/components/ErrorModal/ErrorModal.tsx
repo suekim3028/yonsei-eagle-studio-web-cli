@@ -47,7 +47,7 @@ const ErrorModal = ({
         <Text type="16_Light_Multi" color="YONSEI_NAVY" textAlign={"center"}>
           {body}
         </Text>
-        <Flex w="100%" mt={20} direction={"column"}>
+        <Flex w="100%" mt={20} direction={"column"} alignItems={"center"}>
           <Button
             stretch
             title={yesText}
@@ -60,6 +60,7 @@ const ErrorModal = ({
           />
           {!!noText && (
             <Text
+              mt={12}
               type={"16_Light_Single"}
               color="YONSEI_CHARCOAL"
               onClick={() => {

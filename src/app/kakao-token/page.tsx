@@ -2,12 +2,12 @@
 
 import { tokenActions } from "@actions";
 import { userApis } from "@apis";
-import { Flex, Text } from "@components";
 import { useRefetchUser } from "@hooks";
 import { commonUtils } from "@utils";
 import { commonHooks } from "@web-core";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useRef } from "react";
+import Loading from "./loading";
 
 const KakaoToken = () => {
   const searchParams = useSearchParams();
@@ -46,13 +46,7 @@ const KakaoToken = () => {
     }
   }, []);
 
-  // TODO
-  return (
-    <Flex p={20} alignItems={"center"} justifyContent={"center"}>
-      <Text type={"20_Medium_Multi"}>로그인중!!!</Text>
-      <Text type={"20_Medium_Multi"}>디자인 적용할 예정!!!</Text>
-    </Flex>
-  );
+  return <Loading />;
 };
 
 export default KakaoToken;
