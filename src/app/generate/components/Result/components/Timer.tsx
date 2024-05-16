@@ -1,5 +1,6 @@
 import { Flex, Icon, Text } from "@components";
 import { GEN_CONSTS } from "@consts";
+import { useRefetchUser } from "@hooks";
 import { PhotoTypes } from "@types";
 import { commonHooks } from "@web-core";
 import {
@@ -10,9 +11,10 @@ import {
   secondsToHours,
   secondsToMinutes,
 } from "date-fns";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 const Timer = ({ createYmdt }: Pick<PhotoTypes.Request, "createYmdt">) => {
+  const refetchUser = useRefetchUser();
   const calcDiff = useCallback(
     (now: Date) => {
       const expectedResultDate = addMinutes(
@@ -40,13 +42,18 @@ const Timer = ({ createYmdt }: Pick<PhotoTypes.Request, "createYmdt">) => {
 
   const pad = (num: number) => num.toString().padStart(2, "0");
 
+  useEffect(() => {
+    if (leftSeconds === 0) {
+      refetchUser();
+    }
+  }, [leftSeconds === 0]);
+
   return (
     <Flex
       style={{ position: "absolute", top: 0, left: 0, bottom: 0, right: 0 }}
       alignItems={"center"}
       direction={"column"}
       justifyContent={"center"}
-      // border={"1px solid red"}
     >
       <Icon name="lock" size={52} />
       <Text
