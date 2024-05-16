@@ -8,7 +8,7 @@
 export const dummyPhotoRequest: PhotoTypes.Request = {
   originalImages: [],
   requestId: "1",
-  requestStatus: "PROCESSING",
+  requestStatus: "WAITING",
   userId: "1",
   createYmdt: "2024-05-16T16:49:09.866",
   updateYmdt: "2024-05-14T13:02:09.866",
@@ -28,7 +28,7 @@ export const dummyPhotoRequest: PhotoTypes.Request = {
 const dummyUser: UserTypes.Info = {
   userId: "663f341106c71e69673aa130",
   userName: "김수빈",
-  requestStatus: "PROCESSING",
+  requestStatus: "WAITING",
   createYmdt: "2024-05-11T09:02:09.866",
   requestYmdt: "2024-05-11T09:02:09.866",
 };

@@ -36,6 +36,7 @@ const Result = ({ request }: { request: PhotoTypes.Request }) => {
     );
 
   switch (requestStatus) {
+    case "WAITING":
     case "PROCESSING":
       return (
         <Processing
