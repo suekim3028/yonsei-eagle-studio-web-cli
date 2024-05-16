@@ -17,6 +17,7 @@ const SelectProcessType = () => {
     goNext("SELECT_STYLE");
   };
 
+  const imageProcessTypes: PhotoTypes.ProcessType[] = ["FEMALE", "MALE"];
   return (
     <ScreenTemplate
       mention={`독수리사진관에 어서오세요!\n어떤 AI 프로필을 만들어 볼까요?`}
@@ -24,11 +25,11 @@ const SelectProcessType = () => {
       <NavBar onClick={() => router.replace("/")} />
       <>
         <Flex px={20} w={"100%"} mt={20}>
-          {["F", "M"].map((_imageProcessType, idx) => (
+          {imageProcessTypes.map((type, idx) => (
             <StyleExample
               idx={idx}
-              key={_imageProcessType}
-              type={_imageProcessType as PhotoTypes.ProcessType}
+              key={type}
+              type={type}
               selected={imageProcessType}
               onClick={(imageProcessType) =>
                 setImageProcessType((s) =>
