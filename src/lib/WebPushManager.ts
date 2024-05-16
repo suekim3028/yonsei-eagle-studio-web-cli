@@ -1,5 +1,4 @@
 import { notiApis } from "@apis";
-import { jsUtils } from "@web-core";
 import webPush from "web-push";
 class WebPushManager {
   private _initialized = false;
@@ -105,8 +104,7 @@ class WebPushManager {
     // const { isError: notiError } = await notiApis.createNoti(sub);
     // if (notiError) return false;
 
-    await jsUtils.wait(2);
-    const { isError: subError } = await notiApis.subscribeNoti(sub);
+    const { isError: subError } = await notiApis.saveNotiToken(sub);
     if (subError) return false;
 
     return true;
