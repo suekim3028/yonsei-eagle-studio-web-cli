@@ -1,8 +1,9 @@
 import { Flex, Icon, Text } from "@components";
+import { GEN_CONSTS } from "@consts";
 import { PhotoTypes } from "@types";
 import { commonHooks } from "@web-core";
 import {
-  addHours,
+  addMinutes,
   differenceInSeconds,
   hoursToSeconds,
   minutesToSeconds,
@@ -14,7 +15,10 @@ import React, { useCallback, useState } from "react";
 const Timer = ({ createYmdt }: Pick<PhotoTypes.Request, "createYmdt">) => {
   const calcDiff = useCallback(
     (now: Date) => {
-      const expectedResultDate = addHours(new Date(createYmdt + "Z"), 6);
+      const expectedResultDate = addMinutes(
+        new Date(createYmdt + "Z"),
+        GEN_CONSTS.GENERATE_MINUTES
+      );
       return differenceInSeconds(expectedResultDate, now);
     },
 
