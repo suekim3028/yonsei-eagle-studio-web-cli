@@ -1,3 +1,4 @@
+"use client";
 import { BgContainer, Flex, Text } from "@components";
 import { WebPushManager } from "@lib";
 import { PhotoTypes } from "@types";

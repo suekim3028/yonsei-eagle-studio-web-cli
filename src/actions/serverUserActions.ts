@@ -1,3 +1,4 @@
+"use server";
 import { tokenActions } from "@actions";
 import { userApis } from "@apis";
 
@@ -33,5 +34,5 @@ export const updateToken = async () => {
 
   await tokenActions.set(newToken);
   console.log("[useUser] TOKEN REFRESHED!");
-  return;
+  return true;
 };

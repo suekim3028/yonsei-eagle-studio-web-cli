@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@app/generate/loading";
 import { Flex, Text } from "@components";
 import { useRefetchUser } from "@hooks";
 import { PhotoTypes } from "@types";
@@ -9,7 +10,7 @@ import Completed from "./templates/Completed";
 import Processing from "./templates/Processing";
 import { calcDiff } from "./utils";
 const Result = ({ request }: { request: PhotoTypes.Request }) => {
-  const [leftSeconds, setLeftSeconds] = useState(calcDiff(request, new Date()));
+  const [leftSeconds, setLeftSeconds] = useState<number>();
   const refetchUser = useRefetchUser();
 
   const { imageProcessType, resultImage, requestStatus } = request;
@@ -23,6 +24,8 @@ const Result = ({ request }: { request: PhotoTypes.Request }) => {
       setLeftSeconds(calcDiff(request, now));
     }, [])
   );
+
+  if (leftSeconds === undefined) return <Loading />;
 
   if (leftSeconds <= 0 || requestStatus === "COMPLETED")
     return (

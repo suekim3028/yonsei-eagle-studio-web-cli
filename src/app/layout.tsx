@@ -1,4 +1,4 @@
-import { userActions } from "@actions";
+import { tokenActions, userActions } from "@actions";
 import { Initializer, RecoilRootWrapper } from "@components/app";
 import { ThemeProvider } from "@contexts";
 import { ModalWrapper, StyledComponentsRegistry } from "@web-core";
@@ -20,7 +20,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  await userActions.updateToken();
+  try {
+    await userActions.updateToken();
+  } catch (e) {
+    await tokenActions.remove();
+  }
 
   return (
     <html lang="en">
