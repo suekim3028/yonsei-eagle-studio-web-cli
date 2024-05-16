@@ -3,7 +3,7 @@ import { useStepContext } from "@app/generate/StepContext";
 import { Flex, Text } from "@components";
 import { useErrorModal, useRefetchUser } from "@hooks";
 import { WebPushManager } from "@lib";
-import { commonHooks } from "@web-core";
+import { commonHooks, jsUtils } from "@web-core";
 import { useRef } from "react";
 
 const UploadingPhotos = () => {
@@ -17,7 +17,11 @@ const UploadingPhotos = () => {
     array: string[]
   ): Promise<string[]> => {
     if (index >= photos.length) return array;
-    const photo = photos[index];
+    const photoFile = photos[index];
+    const image = await jsUtils.fileToImage(photoFile);
+    const photo = await jsUtils.resizeImage(image, 750, "Blob");
+    image.remove();
+    if (!photo) throw new Error();
 
     console.log("===1===", { photo });
 
@@ -27,9 +31,8 @@ const UploadingPhotos = () => {
     console.log("===2===", imageIdData);
 
     if (linkIdError) throw new Error();
-
     const formData = new FormData();
-    formData.append("file", photo);
+    formData.append("file", photo, "photo.png");
 
     console.log("===3===", formData);
 
