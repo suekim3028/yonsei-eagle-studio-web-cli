@@ -1,15 +1,15 @@
 import { photoApis } from "@apis";
 import { useStepContext } from "@app/generate/StepContext";
 import { Flex, Text } from "@components";
-import { useErrorModal, useRefetchUser } from "@hooks";
+import { useRefetchUser } from "@hooks";
 import { WebPushManager } from "@lib";
+import { commonUtils } from "@utils";
 import { commonHooks, jsUtils } from "@web-core";
 import { useRef } from "react";
 
 const UploadingPhotos = () => {
   const { goNext, photos, goPrev, imageProcessType } = useStepContext();
 
-  const { showError } = useErrorModal();
   const refetchUser = useRefetchUser();
 
   const uploadPhotos = async (
@@ -50,7 +50,7 @@ const UploadingPhotos = () => {
   };
 
   const handleError = () => {
-    showError("이미지 생성 요청에 실패했어요. ");
+    commonUtils.showError("이미지 생성 요청에 실패했어요. ");
     goPrev("UPLOADING_PHOTOS");
   };
 
@@ -84,7 +84,6 @@ const UploadingPhotos = () => {
       <Text type="16_Light_Multi" color="YONSEI_NAVY">
         독수리가 사진을 전달하는 중... 🦅
       </Text>
-      
     </Flex>
   );
 };

@@ -3,7 +3,8 @@
 import { tokenActions } from "@actions";
 import { userApis } from "@apis";
 import { Flex, Text } from "@components";
-import { useErrorModal, useRefetchUser } from "@hooks";
+import { useRefetchUser } from "@hooks";
+import { commonUtils } from "@utils";
 import { commonHooks } from "@web-core";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useRef } from "react";
@@ -13,10 +14,9 @@ const KakaoToken = () => {
 
   const router = useRouter();
   const refetchUser = useRefetchUser();
-  const { showError } = useErrorModal();
 
   const handleError = useCallback(() => {
-    showError("로그인에 실패했어요. 다시 시도해 주세요.");
+    commonUtils.showError("로그인에 실패했어요. 다시 시도해 주세요.");
     router.replace("/sign-in");
   }, []);
 
