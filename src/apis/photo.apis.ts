@@ -5,10 +5,10 @@
 // "updateYmdt": Datetime,
 // "originalImages": List[Photo]
 
-const dummyPhotoRequest: PhotoTypes.Request = {
+export const dummyPhotoRequest: PhotoTypes.Request = {
   originalImages: [],
   requestId: "1",
-  requestStatus: "COMPLETED",
+  requestStatus: "WAITING",
   userId: "1",
   createYmdt: "2024-05-14T13:02:09.866",
   updateYmdt: "2024-05-14T13:02:09.866",
@@ -22,6 +22,7 @@ const dummyPhotoRequest: PhotoTypes.Request = {
     requestId: "1",
     userId: "1",
   },
+  // resultImage: null,
 };
 
 const dummyUser: UserTypes.Info = {

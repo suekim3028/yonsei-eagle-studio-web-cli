@@ -7,7 +7,13 @@ import { PushAvailable } from "../components/PushAvailable";
 import PushUnavailable from "../components/PushUnavailable";
 import Timer from "../components/Timer";
 
-const Processing = ({ request }: { request: PhotoTypes.Request }) => {
+const Processing = ({
+  imageProcessType,
+  leftSeconds,
+}: {
+  imageProcessType: PhotoTypes.ProcessType;
+  leftSeconds: number;
+}) => {
   const hasPushManager = useRef(
     WebPushManager.status === "INITIALIZED"
   ).current;
@@ -26,7 +32,7 @@ const Processing = ({ request }: { request: PhotoTypes.Request }) => {
             <Image
               alt={"waiting state result"}
               src={`/images/blur_result/${
-                request.imageProcessType === "FEMALE" ? "F" : "M"
+                imageProcessType === "FEMALE" ? "F" : "M"
               }.png`}
               style={{
                 width: 198,
@@ -35,7 +41,7 @@ const Processing = ({ request }: { request: PhotoTypes.Request }) => {
               width={198}
               height={286}
             />
-            <Timer {...request} />
+            <Timer leftSeconds={leftSeconds} />
           </Flex>
         </Flex>
         {hasPushManager ? <PushAvailable /> : <PushUnavailable />}

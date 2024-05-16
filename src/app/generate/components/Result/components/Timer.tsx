@@ -1,52 +1,19 @@
 import { Flex, Icon, Text } from "@components";
-import { GEN_CONSTS } from "@consts";
-import { useRefetchUser } from "@hooks";
-import { PhotoTypes } from "@types";
-import { commonHooks } from "@web-core";
 import {
-  addMinutes,
-  differenceInSeconds,
   hoursToSeconds,
   minutesToSeconds,
   secondsToHours,
   secondsToMinutes,
 } from "date-fns";
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 
-const Timer = ({ createYmdt }: Pick<PhotoTypes.Request, "createYmdt">) => {
-  const refetchUser = useRefetchUser();
-  const calcDiff = useCallback(
-    (now: Date) => {
-      const expectedResultDate = addMinutes(
-        new Date(createYmdt + "Z"),
-        GEN_CONSTS.GENERATE_MINUTES
-      );
-      return differenceInSeconds(expectedResultDate, now);
-    },
-
-    [createYmdt]
-  );
-
-  const [leftSeconds, setLeftSeconds] = useState(calcDiff(new Date()));
-
-  commonHooks.useEverySecondEffect(
-    useCallback((now) => {
-      setLeftSeconds(Math.max(calcDiff(now), 0));
-    }, [])
-  );
-
+const Timer = ({ leftSeconds }: { leftSeconds: number }) => {
   const hours = secondsToHours(leftSeconds);
   const minutes = secondsToMinutes(leftSeconds - hoursToSeconds(hours));
   const seconds =
     leftSeconds - hoursToSeconds(hours) - minutesToSeconds(minutes);
 
   const pad = (num: number) => num.toString().padStart(2, "0");
-
-  useEffect(() => {
-    if (leftSeconds === 0) {
-      refetchUser();
-    }
-  }, [leftSeconds === 0]);
 
   return (
     <Flex
