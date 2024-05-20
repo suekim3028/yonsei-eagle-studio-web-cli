@@ -1,0 +1,15 @@
+.circle {
+  top: 125px;
+  width: 130dvw;
+  height: 130dvw;
+  left: -15dvw;
+  background-color: #d0e9ff;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 0;
+  filter: blur(34.1px);
+  -webkit-filter: blur(34.1px);
+  -moz-filter: blur(34.1px);
+  -o-filter: blur(34.1px);
+  -ms-filter: blur(34.1px);
+}

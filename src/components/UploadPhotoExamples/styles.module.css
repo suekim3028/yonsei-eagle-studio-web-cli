@@ -1,0 +1,17 @@
+.scroll_wrapper {
+  scrollbar-width: none;
+  display: flex;
+  overflow-x: scroll;
+  padding: 0px 28px;
+  max-width: 100%;
+  align-self: center;
+}
+.scroll_wrapper::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  display: none;
+}
+
+.scroll_wrapper::-webkit-scrollbar-thumb {
+  display: none;
+}
