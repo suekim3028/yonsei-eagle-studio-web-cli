@@ -1,22 +1,19 @@
-import { tokenActions } from "@actions";
+"use client";
+
+import { TokenManager } from "@lib";
 import { ApiTypes } from "@types";
-import { returnFetch, webUtils } from "@web-core";
-import { ApiError } from "./ApiError";
+import { returnFetch } from "@web-core";
 
 const API = () => {
+  const tokenManager = new TokenManager();
   return returnFetch<ApiTypes.ApiError>({
     baseUrl: process.env.NEXT_PUBLIC_API_ENDPOINT_URL,
-    getToken: async () => {
-      const token = await tokenActions.get();
-      if (!token) return null;
-      return token.accessToken;
+    tokenHeaderFn: async () => {
+      const accessToken = await tokenManager.getAccessToken();
+      if (!accessToken) return null;
+      return { Authorization: `Bearer ${accessToken}` };
     },
-    tokenHandler: (token) => ({ Authorization: `Bearer ${token}` }),
-    onError: (error) => {
-      {
-        if (webUtils.isServerSide()) throw new ApiError(error);
-      }
-    },
+    onUnauthorizedError: tokenManager.refreshAccessToken,
   });
 };
 

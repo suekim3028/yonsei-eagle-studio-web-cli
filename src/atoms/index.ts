@@ -15,6 +15,7 @@ export const userState = selector<UserTypes.Info | null>({
   get: async ({ get }) => {
     const id = get(userStateQueryId);
     if (!id) return null;
+    console.log("[Atoms] trying to update user state");
     const { data, isError } = await userApis.getUserInfo();
     if (isError) return null;
     return data;

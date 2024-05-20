@@ -16,7 +16,7 @@ const Processing = ({
   leftSeconds: number;
 }) => {
   const hasPushManager = useRef(
-    WebPushManager.status === "INITIALIZED"
+    new WebPushManager().status === "INITIALIZED"
   ).current;
 
   return (

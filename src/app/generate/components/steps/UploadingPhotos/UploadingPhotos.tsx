@@ -59,7 +59,7 @@ const UploadingPhotos = () => {
     if (firstRender.current) return;
     firstRender.current = true;
 
-    WebPushManager.initialize();
+    new WebPushManager().initialize();
     if (!imageProcessType) return;
     try {
       const photoIds = await uploadPhotos(0, []);

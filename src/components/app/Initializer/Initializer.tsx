@@ -8,11 +8,11 @@ import React, { useRef } from "react";
 const Initializer = () => {
   const initiated = useRef(false);
   const refetchUser = useRefetchUser();
-  console.log("===INITIALIZER!");
 
   commonHooks.useAsyncEffect(async () => {
     if (initiated.current) return;
     initiated.current = true;
+    console.log("===INITIALIZER!");
 
     refetchUser();
 
@@ -23,8 +23,9 @@ const Initializer = () => {
       console.log(`kakao already initialized`);
     }
 
-    if (!WebPushManager.initialized) {
-      WebPushManager.initialize();
+    const pushManager = new WebPushManager();
+    if (!pushManager.initialized) {
+      pushManager.initialize();
     }
   }, []);
 

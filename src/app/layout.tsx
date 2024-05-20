@@ -1,4 +1,3 @@
-import { tokenActions, userActions } from "@actions";
 import { Initializer, RecoilRootWrapper } from "@components/app";
 import { ThemeProvider } from "@contexts";
 import { ModalWrapper, StyledComponentsRegistry } from "@web-core";
@@ -20,35 +19,29 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  try {
-    await userActions.updateToken();
-  } catch (e) {
-    await tokenActions.remove();
-  }
-
   return (
     <html lang="en">
       <head>
         <link rel="manifest" href="/manifest.json" />
       </head>
-      <StyledComponentsRegistry>
-        <body className={inter.className}>
-          <Script
-            src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.1/kakao.js"
-            integrity="sha384-pwDTu8wHS3HUfAgCS+FIgpFJHUJNO/2Eb0MZpYolcWKKVSQ6PDdeuEiwo/a1qdzq"
-            crossOrigin="anonymous"
-            strategy="beforeInteractive"
-            rel="preload"
-          />
+      <RecoilRootWrapper>
+        <StyledComponentsRegistry>
+          <body className={inter.className}>
+            <Script
+              src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.1/kakao.js"
+              integrity="sha384-pwDTu8wHS3HUfAgCS+FIgpFJHUJNO/2Eb0MZpYolcWKKVSQ6PDdeuEiwo/a1qdzq"
+              crossOrigin="anonymous"
+              strategy="beforeInteractive"
+              rel="preload"
+            />
 
-          <ThemeProvider>
-            <RecoilRootWrapper>
+            <ThemeProvider>
               <Initializer />
               <ModalWrapper>{children}</ModalWrapper>
-            </RecoilRootWrapper>
-          </ThemeProvider>
-        </body>
-      </StyledComponentsRegistry>
+            </ThemeProvider>
+          </body>
+        </StyledComponentsRegistry>
+      </RecoilRootWrapper>
     </html>
   );
 }

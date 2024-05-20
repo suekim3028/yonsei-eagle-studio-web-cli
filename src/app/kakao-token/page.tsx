@@ -1,8 +1,8 @@
 "use client";
 
-import { tokenActions } from "@actions";
 import { userApis } from "@apis";
 import { useRefetchUser } from "@hooks";
+import { TokenManager } from "@lib";
 import { commonUtils } from "@utils";
 import { commonHooks } from "@web-core";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -24,22 +24,13 @@ const KakaoToken = () => {
   commonHooks.useAsyncEffect(async () => {
     if (initialRef.current) return;
     initialRef.current = true;
-
-    const alreadyHasToken = await tokenActions.get();
-    if (alreadyHasToken) return;
-
     const code = searchParams.get("code");
-
     if (!code || typeof code != "string") return handleError();
-
-    const { isError, data: token } = await userApis.kakaoLogin(code);
-
+    const { isError, data: token } = await userApis.kakaoLogin("code");
     if (isError) return handleError();
-    await tokenActions.set(token);
-
+    new TokenManager().setToken(token);
     try {
       refetchUser();
-
       router.replace("/generate");
     } catch (e) {
       return handleError();

@@ -1,6 +1,14 @@
+"use client";
 import { notiApis } from "@apis";
 import webPush from "web-push";
+
+let instance: WebPushManager | null = null;
 class WebPushManager {
+  constructor() {
+    if (instance) return instance;
+    instance = this;
+  }
+
   private _initialized = false;
   private _status:
     | "NO_PUSH_MANAGER"
@@ -105,4 +113,4 @@ class WebPushManager {
   };
 }
 
-export default new WebPushManager();
+export default WebPushManager;

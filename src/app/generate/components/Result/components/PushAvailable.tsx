@@ -10,7 +10,7 @@ export const PushAvailable = () => {
       title: `🔔 독수리 사진관\n알림 권한을 허용할까요?`,
       body: `AI 프로필이 완성되면\n푸시 알림을 보내드릴게요`,
       yesText: "허용",
-      onPressYes: WebPushManager.subscribe,
+      onPressYes: new WebPushManager().subscribe,
       noText: "취소",
     });
   };
