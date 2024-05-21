@@ -1,12 +1,17 @@
-"use client";
+'use client';
 
-import React from "react";
-import StepContextProvider from "./StepContext";
-import * as S from "./style";
+import { AuthRouterWrapper, Flex } from '@components';
+import React from 'react';
+import StepContextProvider from './StepContext';
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <StepContextProvider>
-      <S.Bg>{children}</S.Bg>
-    </StepContextProvider>
+    <AuthRouterWrapper only={'USER'} fallback={'/sign-in'}>
+      <StepContextProvider>
+        <Flex bgColor={'BABY_BLUE'} w="100%" minH={'100%'}>
+          {children}
+        </Flex>
+      </StepContextProvider>
+    </AuthRouterWrapper>
   );
 }

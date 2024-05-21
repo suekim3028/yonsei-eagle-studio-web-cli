@@ -1,20 +1,15 @@
-"use client";
+'use client';
 
-import { useRefetchUser } from "@hooks";
-import { WebPushManager } from "@lib";
-import { commonHooks } from "@web-core";
-import React, { useRef } from "react";
+import { WebPushManager } from '@lib';
+import React, { useEffect, useRef } from 'react';
 
 const Initializer = () => {
   const initiated = useRef(false);
-  const refetchUser = useRefetchUser();
 
-  commonHooks.useAsyncEffect(async () => {
+  useEffect(() => {
     if (initiated.current) return;
     initiated.current = true;
-    console.log("===INITIALIZER!");
-
-    refetchUser();
+    console.log('===INITIALIZER!');
 
     if (!window.Kakao.isInitialized()) {
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY);

@@ -1,4 +1,3 @@
-import TokenManager from "./TokenManager";
-import WebPushManager from "./WebPushManager";
+import WebPushManager from './WebPushManager';
 
-export { TokenManager, WebPushManager };
+export { WebPushManager };

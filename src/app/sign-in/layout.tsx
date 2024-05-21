@@ -1,6 +1,6 @@
-"use client";
-import { BgContainer, NavBar } from "@components";
-import { useRouter } from "next/navigation";
+'use client';
+import { AuthRouterWrapper, BgContainer, NavBar } from '@components';
+import { useRouter } from 'next/navigation';
 
 export default function Layout({
   children,
@@ -8,10 +8,13 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   const router = useRouter();
+
   return (
-    <BgContainer>
-      <NavBar onClick={() => router.replace("/")} />
-      {children}
-    </BgContainer>
+    <AuthRouterWrapper only={'GUEST'} fallback={'/'}>
+      <BgContainer>
+        <NavBar onClick={() => router.replace('/')} />
+        {children}
+      </BgContainer>
+    </AuthRouterWrapper>
   );
 }

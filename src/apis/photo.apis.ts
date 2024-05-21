@@ -7,34 +7,34 @@
 
 export const dummyPhotoRequest: PhotoTypes.Request = {
   originalImages: [],
-  requestId: "1",
-  requestStatus: "WAITING",
-  userId: "1",
-  createYmdt: "2024-05-16T16:49:09.866",
-  updateYmdt: "2024-05-14T13:02:09.866",
-  imageProcessType: "FEMALE",
+  requestId: '1',
+  requestStatus: 'WAITING',
+  userId: '1',
+  createYmdt: '2024-05-16T16:49:09.866',
+  updateYmdt: '2024-05-14T13:02:09.866',
+  imageProcessType: 'FEMALE',
   resultImage: {
-    imageId: "1",
-    imageStatus: "PROCESSED",
-    createYmdt: "2024-05-14T13:02:09.866",
+    imageId: '1',
+    imageStatus: 'PROCESSED',
+    createYmdt: '2024-05-14T13:02:09.866',
     imageUrl:
-      "https://static.vecteezy.com/system/resources/previews/029/284/491/large_2x/cheerful-brunette-business-woman-isolated-png.png",
-    requestId: "1",
-    userId: "1",
+      'https://static.vecteezy.com/system/resources/previews/029/284/491/large_2x/cheerful-brunette-business-woman-isolated-png.png',
+    requestId: '1',
+    userId: '1',
   },
   // resultImage: null,
 };
 
 const dummyUser: UserTypes.Info = {
-  userId: "663f341106c71e69673aa130",
-  userName: "김수빈",
-  requestStatus: "WAITING",
-  createYmdt: "2024-05-11T09:02:09.866",
-  requestYmdt: "2024-05-11T09:02:09.866",
+  userId: '663f341106c71e69673aa130',
+  userName: '김수빈',
+  requestStatus: 'WAITING',
+  createYmdt: '2024-05-11T09:02:09.866',
+  requestYmdt: '2024-05-11T09:02:09.866',
 };
 
-import { PhotoTypes, UserTypes } from "@types";
-import API from "./API";
+import { PhotoTypes, UserTypes } from '@types';
+import API from './API';
 
 /**
  * 이미지 링크 요청
@@ -43,7 +43,7 @@ type GetPhotoLinkIdRes = {
   imageId: string;
 };
 export const getPhotoLinkId = () =>
-  API().post<GetPhotoLinkIdRes>("/photo/request", undefined, {
+  API.post<GetPhotoLinkIdRes>('/photo/request', undefined, {
     // dummyData: { imageId: "2" },
   });
 
@@ -56,7 +56,7 @@ type UploadPhotoReq = {
 };
 
 export const uploadPhoto = ({ imageId, data }: UploadPhotoReq) =>
-  API().post(
+  API.post(
     `/photo/${imageId}`,
     {
       isMultipartFormData: true,
@@ -75,8 +75,8 @@ type CreatePhotoRequestReq = {
 };
 
 export const createPhotoRequest = (req: CreatePhotoRequestReq) =>
-  API().post(
-    "/photo-request",
+  API.post(
+    '/photo-request',
     { body: req }
     //
     // { dummyData: { success: true } }
@@ -87,20 +87,20 @@ export const createPhotoRequest = (req: CreatePhotoRequestReq) =>
  */
 
 export const getPhotoRequestById = (requestId: string) =>
-  API().get<PhotoTypes.Request>(`photo-request/${requestId}`);
+  API.get<PhotoTypes.Request>(`photo-request/${requestId}`);
 
 /**
  * 이미지 처리 요청 정보 가져오기
  */
 export const getPhotoRequest = () =>
-  API().get<PhotoTypes.Request>(`photo-request`, undefined, {
-    // dummyData: dummyPhotoRequest,
+  API.get<PhotoTypes.Request>(`photo-request`, undefined, {
+    dummyData: dummyPhotoRequest,
   });
 
 /**
  * 이미지 처리 요청 상태 확인
  */
 export const checkRequestStatus = (requestId?: string) =>
-  API().get<{ requestStatus: PhotoTypes.RequestStatus }>(
-    `photo-request/check${requestId ? `/${requestId}` : ""}`
+  API.get<{ requestStatus: PhotoTypes.RequestStatus }>(
+    `photo-request/check${requestId ? `/${requestId}` : ''}`
   );

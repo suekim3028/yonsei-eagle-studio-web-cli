@@ -1,3 +1,6 @@
-import { LocalStorageItem } from "@web-core";
+import { LocalStorageItem } from '@web-core';
 
-export const RefreshTokenStorage = new LocalStorageItem<string>("refreshToken");
+export const TokenStorage = new LocalStorageItem<{
+  refreshToken: string;
+  accessToken: string;
+}>('token');

@@ -1,32 +1,35 @@
-"use client";
+'use client';
 
-import { Flex } from "@components";
-import Button from "@components/Button/Button";
-import { commonUtils } from "@utils";
-import { useRouter } from "next/navigation";
+import { Flex } from '@components';
+import Button from '@components/Button/Button';
+import { useUserContext } from '@contexts';
+import { commonUtils } from '@utils';
+import { useRouter } from 'next/navigation';
 
-const StartButtons = () => {
+function StartButtons() {
   const router = useRouter();
+  const { user } = useUserContext();
 
   return (
-    <Flex p={"20px 60px"} w={"100%"} direction={"column"} alignItems={"center"}>
+    <Flex p={'20px 60px'} w={'100%'} direction={'column'} alignItems={'center'}>
       <Button
-        title={"시작하기"}
-        type={"NAVY_GRADIENT"}
+        title={'시작하기'}
+        type={'NAVY_GRADIENT'}
         stretch
         onClick={() => {
-          router.push("/generate");
+          router.push(user != 'loading' && !!user ? '/generate' : '/sign-in'); // 어차피 이동하면 한번 더확인함
         }}
       />
+
       <Button
-        title={"친구에게 알려주기"}
-        type={"WHITE"}
-        size={"M"}
+        title={'친구에게 알려주기'}
+        type={'WHITE'}
+        size={'M'}
         mt={8}
         onClick={commonUtils.sharePage}
       />
     </Flex>
   );
-};
+}
 
 export default StartButtons;

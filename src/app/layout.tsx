@@ -1,5 +1,6 @@
-import { Initializer, RecoilRootWrapper } from '@components/app';
+import { Initializer } from '@components/app';
 
+import { UserContextProvider } from '@contexts';
 import { ModalWrapper } from '@web-core';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -33,10 +34,10 @@ export default async function RootLayout({
           rel="preload"
         />
         <React.StrictMode>
-          <RecoilRootWrapper>
-            <Initializer />
-            <ModalWrapper>{children}</ModalWrapper>
-          </RecoilRootWrapper>
+          <Initializer />
+          <ModalWrapper>
+            <UserContextProvider>{children}</UserContextProvider>
+          </ModalWrapper>
         </React.StrictMode>
       </body>
     </html>
