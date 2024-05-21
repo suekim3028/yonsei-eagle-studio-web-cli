@@ -8,9 +8,9 @@
 export const dummyPhotoRequest: PhotoTypes.Request = {
   originalImages: [],
   requestId: '1',
-  requestStatus: 'WAITING',
+  requestStatus: 'COMPLETED',
   userId: '1',
-  createYmdt: '2024-05-16T16:49:09.866',
+  createYmdt: '2024-05-22T03:52:12.866',
   updateYmdt: '2024-05-14T13:02:09.866',
   imageProcessType: 'FEMALE',
   resultImage: {
@@ -94,7 +94,7 @@ export const getPhotoRequestById = (requestId: string) =>
  */
 export const getPhotoRequest = () =>
   API.get<PhotoTypes.Request>(`photo-request`, undefined, {
-    dummyData: dummyPhotoRequest,
+    // dummyData: dummyPhotoRequest,
   });
 
 /**
