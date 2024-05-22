@@ -1,8 +1,8 @@
 'use client';
 import { BgContainer, Flex, Text } from '@components';
-import LoadingIndicator from '@public/lottie/loading.json';
+import { Player } from '@lottiefiles/react-lottie-player';
+import Loading from '@public/lottie/loading.json';
 import Image from 'next/image';
-import Lottie from 'react-lottie';
 import S from './styles.module.css';
 
 const Loader = ({ mention }: { mention: string }) => {
@@ -46,14 +46,11 @@ const Loader = ({ mention }: { mention: string }) => {
             >
               {mention}
             </Text>
-            <Lottie
-              options={{
-                loop: true,
-                autoplay: true,
-                animationData: LoadingIndicator,
-              }}
-              width={48}
-              height={48}
+            <Player
+              autoplay
+              loop
+              src={Loading}
+              style={{ width: '48px', height: '48px' }}
             />
           </Flex>
         </Flex>
