@@ -3,41 +3,67 @@ import { commonUtils } from '@utils';
 import { commonHooks, jsUtils } from '@web-core';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import LoadingBeforeResult from './LoadingBeforeResult';
 
 const Completed = ({ imageUrl }: { imageUrl: string }) => {
   const router = useRouter();
 
-  const [imageUrlList, setImageUrlList] = useState<(string | null)[]>(
+  const [imageUrlList, setImageUrlList] = useState<null | string[]>(null);
+  const blobs = useRef<(Blob | null)[]>(
     Array.from({ length: FRAME_NUM }, () => null)
   );
 
   const [loading, setLoading] = useState(true);
+  const canShare = useRef(
+    'canShare' in navigator && 'share' in navigator
+    // true
+  ).current;
   const background = useMemo(() => jsUtils.getRandomArrItem(BG), []);
 
   const imageGenerationResolver = useRef<(value: null) => void>();
-  const imageGenerationWaiter = useRef<Promise<null>>(
-    new Promise(
-      (r: (value: null) => void) => (imageGenerationResolver.current = r)
-    )
-  );
+  const imageGenerationWaiter = useRef<Promise<null>>();
 
+  const rendered = useRef(false);
   commonHooks.useAsyncEffect(async () => {
+    if (rendered.current) return;
+    rendered.current = true;
     // 생성된 이미지로 html element 만들기
+    imageGenerationWaiter.current = new Promise(
+      (r) => (imageGenerationResolver.current = r)
+    );
 
-    const image = await new Promise(
-      (resolve: (value: HTMLImageElement) => void) => {
+    const frameImageSrc = Array.from(
+      { length: FRAME_NUM },
+      (_, i) => `/images/frames/frame-${i}.png`
+    );
+
+    const frameImages = await Promise.all(
+      frameImageSrc.map(
+        (f) =>
+          new Promise((resolve: (image: HTMLImageElement) => void) => {
+            const frameImage = document.createElement('img');
+            frameImage.crossOrigin = 'anonymous';
+            frameImage.onload = () => {
+              resolve(frameImage);
+            };
+            frameImage.src = f;
+          })
+      )
+    );
+
+    const profileImage = await new Promise(
+      (resolve: (image: HTMLImageElement) => void) => {
         const image = document.createElement('img');
         image.crossOrigin = 'anonymous';
-        image.addEventListener('load', () => resolve(image));
+        image.addEventListener('load', () => {
+          resolve(image);
+        });
         image.src = imageUrl;
       }
     );
 
-    Array.from({ length: FRAME_NUM }, (_, i) => {
-      const bgImage = document.createElement('img');
-      bgImage.crossOrigin = 'anonymous';
+    frameImages.forEach(async (frameImage, i) => {
       const canvas = document.createElement('canvas');
       canvas.width = BG_WIDTH;
       canvas.height = BG_HEIGHT;
@@ -55,25 +81,39 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, BG_WIDTH, BG_HEIGHT);
 
-      bgImage.addEventListener('load', async () => {
-        ctx.drawImage(
-          image,
-          BORDER_START,
-          BORDER_START,
-          IMAGE_SIZE,
-          IMAGE_SIZE
-        );
-        ctx.drawImage(bgImage, 0, 0, BG_WIDTH, BG_HEIGHT);
-        const dataUrl = canvas.toDataURL('image/png');
-        setImageUrlList((p) => [...p.slice(0, i), dataUrl, ...p.slice(i + 1)]);
-        bgImage.remove();
-      });
-      bgImage.src = `/images/frames/frame-${i}.png`;
+      ctx.drawImage(
+        profileImage,
+        BORDER_START,
+        BORDER_START,
+        IMAGE_SIZE,
+        IMAGE_SIZE
+      );
+      ctx.drawImage(frameImage, 0, 0, BG_WIDTH, BG_HEIGHT);
+
+      canvas.toBlob((blob) => {
+        if (!blob) return;
+        const url = window.URL.createObjectURL(blob);
+
+        blobs.current = [
+          ...blobs.current.slice(0, i),
+          blob,
+          ...blobs.current.slice(i + 1),
+        ];
+
+        if (blobs.current.every(Boolean)) {
+          setImageUrlList(
+            (blobs.current as Blob[]).map((blob) =>
+              window.URL.createObjectURL(blob)
+            )
+          );
+          imageGenerationResolver.current &&
+            imageGenerationResolver.current(null);
+        }
+      }, 'image/png');
     });
-    imageGenerationResolver.current && imageGenerationResolver.current(null);
   }, []);
 
-  commonHooks.useAsyncEffect(async () => {
+  useEffect(() => {
     setTimeout(async () => {
       await imageGenerationWaiter.current;
       setLoading(false);
@@ -110,27 +150,24 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
 
       <Flex w={'100%'}>
         <Flex overflowX={'scroll'} gap={5} px={20}>
-          {imageUrlList.map((imageUrl, i) =>
-            imageUrl ? (
-              <Image
-                key={imageUrl}
-                style={{ zIndex: 1 }}
+          {imageUrlList &&
+            imageUrlList.map((imageUrl, i) => (
+              <img
+                key={i}
+                style={{ zIndex: 1, width: 286.64, height: 320 }}
                 alt={`result_image_${i}`}
                 src={imageUrl}
+                // onLoad={() => URL.revokeObjectURL(imageUrl)}
                 width={286.64}
                 height={320}
-                crossOrigin="anonymous"
               />
-            ) : (
-              <></>
-            )
-          )}
+            ))}
         </Flex>
       </Flex>
       <Flex w="100%" py={36}></Flex>
 
       <Flex direction={'column'} w="100%" p={20}>
-        <Flex position={'relative'}>
+        <Flex position={'relative'} direction={'column'}>
           <Image
             src={'/images/happy_eagle_arm.svg'}
             alt={'eagle_icon_arm'}
@@ -141,7 +178,7 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
               height: 118,
               position: 'absolute',
               right: -10,
-              bottom: 8,
+              top: -68,
               zIndex: 3,
             }}
           />
@@ -155,32 +192,42 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
               height: 118,
               position: 'absolute',
               right: -10,
-              bottom: 8,
+              top: -68,
               zIndex: 0,
             }}
           />
+          {canShare && (
+            <Flex w={'100%'} zIndex={1}>
+              <Button
+                type={'NAVY_GRADIENT'}
+                title="이미지 다운로드"
+                onClick={() =>
+                  imageUrlList &&
+                  jsUtils.downloadImages(
+                    imageUrlList,
+                    blobs.current.filter((blob): blob is Blob => !!blob),
+                    (i) => `eagle_studio_profile_${i}.png`,
+                    {
+                      type: 'image/png',
+                    }
+                  )
+                }
+                size="L"
+                stretch
+              />
+            </Flex>
+          )}
           <Flex w={'100%'} zIndex={1}>
             <Button
-              type={'NAVY_GRADIENT'}
-              title="이미지 다운로드"
-              onClick={() =>
-                jsUtils.downloadImages(
-                  imageUrlList.filter((url): url is string => !!url)
-                )
-              }
-              size="L"
+              mt={canShare ? 12 : 0}
               stretch
+              type={'WHITE'}
+              title={'스토리에 공유하기'}
+              icon={'instagram'}
+              size="L"
             />
           </Flex>
         </Flex>
-        <Button
-          mt={12}
-          stretch
-          type={'WHITE'}
-          title={'스토리에 공유하기'}
-          icon={'instagram'}
-          size="L"
-        />
       </Flex>
       <Text
         type="14_Light_Multi"
