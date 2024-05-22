@@ -58,4 +58,4 @@ export const getUserInfo = () =>
 /**
  * 유저 정보 삭제
  */
-export const withdrawUser = () => API.delete('/user');
+export const testWithdrawUser = () => API.delete('/manage/user');

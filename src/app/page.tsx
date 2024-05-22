@@ -1,9 +1,10 @@
-import { Button, Flex, Text } from '@components';
+import { Button, Flex, Loader, Text } from '@components';
 import { StartButtons } from '@components/app';
 import { APP_CONSTS } from '@consts';
 import Image from 'next/image';
 
 const Home = () => {
+  if (1 == 1) return <Loader mention="좀만~" />;
   return (
     <Flex
       direction={'column'}
