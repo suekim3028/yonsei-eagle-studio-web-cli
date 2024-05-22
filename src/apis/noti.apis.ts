@@ -9,3 +9,5 @@ export const sendNoti = (notiToken: string) =>
     undefined,
     { useFullUrl: true }
   );
+
+export const testSendNoti = () => API.post('/api/v1/manage/noti');

@@ -28,7 +28,7 @@ function StartButtons() {
         stretch
         onClick={async () => {
           if (user !== 'loading' && !!user) {
-            await userApis.withdrawUser();
+            await userApis.testWithdrawUser();
             alert('user withdrawn!');
           } else {
             alert('you are not logged in!');
