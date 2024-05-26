@@ -1,6 +1,5 @@
 'use client';
 
-import { userApis } from '@apis';
 import { Flex } from '@components';
 import Button from '@components/Button/Button';
 import { useUserContext } from '@contexts';
@@ -19,20 +18,6 @@ function StartButtons() {
         stretch
         onClick={() => {
           router.push(user != 'loading' && !!user ? '/generate' : '/sign-in'); // 어차피 이동하면 한번 더확인함
-        }}
-      />
-
-      <Button
-        title={'개발용: 유저 삭제'}
-        type={'NAVY_GRADIENT'}
-        stretch
-        onClick={async () => {
-          if (user !== 'loading' && !!user) {
-            await userApis.testWithdrawUser();
-            alert('user withdrawn!');
-          } else {
-            alert('you are not logged in!');
-          }
         }}
       />
 
