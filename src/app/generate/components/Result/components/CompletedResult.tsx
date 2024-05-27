@@ -19,6 +19,7 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
     "canShare" in navigator && "share" in navigator
     // true
   ).current;
+
   const background = useMemo(() => jsUtils.getRandomArrItem(BG), []);
 
   const imageGenerationResolver = useRef<(value: null) => void>();
@@ -105,7 +106,7 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
         IMAGE_SIZE,
         IMAGE_SIZE
       );
-      ctx.drawImage(frameImage, 0, 0, BG_WIDTH, BG_HEIGHT);
+      ctx.drawImage(frameImage, -1, -1, BG_WIDTH + 2, BG_HEIGHT + 2);
 
       canvas.toBlob((blob) => {
         if (!blob) return;
@@ -235,7 +236,7 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
   );
 };
 
-const RATIO = 1.1156096897;
+const RATIO = 1.1159499183;
 const BORDER_RATIO = 0.04337915079;
 const BG_WIDTH = 1200;
 const BG_HEIGHT = BG_WIDTH * RATIO;
