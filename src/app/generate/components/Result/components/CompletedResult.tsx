@@ -218,7 +218,7 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
         type="14_Light_Multi"
         color={"WHITE"}
         textAlign={"center"}
-      >{`@instagram_id 를 태그해주면 기쁠거에요!\n즐거운 대동제 되세요 🤍`}</Text>
+      >{`@eaglefilm_yonsei 를 태그해주면 기쁠 거예요!\n즐거운 대동제 되세요 🤍`}</Text>
       <Flex mt={80} direction={"column"}>
         <Button
           type={"WHITE"}
