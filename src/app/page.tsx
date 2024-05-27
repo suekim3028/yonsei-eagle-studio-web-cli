@@ -1,5 +1,6 @@
 import { Button, Carousel, Flex, Text } from "@components";
 import { StartButtons } from "@components/app";
+import BottomSection from "@components/app/BottomSection/BottomSection";
 import { APP_CONSTS } from "@consts";
 import Image from "next/image";
 
@@ -11,6 +12,7 @@ const Home = () => {
       minH={"100vh"}
       bgImage={"/images/main/bg.png"}
       w={"100vw"}
+      pb={63}
       backgroundSize={"cover"}
     >
       <Flex w={"100%"} py={"12px"} px={"20px"}>
@@ -85,6 +87,7 @@ const Home = () => {
           />
         </Flex>
       </Flex>
+      <BottomSection />
     </Flex>
   );
 };

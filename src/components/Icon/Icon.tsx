@@ -5,7 +5,9 @@ const Icon = ({ name, size, ...flexProps }: IconsProps) => {
   return (
     <Flex {...flexProps}>
       <img
-        src={`/icons/${name}.${PNG_ICON_NAMES.includes(name) ? "png" : "svg"}`}
+        src={`/icons/${name}.${
+          PNG_ICON_NAMES.includes(name as any) ? "png" : "svg"
+        }`}
         width={size}
         height={size}
         style={{ width: size, height: size, objectFit: "contain" }}
@@ -23,11 +25,10 @@ const SVG_ICON_NAMES = [
   "copy",
   "bell",
   "lock",
-  "instagram",
   "confetti",
 ] as const;
 
-const PNG_ICON_NAMES = ["kakaotalk"];
+const PNG_ICON_NAMES = ["kakaotalk", "instagram"] as const;
 
 export const ICON_NAMES = [...SVG_ICON_NAMES, ...PNG_ICON_NAMES] as const;
 

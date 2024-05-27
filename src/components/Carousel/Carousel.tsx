@@ -1,3 +1,4 @@
+"use client";
 import { Flex } from "@components";
 import Image from "next/image";
 
