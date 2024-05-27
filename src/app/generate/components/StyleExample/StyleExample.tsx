@@ -36,7 +36,7 @@ const StyleExample = ({ type, selected, onClick, idx }: StyleExampleProps) => {
         mt={20}
         type={isSelected ? "NAVY" : "WHITE"}
         onClick={() => undefined}
-        title={type === "FEMALE" ? "A" : "B"}
+        title={type === "FEMALE" ? "여자" : "남자"}
       />
     </Flex>
   );

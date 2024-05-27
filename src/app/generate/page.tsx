@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { Loader } from '@components';
-import { useUserContext } from '@contexts';
-import { jsUtils } from '@web-core';
-import React, { useEffect, useRef } from 'react';
-import { useStepContext } from './StepContext';
-import Result from './components/Result/Result';
-import ConfirmPhotos from './components/steps/ConfirmPhotos/ConfirmPhotos';
-import SelectPhotos from './components/steps/SelectPhotos/SelectPhotos';
-import SelectStyle from './components/steps/SelectStyle/SelectStyle';
-import UploadDescription from './components/steps/UploadDescription/UploadDescription';
-import UploadingPhotos from './components/steps/UploadingPhotos/UploadingPhotos';
+import { Loader } from "@components";
+import { useUserContext } from "@contexts";
+import { jsUtils } from "@web-core";
+import React, { useEffect, useRef } from "react";
+import { useStepContext } from "./StepContext";
+import Result from "./components/Result/Result";
+import ConfirmPhotos from "./components/steps/ConfirmPhotos/ConfirmPhotos";
+import SelectPhotos from "./components/steps/SelectPhotos/SelectPhotos";
+import SelectStyle from "./components/steps/SelectStyle/SelectStyle";
+import UploadDescription from "./components/steps/UploadDescription/UploadDescription";
+import UploadingPhotos from "./components/steps/UploadingPhotos/UploadingPhotos";
 
 const Generate = (): JSX.Element => {
   const { step } = useStepContext();
@@ -25,7 +25,7 @@ const Generate = (): JSX.Element => {
     if (goOut) {
       window.history.back();
     } else {
-      window.history.pushState(null, '', '');
+      window.history.pushState(null, "", "");
       window.focus();
       return;
     }
@@ -39,15 +39,15 @@ const Generate = (): JSX.Element => {
   useEffect(() => {
     if (!added.current) {
       added.current = true;
-      window.history.pushState(null, '', '');
-      window.addEventListener('popstate', beforeUnloadHandler);
+      window.history.pushState(null, "", "");
+      window.addEventListener("popstate", beforeUnloadHandler);
       return () => {
-        window.removeEventListener('popstate', beforeUnloadHandler);
+        window.removeEventListener("popstate", beforeUnloadHandler);
       };
     }
   }, []);
 
-  if (request === 'loading')
+  if (request === "loading")
     return (
       <Loader
         mention={`프로필 생성 정보를 확인 중입니다.\n잠시만 기다려주세요.`}
@@ -57,15 +57,15 @@ const Generate = (): JSX.Element => {
   if (request) return <Result request={request} />;
 
   switch (step) {
-    case 'SELECT_STYLE':
+    case "SELECT_STYLE":
       return <SelectStyle />;
-    case 'UPLOAD_DESCRIPTION':
+    case "UPLOAD_DESCRIPTION":
       return <UploadDescription />;
-    case 'SELECT_PHOTOS':
+    case "SELECT_PHOTOS":
       return <SelectPhotos />;
-    case 'CONFIRM_PHOTOS':
+    case "CONFIRM_PHOTOS":
       return <ConfirmPhotos />;
-    case 'UPLOADING_PHOTOS':
+    case "UPLOADING_PHOTOS":
       return <UploadingPhotos />;
   }
 };
