@@ -20,8 +20,30 @@
   top: 1px;
 }
 
-.animation {
-  transition: opacity 0.4s ease-in;
+.animation_1 {
+  opacity: 0;
+  animation: fadein 0.4s 0.2s ease-in forwards;
+}
+.animation_2 {
+  opacity: 0;
+  animation: fadein 0.4s 0.6s ease-in forwards;
+}
+.animation_3 {
+  opacity: 0;
+  animation: fadein 0.5s 1.2s ease-in forwards;
+}
+
+.animation_hide {
+  opacity: 0;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .animation_body {
