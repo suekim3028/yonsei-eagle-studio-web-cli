@@ -80,20 +80,18 @@ const SelectPhotos = () => {
         <>
           <Flex
             direction={"column"}
-            py={71.5}
+            py={66}
             w="100%"
             px={47.5}
             alignItems={"center"}
           >
-            <Flex mb={20}>
-              <Text type="16_Light_Single" color="BLUE">
-                📢 사진을
+            <Flex mb={20} alignItems={"flex-end"}>
+              <Text type="20_Medium_Multi" color="BLACK" mr={5}>
+                {`✅ 최소 6장 이상 `}
               </Text>
-              <Text type="16_Light_Single" color="BLACK" mx={4}>
-                {` 6장 이상 `}
-              </Text>
-              <Text type="16_Light_Single" color="BLUE">
-                등록해 주세요
+
+              <Text type="16_Light_Single" color="BLUE" mb={4}>
+                등록해 주세요!
               </Text>
             </Flex>
             <Button
