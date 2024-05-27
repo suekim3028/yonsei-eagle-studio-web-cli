@@ -26,6 +26,7 @@ const SVG_ICON_NAMES = [
   "bell",
   "lock",
   "confetti",
+  "alert_circle",
 ] as const;
 
 const PNG_ICON_NAMES = ["kakaotalk", "instagram"] as const;

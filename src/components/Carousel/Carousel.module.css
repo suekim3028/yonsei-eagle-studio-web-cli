@@ -1,0 +1,7 @@
+.snap_container {
+  display: flex;
+  flex: none;
+  overflow: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+}

@@ -1,0 +1,37 @@
+.circle {
+  width: 130dvw;
+  height: 130dvw;
+  left: calc(50%-65dvw);
+  top: calc(50%-65dvw);
+  background-color: #d0e9ff;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 0;
+  filter: blur(34.1px);
+  -webkit-filter: blur(34.1px);
+  -moz-filter: blur(34.1px);
+  -o-filter: blur(34.1px);
+  -ms-filter: blur(34.1px);
+}
+
+.snap_container {
+  display: flex;
+  flex: none;
+  overflow: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+}
+
+.snap_image_active {
+  transform: scale(1);
+  /* animation: zoomin 1s 0s ease-in forwards; */
+}
+
+@keyframes zoomin {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}

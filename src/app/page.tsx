@@ -52,6 +52,7 @@ const Home = () => {
           <Carousel
             images={[1, 2, 3, 4].map((n) => `/images/main/image_${n}.png`)}
             gap={14}
+            px={100}
             width={198}
             height={286}
             center={1}

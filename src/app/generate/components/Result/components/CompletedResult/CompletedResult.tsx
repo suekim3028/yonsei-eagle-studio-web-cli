@@ -2,9 +2,16 @@ import { Button, Flex, Text } from "@components";
 import { commonUtils } from "@utils";
 import { commonHooks, jsUtils } from "@web-core";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import ButtonEagle from "./ButtonEagle";
-import LoadingBeforeResult from "./LoadingBeforeResult";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import ButtonEagle from "../ButtonEagle";
+import LoadingBeforeResult from "../LoadingBeforeResult";
+import S from "./CompletedResult.style.module.css";
 
 const Completed = ({ imageUrl }: { imageUrl: string }) => {
   const router = useRouter();
@@ -27,6 +34,8 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
 
   const rendered = useRef(false);
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   const download = () => {
     imageUrlList &&
       jsUtils.downloadImages(
@@ -42,6 +51,11 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
   const shareStory = () => {
     alert("1");
   };
+
+  const handleOnScroll = useCallback(() => {
+    console.log(scrollRef.current?.scrollLeft);
+    console.log(scrollRef.current?.scrollWidth);
+  }, []);
 
   commonHooks.useAsyncEffect(async () => {
     if (rendered.current) return;
@@ -166,12 +180,26 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
         </Text>
       </Flex>
 
-      <Flex w={"100%"}>
-        <Flex overflowX={"scroll"} gap={5} px={20}>
-          {imageUrlList &&
-            imageUrlList.map((imageUrl, i) => (
+      <Flex
+        className={S.snap_container}
+        gap={20}
+        px={50}
+        w="100%"
+        ref={scrollRef}
+        onScroll={handleOnScroll}
+      >
+        {imageUrlList &&
+          imageUrlList.map((imageUrl, i) => (
+            <Flex
+              style={{ position: "relative" }}
+              scrollSnapAlign={"center"}
+              flex={"none"}
+            >
+              {/* <div className={S.circle} /> */}
               <img
+                onScroll={(e) => console.log(e)}
                 key={i}
+                className={S.snap_image_active}
                 fetchPriority="high"
                 loading="eager"
                 style={{ zIndex: 1, width: 286.64, height: 320 }}
@@ -179,9 +207,13 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
                 src={imageUrl}
                 width={286.64}
                 height={320}
+                ref={(ref) => {
+                  i == INITIAL_FRAME_ID && ref?.scrollIntoView();
+                  window.scrollTo({ top: 0 });
+                }}
               />
-            ))}
-        </Flex>
+            </Flex>
+          ))}
       </Flex>
       <Flex w="100%" py={36}></Flex>
 
