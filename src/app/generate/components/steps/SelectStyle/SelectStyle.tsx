@@ -31,10 +31,8 @@ const SelectProcessType = () => {
               key={type}
               type={type}
               selected={imageProcessType}
-              onClick={(imageProcessType) =>
-                setImageProcessType((s) =>
-                  s === imageProcessType ? null : imageProcessType
-                )
+              onClick={(type) =>
+                setImageProcessType((s) => (s === type ? null : type))
               }
             />
           ))}

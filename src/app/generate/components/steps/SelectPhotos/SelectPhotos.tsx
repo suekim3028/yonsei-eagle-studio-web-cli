@@ -76,7 +76,7 @@ const SelectPhotos = () => {
         onChange={handleOnFileChange}
       />
       <ScreenTemplate mention="아래 버튼을 눌러 사진을 올려주세요">
-        <NavBar onClick={() => goPrev("UPLOAD_DESCRIPTION")} />
+        <NavBar onClick={() => goPrev("SELECT_PHOTOS")} />
         <>
           <Flex
             direction={"column"}
