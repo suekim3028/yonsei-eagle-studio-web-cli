@@ -160,11 +160,15 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
       overflow={loading ? "hidden" : "scroll"}
       direction={"column"}
       w="100%"
+      position={"relative"}
       alignItems={"center"}
       bgRgbColor="#008CFF"
       minH={"100dvh"}
       pb={30}
     >
+      {[1, 2, 3, 4].map((i) => (
+        <div className={S[`confetti${i}`]} />
+      ))}
       <Flex w="100%" direction={"column"} py={40} alignItems={"center"}>
         <Text type="16_Light_Single" color="YONSEI_NAVY">
           {12}번째 독수리님
@@ -219,6 +223,7 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
 
       <Flex direction={"column"} w="100%" p={20}>
         <Flex position={"relative"} direction={"column"}>
+          <div className={S[`confetti5`]} />
           <div onClick={canDownload ? download : shareStory}>
             <ButtonEagle />
           </div>
