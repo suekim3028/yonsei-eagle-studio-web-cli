@@ -1,26 +1,54 @@
+"use client";
 import { BgContainer, Flex, Text } from "@components";
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 
 const ScreenTemplate = ({
   children,
   mention,
-}: {
+}: // anim,
+{
   children: React.ReactNode[];
   mention: string;
+  // anim?: boolean;
 }) => {
+  const [showStatus, setShowStatus] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowStatus(1);
+    }, 200);
+    setTimeout(() => {
+      setShowStatus(2);
+    }, 600);
+    setTimeout(() => {
+      setShowStatus(3);
+    }, 1200);
+  }, []);
+
   return (
     <BgContainer>
       {children[0]}
       <Flex w="100%" direction={"row"} px={20} mb={20}>
-        <Image
+        <img
+          className={styles.animation}
           alt={"talking eagle"}
           src={"/images/talking_eagle.png"}
           width={66.32}
           height={62.98}
-          style={{ width: 66.32, height: 62.98 }}
+          style={{
+            width: 66.32,
+            height: 62.98,
+            opacity: showStatus >= 1 ? 1 : 0,
+          }}
         />
-        <Flex ml={8} w="100%" alignItems={"center"}>
+        <Flex
+          ml={8}
+          w="100%"
+          alignItems={"center"}
+          className={styles.animation}
+          opacity={showStatus >= 2 ? 1 : 0}
+        >
           <Flex position={"relative"} zIndex={2} right={-1}>
             <div className={styles.triangle} />
             <div className={styles.inner_triangle} />
@@ -48,6 +76,8 @@ const ScreenTemplate = ({
         flex={1}
         overflow={"hidden"}
         justifyContent={"space-between"}
+        opacity={showStatus >= 3 ? 1 : 0}
+        className={styles.animation_body}
       >
         <Flex
           direction={"column"}

@@ -7,6 +7,7 @@ const Carousel = ({ gap, width, height, center, images }: CarouselProps) => {
     <Flex gap={gap} w="100%">
       {images.map((image, i) => (
         <Image
+          key={image}
           quality={100}
           alt={`image_${i}`}
           width={width}

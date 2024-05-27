@@ -19,3 +19,11 @@
   right: 0;
   top: 1px;
 }
+
+.animation {
+  transition: opacity 0.4s ease-in;
+}
+
+.animation_body {
+  transition: opacity 0.5s ease-in;
+}
