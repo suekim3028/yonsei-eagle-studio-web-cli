@@ -32,7 +32,7 @@ export default function SignIn() {
             align={"center"}
             color={"YONSEI_NAVY"}
             type={"18_Light_Multi"}
-          >{`카카오로 3초만에 로그인하고\n내 AI 프로필 확인하기!`}</Text>
+          >{`카카오로 3초만에 로그인하고\n무료 AI 프로필 만들기!`}</Text>
         </Flex>
       </Flex>
       <Flex w={"100%"} direction={"column"} px={20} alignItems={"center"}>
