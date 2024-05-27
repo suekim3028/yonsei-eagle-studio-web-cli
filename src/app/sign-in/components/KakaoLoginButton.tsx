@@ -13,6 +13,7 @@ const KakaoLoginButton = () => {
     <Button
       type={"NAVY"}
       icon="kakaotalk"
+      iconSize={32}
       title={"카카오로 계속하기"}
       bgRgbColor="rgba(254, 229, 0, 1)"
       textColor="BLACK"
