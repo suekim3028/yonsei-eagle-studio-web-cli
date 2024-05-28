@@ -4,4 +4,15 @@
   overflow: auto;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.snap_container::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  display: none;
+}
+
+.snap_container::-webkit-scrollbar-thumb {
+  display: none;
 }
