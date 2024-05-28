@@ -20,7 +20,7 @@ const SelectProcessType = () => {
   const imageProcessTypes: PhotoTypes.ProcessType[] = ["FEMALE", "MALE"];
   return (
     <ScreenTemplate
-      mention={`독수리사진관에 어서오세요!\n어떤 AI 프로필을 만들어 볼까요?`}
+      mention={`독수리 사진관에 어서오세요!\n어떤 AI 프로필을 만들어 볼까요?`}
     >
       <NavBar onClick={() => router.replace("/")} />
       <>
