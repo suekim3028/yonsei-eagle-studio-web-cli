@@ -1,12 +1,13 @@
 .circle {
-  width: 130dvw;
-  height: 130dvw;
-  left: calc(50%-65dvw);
-  top: calc(50%-65dvw);
+  top: 125px;
+  width: calc(min(130dvw, 63dvh));
+  height: calc(min(130dvw, 63dvh));
+  left: calc(50dvw - (min(130dvw, 63dvh) / 2));
   background-color: #d0e9ff;
   border-radius: 50%;
-  position: absolute;
+  position: fixed;
   z-index: 0;
+  overflow: hidden;
   filter: blur(34.1px);
   -webkit-filter: blur(34.1px);
   -moz-filter: blur(34.1px);

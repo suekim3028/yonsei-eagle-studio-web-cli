@@ -11,7 +11,7 @@ const Home = () => {
       alignItems={"flex-start"}
       minH={"100vh"}
       bgImage={"/images/main/bg.png"}
-      w={"100vw"}
+      w={"100%"}
       pb={63}
       backgroundSize={"cover"}
     >

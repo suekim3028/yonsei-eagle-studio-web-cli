@@ -1,6 +1,5 @@
 "use client";
 import { Flex } from "@components";
-import { useEffect, useRef } from "react";
 import S from "./Carousel.module.css";
 
 const Carousel = ({
@@ -11,29 +10,13 @@ const Carousel = ({
   center,
   images,
 }: CarouselProps) => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (ref.current)
-      ref.current.scrollLeft =
-        (px || 0) + width * (center - 1 + 0.5) + gap * center;
-  }, []);
-
   return (
-    <Flex
-      className={S.snap_container}
-      gap={gap}
-      px={px}
-      w="100%"
-      // onLoad={(e)=>this.}
-      ref={ref}
-    >
+    <Flex className={S.snap_container} gap={gap} px={px} w="100%">
       {images.map((image, i) => (
         <Flex
           style={{ position: "relative" }}
           scrollSnapAlign={"center"}
           flex={"none"}
-          translateX={`${(px || 0) + width * (center + 0.5) + gap * center}px`}
         >
           <img
             onScroll={(e) => console.log(e)}
