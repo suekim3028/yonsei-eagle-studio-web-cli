@@ -169,9 +169,10 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
       {[1, 2, 3, 4].map((i) => (
         <div className={S[`confetti${i}`]} />
       ))}
+
       <Flex w="100%" direction={"column"} py={40} alignItems={"center"}>
         <Text type="16_Light_Single" color="YONSEI_NAVY">
-          {12}번째 독수리님
+          🦅 독수리가 물어다 준
         </Text>
         <Text
           type="20_Bold_Single"
@@ -183,6 +184,7 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
           내 AI 프로필 완성!
         </Text>
       </Flex>
+      <div className={S.circle} />
 
       <Flex
         className={S.snap_container}
@@ -195,15 +197,15 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
         {imageUrlList &&
           imageUrlList.map((imageUrl, i) => (
             <Flex
+              zIndex={3}
               style={{ position: "relative" }}
               scrollSnapAlign={"center"}
               flex={"none"}
+              boxShadow={"0px 3.9px 9.76px 0px rgba(0, 0, 0, 0.1)"}
             >
-              {/* <div className={S.circle} /> */}
               <img
                 onScroll={(e) => console.log(e)}
                 key={i}
-                className={S.snap_image_active}
                 fetchPriority="high"
                 loading="eager"
                 style={{ zIndex: 1, width: 286.64, height: 320 }}

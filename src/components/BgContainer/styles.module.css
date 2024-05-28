@@ -1,8 +1,8 @@
 .circle {
   top: 125px;
-  width: calc(min(130dvw, 63dvh));
-  height: calc(min(130dvw, 63dvh));
-  left: calc(50dvw - (min(130dvw, 63dvh) / 2));
+  width: calc(min(130vw, 63vh));
+  height: calc(min(130vw, 63vh));
+  left: calc(50vw - (min(130vw, 63vh) / 2));
   background-color: #d0e9ff;
   border-radius: 50%;
   position: fixed;

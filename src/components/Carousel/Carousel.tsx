@@ -2,7 +2,6 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-import S from "./Carousel.module.css";
 const Carousel = ({
   gap,
   width,
@@ -31,8 +30,6 @@ const Carousel = ({
             key={i}
           >
             <img
-              onScroll={(e) => console.log(e)}
-              className={S.snap_image_active}
               fetchPriority="high"
               loading="eager"
               style={{
