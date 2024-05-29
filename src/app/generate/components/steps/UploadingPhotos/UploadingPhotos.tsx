@@ -20,12 +20,10 @@ const UploadingPhotos = () => {
   ): Promise<string[]> => {
     if (index >= photos.length) return array;
     const photoFile = photos[index];
-    const image = await jsUtils.fileToImage(photoFile);
-    const photo = await jsUtils.resizeImage(image, 750, "Blob");
-    image.remove();
+
+    const photo = await jsUtils.resizeFile(photoFile, 750);
 
     if (!photo) {
-      alert("사진 변환 실패");
       throw new Error();
     }
 
@@ -37,7 +35,6 @@ const UploadingPhotos = () => {
     console.log("===2===", imageIdData);
 
     if (linkIdError) {
-      alert("링크 생성 에러");
       throw new Error();
     }
     const formData = new FormData();
@@ -56,13 +53,10 @@ const UploadingPhotos = () => {
         data: formData,
       });
       if (photoUploadError2) {
-        alert("사진 업로드 에러");
-
         throw new Error();
       }
     }
 
-    await jsUtils.wait(0.5);
     return uploadPhotos(index + 1, [...array, imageIdData.imageId]);
   };
 
@@ -103,8 +97,6 @@ const UploadingPhotos = () => {
             console.log("===7.5===", createRequestError2);
 
             if (createRequestError2) {
-              alert("사진 리퀘스트 에러");
-
               throw new Error();
             }
           }
