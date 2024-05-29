@@ -4,9 +4,10 @@ import { ReactNode } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
+import S from "./Carousel.module.css";
 
 const Carousel = (props: CarouselProps) => {
-  const { width, height, dots, center, images, shadow } = props;
+  const { width, height, dots, center, images, anim, shadow } = props;
   const settings = {
     className: "slider",
     centerMode: true,
@@ -34,26 +35,28 @@ const Carousel = (props: CarouselProps) => {
       >
         {images.map((image, i) => (
           <CustomSlide {...props}>
-            <img
-              fetchPriority="high"
-              loading="eager"
-              style={{
-                display: "flex",
-                zIndex: 1,
-                width,
-                height,
-                boxShadow: shadow
-                  ? "0px 3.9px 9.76px 0px rgba(0, 0, 0, 0.1)"
-                  : undefined,
-                WebkitBoxShadow: shadow
-                  ? "0px 3.9px 9.76px 0px rgba(0, 0, 0,0.1)"
-                  : undefined,
-              }}
-              alt={`result_image_${i}`}
-              src={image}
-              width={width}
-              height={height}
-            />
+            <div className={anim ? S.zoom : undefined}>
+              <img
+                fetchPriority="high"
+                loading="eager"
+                style={{
+                  display: "flex",
+                  zIndex: 1,
+                  width,
+                  height,
+                  boxShadow: shadow
+                    ? "0px 3.9px 9.76px 0px rgba(0, 0, 0, 0.1)"
+                    : undefined,
+                  WebkitBoxShadow: shadow
+                    ? "0px 3.9px 9.76px 0px rgba(0, 0, 0,0.1)"
+                    : undefined,
+                }}
+                alt={`result_image_${i}`}
+                src={image}
+                width={width}
+                height={height}
+              />
+            </div>
           </CustomSlide>
         ))}
       </Slider>
@@ -64,7 +67,7 @@ const Carousel = (props: CarouselProps) => {
 const CustomSlide = (
   props: CarouselProps & { style?: any; children: ReactNode }
 ) => {
-  const { width, gap, height, children, shadow, ...otherProps } = props;
+  const { width, gap, height, children, shadow, anim, ...otherProps } = props;
   return (
     <div
       {...otherProps}
@@ -95,6 +98,7 @@ type CarouselProps = {
   images: string[];
   dots?: boolean;
   shadow?: boolean;
+  anim?: boolean;
 };
 
 export default Carousel;

@@ -110,12 +110,12 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
 
       ctx.drawImage(
         profileImage,
-        BORDER_START,
-        BORDER_START,
-        IMAGE_SIZE,
-        IMAGE_SIZE
+        BORDER_START - 2,
+        BORDER_START - 2,
+        IMAGE_SIZE + 4,
+        IMAGE_SIZE + 4
       );
-      ctx.drawImage(frameImage, -1, -1, BG_WIDTH + 2, BG_HEIGHT + 2);
+      ctx.drawImage(frameImage, -2, -2, BG_WIDTH + 4, BG_HEIGHT + 4);
 
       canvas.toBlob((blob) => {
         if (!blob) return;
@@ -184,6 +184,7 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
       {imageUrlList && (
         <Carousel
           shadow
+          anim
           gap={20}
           width={286.64}
           height={320}
