@@ -15,23 +15,7 @@
 }
 
 .snap_container {
-  display: flex;
-  flex: none;
-  overflow: auto;
-  overflow-y: visible;
-  scroll-snap-type: x mandatory;
   animation: zoomin 400ms ease-in-out;
-  scrollbar-width: none;
-}
-
-.snap_container::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-  display: none;
-}
-
-.snap_container::-webkit-scrollbar-thumb {
-  display: none;
 }
 
 @keyframes zoomin {

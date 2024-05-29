@@ -1,14 +1,8 @@
-import { Button, Flex, Text } from "@components";
+import { Button, Carousel, Flex, Text } from "@components";
 import { commonUtils } from "@utils";
 import { commonHooks, jsUtils } from "@web-core";
 import { useRouter } from "next/navigation";
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import ButtonEagle from "../ButtonEagle";
 import LoadingBeforeResult from "../LoadingBeforeResult";
 import S from "./CompletedResult.style.module.css";
@@ -34,8 +28,6 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
 
   const rendered = useRef(false);
 
-  const scrollRef = useRef<HTMLDivElement>(null);
-
   const download = () => {
     imageUrlList &&
       jsUtils.downloadImages(
@@ -48,14 +40,17 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
       );
   };
 
-  const shareStory = () => {
-    alert("1");
+  const shareCurrentImage = () => {
+    imageUrlList &&
+      jsUtils.downloadImages(
+        imageUrlList.slice(0, 1),
+        blobs.current.filter((blob): blob is Blob => !!blob),
+        (i) => `eagle_studio_profile_${i}.png`,
+        {
+          type: "image/png",
+        }
+      );
   };
-
-  const handleOnScroll = useCallback(() => {
-    console.log(scrollRef.current?.scrollLeft);
-    console.log(scrollRef.current?.scrollWidth);
-  }, []);
 
   commonHooks.useAsyncEffect(async () => {
     if (rendered.current) return;
@@ -186,47 +181,24 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
       </Flex>
       <div className={S.circle} />
 
-      <Flex
-        className={S.snap_container}
-        gap={20}
-        px={50}
-        w="100%"
-        ref={scrollRef}
-        onScroll={handleOnScroll}
-      >
-        {imageUrlList &&
-          imageUrlList.map((imageUrl, i) => (
-            <Flex
-              zIndex={3}
-              style={{ position: "relative" }}
-              scrollSnapAlign={"center"}
-              flex={"none"}
-              boxShadow={"0px 3.9px 9.76px 0px rgba(0, 0, 0, 0.1)"}
-            >
-              <img
-                onScroll={(e) => console.log(e)}
-                key={i}
-                fetchPriority="high"
-                loading="eager"
-                style={{ zIndex: 1, width: 286.64, height: 320 }}
-                alt={`result_image_${i}`}
-                src={imageUrl}
-                width={286.64}
-                height={320}
-                ref={(ref) => {
-                  i == INITIAL_FRAME_ID && ref?.scrollIntoView();
-                  window.scrollTo({ top: 0 });
-                }}
-              />
-            </Flex>
-          ))}
-      </Flex>
+      {imageUrlList && (
+        <Carousel
+          shadow
+          gap={20}
+          width={286.64}
+          height={320}
+          center={INITIAL_FRAME_ID}
+          images={imageUrlList}
+          dots
+        />
+      )}
+
       <Flex w="100%" py={36}></Flex>
 
       <Flex direction={"column"} w="100%" p={20}>
         <Flex position={"relative"} direction={"column"}>
           <div className={S[`confetti5`]} />
-          <div onClick={canDownload ? download : shareStory}>
+          <div onClick={canDownload ? download : shareCurrentImage}>
             <ButtonEagle />
           </div>
           {canDownload && (
@@ -245,10 +217,9 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
               mt={canDownload ? 12 : 0}
               stretch
               type={"WHITE"}
-              title={"스토리에 공유하기"}
-              icon={"instagram"}
+              title={"공유하기"}
               size="L"
-              onClick={shareStory}
+              onClick={shareCurrentImage}
             />
           </Flex>
         </Flex>
