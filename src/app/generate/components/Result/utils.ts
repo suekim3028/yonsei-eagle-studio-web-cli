@@ -10,15 +10,13 @@ export const copyLink = async () => {
     "canShare" in navigator &&
     navigator.canShare({
       title: "독수리 사진관",
-      text: "아카라카 기념 나만의 Ai 프로필 확인하러 가기!",
-      url,
+      text: `아카라카 기념 나만의 Ai 프로필 확인하러 가기!\n${`${process.env.NEXT_PUBLIC_WEB_URL}/generate`}`,
     });
   if (canShare) {
     try {
       await navigator.share({
         title: "독수리 사진관",
-        text: "아카라카 기념 나만의 Ai 프로필 확인하러 가기!",
-        url: `${process.env.NEXT_PUBLIC_WEB_URL}/generate`,
+        text: `아카라카 기념 나만의 Ai 프로필 확인하러 가기!\n${`${process.env.NEXT_PUBLIC_WEB_URL}/generate`}`,
       });
     } catch (e) {
       console.warn("canceled");

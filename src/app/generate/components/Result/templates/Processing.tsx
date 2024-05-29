@@ -1,12 +1,10 @@
 "use client";
 import { BgContainer, Button, Flex, Icon, Text } from "@components";
 import { APP_CONSTS } from "@consts";
-import { WebPushManager } from "@lib";
 import { PhotoTypes } from "@types";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useCallback, useRef } from "react";
-import { PushAvailable } from "../components/PushAvailable";
+import React, { useCallback } from "react";
 import PushUnavailable from "../components/PushUnavailable";
 import Timer from "../components/Timer";
 
@@ -17,13 +15,9 @@ const Processing = ({
   imageProcessType: PhotoTypes.ProcessType;
   leftSeconds: number;
 }) => {
-  const hasPushManager = useRef(
-    new WebPushManager().status === "INITIALIZED"
-  ).current;
-
   const renderButtons = useCallback(() => {
     if (leftSeconds > 0) {
-      return hasPushManager ? <PushAvailable /> : <PushUnavailable />;
+      return <PushUnavailable />;
     } else {
       return (
         <Flex
