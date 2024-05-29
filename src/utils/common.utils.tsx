@@ -7,14 +7,12 @@ export const sharePage = async () => {
   const canShare =
     "canShare" in navigator &&
     navigator.canShare({
-      title: "독수리 사진관",
       text: `아카라카 기념 나만의 AI 프로필 확인하러 가기!\n${url}`,
     });
 
   if (canShare) {
     try {
       await navigator.share({
-        title: "독수리 사진관",
         text: `아카라카 기념 나만의 AI 프로필 확인하러 가기!\n${url}`,
       });
     } catch (e) {
