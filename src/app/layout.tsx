@@ -12,11 +12,11 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "독수리 사진관",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_WEB_URL),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SHARE_WEB_URL),
   description: "아카라카 기념 무료 AI 프로필 서비스",
   openGraph: {
     type: "website",
-    url: process.env.NEXT_PUBLIC_WEB_URL,
+    url: process.env.NEXT_PUBLIC_SHARE_WEB_URL,
     title: "독수리 사진관",
     description: "아카라카 기념 나만의 AI 프로필 확인하러 가기!",
     siteName: "독수리 사진관",

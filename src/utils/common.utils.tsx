@@ -2,7 +2,7 @@ import { ErrorModal, ErrorModalProps } from "@components";
 import { ModalManager, webUtils } from "@web-core";
 
 export const sharePage = async () => {
-  const url = process.env.NEXT_PUBLIC_WEB_URL;
+  const url = process.env.NEXT_PUBLIC_SHARE_WEB_URL;
 
   const canShare =
     "canShare" in navigator &&
