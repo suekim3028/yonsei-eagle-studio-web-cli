@@ -78,3 +78,48 @@
   background: #f7a1ff;
   transform: rotate(45deg);
 }
+
+.snap_container {
+  display: flex;
+  flex: none;
+  overflow-x: auto;
+  overflow-y: visible;
+  width: "100%";
+  scroll-snap-type: x mandatory;
+  padding-bottom: 10px;
+}
+
+.snap_container::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  display: none;
+}
+
+.snap_container::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+@keyframes zoomin {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+.zoom {
+  animation: zoomin 0.4s ease-in-out;
+  overflow: visible;
+}
+
+@keyframes zoomin {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

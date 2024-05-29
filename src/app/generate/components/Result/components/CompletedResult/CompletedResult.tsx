@@ -1,4 +1,4 @@
-import { Button, Carousel, Flex, Text } from "@components";
+import { Button, Flex, Text } from "@components";
 import { commonUtils } from "@utils";
 import { commonHooks, jsUtils } from "@web-core";
 import { useRouter } from "next/navigation";
@@ -15,7 +15,9 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
     Array.from({ length: FRAME_NUM }, () => null)
   );
 
+  const scrollRef = useRef<HTMLDivElement>(null);
   const currentIdx = useRef(INITIAL_FRAME_ID);
+  const indexDebounceRef = useRef<NodeJS.Timeout | null>(null);
 
   const [loading, setLoading] = useState(true);
   const canShare = useRef(
@@ -169,7 +171,6 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
       {[1, 2, 3, 4].map((i) => (
         <div className={S[`confetti${i}`]} key={i} />
       ))}
-
       <Flex w="100%" direction={"column"} py={40} alignItems={"center"}>
         <Text type="16_Light_Single" color="YONSEI_NAVY">
           🦅 독수리가 물어다 준
@@ -185,24 +186,62 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
         </Text>
       </Flex>
       <div className={S.circle} />
-
-      {imageUrlList && (
-        <Carousel
-          shadow
-          anim
+      {!!imageUrlList && (
+        <Flex
+          className={S.snap_container}
           gap={20}
-          width={286.64}
-          height={320}
-          center={INITIAL_FRAME_ID}
-          images={imageUrlList}
-          dots
-          onChangeIndex={(i) => (currentIdx.current = i)}
-        />
-      )}
+          px={50}
+          w="100%"
+          ref={scrollRef}
+          onScroll={(e) => {
+            if (indexDebounceRef.current)
+              clearTimeout(indexDebounceRef.current);
 
-      <Flex w="100%" py={40} />
+            indexDebounceRef.current = setTimeout(() => {
+              if (!scrollRef.current) return (indexDebounceRef.current = null);
+              const { clientWidth, scrollLeft } = scrollRef.current;
+              const index = Math.floor(
+                (scrollLeft + clientWidth / 2 - px) / (gap + width)
+              );
+              currentIdx.current = index;
+              indexDebounceRef.current = null;
+            }, 100);
+          }}
+        >
+          {imageUrlList.map((imageUrl, i) => (
+            <Flex
+              scrollSnapAlign={"center"}
+              flex={"none"}
+              key={i}
+              className={S.zoom}
+            >
+              <img
+                fetchPriority="high"
+                loading="eager"
+                style={{
+                  zIndex: 1,
+                  width: 286.64,
+                  height: 320,
+                  overflow: "visible",
+                  boxShadow: "0px 3.9px 9.76px 0px rgba(0, 0, 0, 0.1)",
+                  WebkitBoxShadow: "0px 3.9px 9.76px 0px rgba(0, 0, 0, 0.1)",
+                }}
+                alt={`result_image_${i}`}
+                src={imageUrl}
+                width={286.64}
+                height={320}
+                ref={(ref) => {
+                  i == INITIAL_FRAME_ID && ref?.scrollIntoView();
+                  window.scrollTo({ top: 0 });
+                }}
+              />
+            </Flex>
+          ))}
+        </Flex>
+      )}
+      <Flex w="100%" py={20} />
       {canShare && (
-        <Flex direction={"column"} w="100%" p={20} zIndex={2}>
+        <Flex direction={"column"} w="100%" p={20} zIndex={2} mt={10}>
           <Flex position={"relative"} direction={"column"}>
             <div className={S[`confetti5`]} />
             <div onClick={canShare ? download : shareCurrentImage}>
@@ -282,5 +321,10 @@ const BG: { start: string; end: string }[] = [
     end: "#3463DC",
   },
 ];
+
+const width = 286.64;
+const height = 320;
+const gap = 20;
+const px = 50;
 
 export default React.memo(Completed);
