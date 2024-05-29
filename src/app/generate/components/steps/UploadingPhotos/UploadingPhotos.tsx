@@ -23,7 +23,11 @@ const UploadingPhotos = () => {
     const image = await jsUtils.fileToImage(photoFile);
     const photo = await jsUtils.resizeImage(image, 750, "Blob");
     image.remove();
-    if (!photo) throw new Error();
+
+    if (!photo) {
+      alert("사진 변환 실패");
+      throw new Error();
+    }
 
     console.log("===1===", { photo });
 
@@ -32,7 +36,10 @@ const UploadingPhotos = () => {
 
     console.log("===2===", imageIdData);
 
-    if (linkIdError) throw new Error();
+    if (linkIdError) {
+      alert("링크 생성 에러");
+      throw new Error();
+    }
     const formData = new FormData();
     formData.append("file", photo, "photo.png");
 
@@ -48,7 +55,11 @@ const UploadingPhotos = () => {
         imageId: imageIdData.imageId,
         data: formData,
       });
-      if (photoUploadError2) throw new Error();
+      if (photoUploadError2) {
+        alert("사진 업로드 에러");
+
+        throw new Error();
+      }
     }
 
     await jsUtils.wait(0.5);
@@ -91,7 +102,11 @@ const UploadingPhotos = () => {
 
             console.log("===7.5===", createRequestError2);
 
-            if (createRequestError2) throw new Error();
+            if (createRequestError2) {
+              alert("사진 리퀘스트 에러");
+
+              throw new Error();
+            }
           }
 
           console.log("===7===", createRequestError);
