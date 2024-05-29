@@ -7,13 +7,13 @@ export const sharePage = async () => {
   const canShare =
     "canShare" in navigator &&
     navigator.canShare({
-      text: `아카라카 기념 나만의 AI 프로필 확인하러 가기!\n${url}`,
+      text: `무악대동제 기념 나만의 AI 프로필 확인하러 가기!\n${url}`,
     });
 
   if (canShare) {
     try {
       await navigator.share({
-        text: `아카라카 기념 나만의 AI 프로필 확인하러 가기!\n${url}`,
+        text: `무악대동제 기념 나만의 AI 프로필 확인하러 가기!\n${url}`,
       });
     } catch (e) {
       console.warn("canceled");
