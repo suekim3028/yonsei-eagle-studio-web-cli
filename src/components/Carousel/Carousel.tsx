@@ -4,7 +4,6 @@ import { ReactNode } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-import S from "./Carousel.module.css";
 
 const Carousel = (props: CarouselProps) => {
   const { width, height, dots, center, images, shadow } = props;
@@ -25,7 +24,14 @@ const Carousel = (props: CarouselProps) => {
       className="slider-container"
       style={{ width: "100%", overflow: "visible" }}
     >
-      <Slider {...settings}>
+      <Slider
+        {...settings}
+        ref={(ref) => {
+          if (ref)
+            if (ref.innerSlider?.list)
+              ref.innerSlider.list.style.overflow = "visible";
+        }}
+      >
         {images.map((image, i) => (
           <CustomSlide {...props}>
             <img
@@ -36,8 +42,13 @@ const Carousel = (props: CarouselProps) => {
                 zIndex: 1,
                 width,
                 height,
+                boxShadow: shadow
+                  ? "0px 3.9px 9.76px 0px rgba(0, 0, 0, 0.1)"
+                  : undefined,
+                WebkitBoxShadow: shadow
+                  ? "0px 3.9px 9.76px 0px rgba(0, 0, 0,0.1)"
+                  : undefined,
               }}
-              className={shadow ? S.boxShadow : undefined}
               alt={`result_image_${i}`}
               src={image}
               width={width}
@@ -53,14 +64,13 @@ const Carousel = (props: CarouselProps) => {
 const CustomSlide = (
   props: CarouselProps & { style?: any; children: ReactNode }
 ) => {
-  const { width, gap, height, children, ...otherProps } = props;
+  const { width, gap, height, children, shadow, ...otherProps } = props;
   return (
     <div
       {...otherProps}
       style={{
         ...otherProps["style"],
         width: width + gap,
-
         overflow: "visible",
       }}
     >
