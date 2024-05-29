@@ -4,7 +4,7 @@ import S from "./styles.module.css";
 const UploadPhotoExamples = () => {
   const badDescriptions = ["얼굴 일부를 가린", "전신 사진", "단체 사진 크롭"];
 
-  const goodDescriptions = ["정면에서 찍은", "얼굴 위주 사진", "배경이 단색인"];
+  const goodDescriptions = ["정면에서 찍은", "얼굴 위주 셀카", "배경이 단색인"];
 
   const renderImages = (type: "good" | "bad") => {
     return (
