@@ -38,15 +38,18 @@ const UploadingPhotos = () => {
 
     console.log("===3===", formData);
 
-    const { data: photoUpload, isError: photoUploadError } =
-      await photoApis.uploadPhoto({
+    const { isError: photoUploadError } = await photoApis.uploadPhoto({
+      imageId: imageIdData.imageId,
+      data: formData,
+    });
+
+    if (photoUploadError) {
+      const { isError: photoUploadError2 } = await photoApis.uploadPhoto({
         imageId: imageIdData.imageId,
         data: formData,
       });
-
-    console.log("===4===", { photoUploadError, photoUpload });
-
-    if (photoUploadError) throw new Error();
+      if (photoUploadError2) throw new Error();
+    }
 
     return uploadPhotos(index + 1, [...array, imageIdData.imageId]);
   };
@@ -77,6 +80,16 @@ const UploadingPhotos = () => {
               imageList: photoIds,
               imageProcessType,
             });
+
+          if (createRequestError) {
+            const { isError: createRequestError2 } =
+              await photoApis.createPhotoRequest({
+                imageList: photoIds,
+                imageProcessType,
+              });
+
+            if (createRequestError2) throw new Error();
+          }
 
           console.log("===7===", createRequestError);
           if (createRequestError) throw new Error();
