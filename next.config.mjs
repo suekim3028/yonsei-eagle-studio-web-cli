@@ -2,7 +2,7 @@
 const nextConfig = {
   transpilePackages: ["@suekime3028/web-core"], //Next.js can automatically transpile and bundle dependencies from local packages
   compiler: {
-    // removeConsole: process.env.NODE_ENV === 'production',
+    removeConsole: process.env.NODE_ENV === "production",
   },
   reactStrictMode: true,
   images: {
