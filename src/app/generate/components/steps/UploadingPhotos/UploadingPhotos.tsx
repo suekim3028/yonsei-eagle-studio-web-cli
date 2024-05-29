@@ -51,6 +51,7 @@ const UploadingPhotos = () => {
       if (photoUploadError2) throw new Error();
     }
 
+    await jsUtils.wait(0.5);
     return uploadPhotos(index + 1, [...array, imageIdData.imageId]);
   };
 
