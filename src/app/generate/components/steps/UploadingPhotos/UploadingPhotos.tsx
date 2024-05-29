@@ -88,6 +88,8 @@ const UploadingPhotos = () => {
                 imageProcessType,
               });
 
+            console.log("===7.5===", createRequestError2);
+
             if (createRequestError2) throw new Error();
           }
 
