@@ -15,8 +15,10 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
     Array.from({ length: FRAME_NUM }, () => null)
   );
 
+  const currentIdx = useRef(INITIAL_FRAME_ID);
+
   const [loading, setLoading] = useState(true);
-  const canDownload = useRef(
+  const canShare = useRef(
     "canShare" in navigator && "share" in navigator
     // true
   ).current;
@@ -43,8 +45,10 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
   const shareCurrentImage = () => {
     imageUrlList &&
       jsUtils.downloadImages(
-        imageUrlList.slice(0, 1),
-        blobs.current.filter((blob): blob is Blob => !!blob),
+        imageUrlList.slice(currentIdx.current, currentIdx.current + 1),
+        blobs.current
+          .filter((blob): blob is Blob => !!blob)
+          .slice(currentIdx.current, currentIdx.current + 1),
         (i) => `eagle_studio_profile_${i}.png`,
         {
           type: "image/png",
@@ -152,7 +156,8 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
   ) : (
     <Flex
       style={{ visibility: loading ? "hidden" : "visible" }}
-      overflow={loading ? "hidden" : "scroll"}
+      overflowY={loading ? "hidden" : "scroll"}
+      overflowX={"hidden"}
       direction={"column"}
       w="100%"
       position={"relative"}
@@ -162,7 +167,7 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
       pb={30}
     >
       {[1, 2, 3, 4].map((i) => (
-        <div className={S[`confetti${i}`]} />
+        <div className={S[`confetti${i}`]} key={i} />
       ))}
 
       <Flex w="100%" direction={"column"} py={40} alignItems={"center"}>
@@ -191,18 +196,19 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
           center={INITIAL_FRAME_ID}
           images={imageUrlList}
           dots
+          onChangeIndex={(i) => (currentIdx.current = i)}
         />
       )}
 
-      <Flex w="100%" py={36}></Flex>
+      <Flex w="100%" py={40} />
+      {canShare && (
+        <Flex direction={"column"} w="100%" p={20} zIndex={2}>
+          <Flex position={"relative"} direction={"column"}>
+            <div className={S[`confetti5`]} />
+            <div onClick={canShare ? download : shareCurrentImage}>
+              <ButtonEagle />
+            </div>
 
-      <Flex direction={"column"} w="100%" p={20}>
-        <Flex position={"relative"} direction={"column"}>
-          <div className={S[`confetti5`]} />
-          <div onClick={canDownload ? download : shareCurrentImage}>
-            <ButtonEagle />
-          </div>
-          {canDownload && (
             <Flex w={"100%"} zIndex={1}>
               <Button
                 type={"NAVY_GRADIENT"}
@@ -212,25 +218,27 @@ const Completed = ({ imageUrl }: { imageUrl: string }) => {
                 stretch
               />
             </Flex>
-          )}
-          <Flex w={"100%"} zIndex={1}>
-            <Button
-              mt={canDownload ? 12 : 0}
-              stretch
-              type={"WHITE"}
-              title={"공유하기"}
-              size="L"
-              onClick={shareCurrentImage}
-            />
+
+            <Flex w={"100%"} zIndex={1}>
+              <Button
+                mt={12}
+                stretch
+                type={"WHITE"}
+                title={"공유하기"}
+                size="L"
+                onClick={shareCurrentImage}
+              />
+            </Flex>
           </Flex>
         </Flex>
-      </Flex>
+      )}
       <Text
         type="14_Light_Multi"
         color={"WHITE"}
         textAlign={"center"}
+        zIndex={4}
       >{`@eaglefilm_yonsei 를 태그해주면 기쁠 거예요!\n즐거운 대동제 되세요 🤍`}</Text>
-      <Flex mt={80} direction={"column"}>
+      <Flex mt={80} direction={"column"} zIndex={4}>
         <Button
           type={"WHITE"}
           title={"친구에게 알려주기"}

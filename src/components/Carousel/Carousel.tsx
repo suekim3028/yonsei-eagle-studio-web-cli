@@ -7,7 +7,17 @@ import "slick-carousel/slick/slick.css";
 import S from "./Carousel.module.css";
 
 const Carousel = (props: CarouselProps) => {
-  const { width, height, dots, center, images, anim, shadow } = props;
+  const {
+    width,
+    height,
+    dots,
+    gap,
+    center,
+    images,
+    anim,
+    shadow,
+    onChangeIndex,
+  } = props;
   const settings = {
     className: "slider",
     centerMode: true,
@@ -18,12 +28,13 @@ const Carousel = (props: CarouselProps) => {
     variableWidth: true,
     dots,
     centerPadding: "0px",
+    afterChange: onChangeIndex,
   };
 
   return (
     <div
       className="slider-container"
-      style={{ width: "100%", overflow: "visible" }}
+      style={{ width: "100%", overflow: "hidden" }}
     >
       <Slider
         {...settings}
@@ -34,7 +45,7 @@ const Carousel = (props: CarouselProps) => {
         }}
       >
         {images.map((image, i) => (
-          <CustomSlide {...props}>
+          <CustomSlide {...{ width, gap, height, shadow, anim }} key={i}>
             <div className={anim ? S.zoom : undefined}>
               <img
                 fetchPriority="high"
@@ -65,7 +76,10 @@ const Carousel = (props: CarouselProps) => {
 };
 
 const CustomSlide = (
-  props: CarouselProps & { style?: any; children: ReactNode }
+  props: Pick<CarouselProps, "width" | "gap" | "height" | "shadow" | "anim"> & {
+    style?: any;
+    children: ReactNode;
+  }
 ) => {
   const { width, gap, height, children, shadow, anim, ...otherProps } = props;
   return (
@@ -99,6 +113,7 @@ type CarouselProps = {
   dots?: boolean;
   shadow?: boolean;
   anim?: boolean;
+  onChangeIndex?: (index: number) => void;
 };
 
 export default Carousel;
