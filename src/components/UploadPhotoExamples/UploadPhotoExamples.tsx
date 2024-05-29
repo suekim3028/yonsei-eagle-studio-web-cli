@@ -33,7 +33,7 @@ const UploadPhotoExamples = () => {
                 >
                   {type === "good" ? "✅" : "❌"}
                 </Text>
-                <Text type="12_Light_Single" color="YONSEI_CHARCOAL" mt={12}>
+                <Text type="12_Medium_Single" color="YONSEI_CHARCOAL" mt={12}>
                   {desc}
                 </Text>
               </Flex>
@@ -47,18 +47,18 @@ const UploadPhotoExamples = () => {
     <Flex w="100%" direction={"column"}>
       <Flex direction={"column"}>
         <Text type={"16_Medium_Single"} color={"YONSEI_NAVY"} ml={28}>
-          이런 사진은 피해주세요
-        </Text>
-        {renderImages("bad")}
-      </Flex>
-      <Flex direction={"column"} mt={8}>
-        <Text type={"16_Medium_Single"} color={"YONSEI_NAVY"} ml={28}>
           이런 사진은 좋아요
         </Text>
         {renderImages("good")}
       </Flex>
+      <Flex direction={"column"} mt={8}>
+        <Text type={"16_Medium_Single"} color={"YONSEI_NAVY"} ml={28}>
+          이런 사진은 피해주세요
+        </Text>
+        {renderImages("bad")}
+      </Flex>
       <Text type="12_Light_Single" color="YONSEI_CHARCOAL" ml={28}>
-        {"*비슷한 각도의 정면 셀카가 많을수록 좋아요."}
+        {"*증명사진이 포함되면 베스트! 🙂"}
       </Text>
     </Flex>
   );

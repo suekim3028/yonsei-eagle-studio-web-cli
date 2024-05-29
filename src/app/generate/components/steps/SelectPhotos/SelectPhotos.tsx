@@ -3,6 +3,7 @@
 import { useStepContext } from "@app/generate/StepContext";
 import { Button, Flex, NavBar, Text } from "@components";
 import { GEN_CONSTS } from "@consts";
+import { commonUtils } from "@utils";
 import { ModalManager } from "@web-core";
 import { useRef } from "react";
 import PhotoExamplesModal from "../../PhotoExamplesModal/PhotoExamplesModal";
@@ -48,7 +49,12 @@ const SelectPhotos = () => {
   };
 
   const clickInput = () => {
-    inputRef.current?.click();
+    commonUtils.showConfirmPopup({
+      body: `프로필은 한 번만 생성할 수 있어요.\n좋은 결과를 위해서는\n✨가려지지 않은 셀카✨\n를 위주로 선택해 주세요!`,
+      yesText: "사진 선택하기",
+      positive: true,
+      onPressYes: () => inputRef.current?.click(),
+    });
   };
 
   const openExampleModal = () =>
@@ -85,15 +91,33 @@ const SelectPhotos = () => {
             px={47.5}
             alignItems={"center"}
           >
-            <Flex mb={20} alignItems={"flex-end"}>
-              <Text type="20_Medium_Multi" color="BLACK" mr={5}>
-                {`✅ 최소 6장 이상 `}
-              </Text>
+            <Text type="16_Light_Single" color="BLACK" mr={5}>
+              {`"얼굴 위주의 셀카"를`}
+            </Text>
+            <Flex mb={20} alignItems={"center"} mt={6}>
+              <Flex
+                bgColor={"BLACK"}
+                rounded={20}
+                py={4}
+                px={12}
+                alignItems={"center"}
+                justifyContent={"center"}
+              >
+                <Text type="18_Medium_Single" color="WHITE">
+                  {`최소 8장 이상`}
+                </Text>
+              </Flex>
 
-              <Text type="16_Light_Single" color="BLUE" mb={4}>
-                등록해 주세요!
+              <Text type="16_Light_Single" color="BLACK" ml={4}>
+                올려주세요
               </Text>
             </Flex>
+            <Text type="14_Light_Multi" color="YONSEI_CHARCOAL">
+              다른 사람이 포함되지 않은, 고화질 사진
+            </Text>
+            <Text type="14_Light_Multi" color="YONSEI_CHARCOAL" mt={4} mb={32}>
+              ❤️ 증명사진이 제일 좋아요! ❤️
+            </Text>
             <Button
               stretch
               type={"BLUE"}

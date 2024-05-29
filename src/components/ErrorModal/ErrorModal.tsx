@@ -9,6 +9,7 @@ const ErrorModal = ({
   noText,
   onPressYes,
   onPressNo,
+  positive,
 }: ErrorModalProps) => {
   const { close } = ModalManager;
   return (
@@ -20,7 +21,9 @@ const ErrorModal = ({
     >
       <Image
         alt="crying eagle"
-        src={"/images/crying_eagle.svg"}
+        src={
+          positive ? "/images/talking_eagle.png" : "/images/crying_eagle.svg"
+        }
         width={80}
         height={80}
         style={{ width: 80, height: 80 }}
@@ -36,14 +39,16 @@ const ErrorModal = ({
         px={40}
         flex={1}
       >
-        <Text
-          type={"18_Medium_Multi"}
-          color="YONSEI_NAVY"
-          mb={20}
-          textAlign={"center"}
-        >
-          {title}
-        </Text>
+        {!!title && (
+          <Text
+            type={"18_Medium_Multi"}
+            color="YONSEI_NAVY"
+            mb={20}
+            textAlign={"center"}
+          >
+            {title}
+          </Text>
+        )}
         <Text type="16_Light_Multi" color="YONSEI_NAVY" textAlign={"center"}>
           {body}
         </Text>
@@ -78,12 +83,13 @@ const ErrorModal = ({
 };
 
 export type ErrorModalProps = {
-  title: string;
+  title?: string;
   body: string;
   yesText: string;
   noText?: string;
   onPressYes?: () => void;
   onPressNo?: () => void;
+  positive?: boolean;
 };
 
 export default ErrorModal;
