@@ -13,14 +13,14 @@ const BottomSection = () => {
         {`독수리 사진관은\n어디서 진행하는 프로젝트인가요?`}
       </Text>
       <Text type={"14_Light_Multi"} color="YONSEI_NAVY" mt={16}>
-        {`독수리 사진관은 연세대학교 구글 학생 개발자 커뮤니티 Google Developer Student Clubs Yonsei 소속 팀 ‘LAVA’에서 낭만에 죽고 낭만에 사는 멤버들이 모여서 제작한 서비스입니다.\n더 자세한 내용이 궁금하다면 인스타그램에 @gdsc.yonsei를 검색해 주세요!`}
+        {`독수리 사진관은 연세대학교 구글 학생 개발자 커뮤니티 Google Developer Student Clubs Yonsei 소속 팀 ‘LAVA’에서 낭만에 죽고 낭만에 사는 멤버들이 모여서 제작한 서비스입니다.\n더 자세한 내용이 궁금하다면 아래 인스타그램을 확인해 주세요! 👇👇👇`}
       </Text>
       <Button
         size={"XS"}
         mt={12}
-        href="https://www.instagram.com/gdsc.yonsei"
+        href="https://www.instagram.com/eaglefilm_yonsei"
         type={"WHITE"}
-        title={"gdsc.yonsei 인스타그램"}
+        title={"독수리 사진관 인스타그램"}
         icon={"instagram"}
       />
       <Text type={"18_Medium_Multi"} color="YONSEI_NAVY" mt={48}>
