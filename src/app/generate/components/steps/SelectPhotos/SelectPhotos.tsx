@@ -54,6 +54,7 @@ const SelectPhotos = () => {
       yesText: "사진 선택하기",
       positive: true,
       onPressYes: () => inputRef.current?.click(),
+      wait: true,
     });
   };
 
@@ -104,7 +105,7 @@ const SelectPhotos = () => {
                 justifyContent={"center"}
               >
                 <Text type="18_Medium_Single" color="WHITE">
-                  {`최소 8장 이상`}
+                  {`최소 ${NUM_MIN}장 이상`}
                 </Text>
               </Flex>
 

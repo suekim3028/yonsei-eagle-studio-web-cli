@@ -77,6 +77,8 @@ const Button = L.ButtonComponentGenerator(
         backgroundStart: "#002875",
         backgroundEnd: "#002875",
         textColor: "WHITE",
+        disabledBgColor: "YONSEI_BABY_GRAY",
+        disabledTextColor: "YONSEI_CHARCOAL",
       },
       WHITE: {
         backgroundStart: "#FFFFFFB2",

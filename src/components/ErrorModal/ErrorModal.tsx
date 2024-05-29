@@ -1,6 +1,8 @@
+"use client";
 import { Button, Flex, Text } from "@components";
-import { ModalManager } from "@web-core";
+import { ModalManager, commonHooks } from "@web-core";
 import Image from "next/image";
+import { useState } from "react";
 
 const ErrorModal = ({
   title,
@@ -10,8 +12,21 @@ const ErrorModal = ({
   onPressYes,
   onPressNo,
   positive,
+  wait,
 }: ErrorModalProps) => {
   const { close } = ModalManager;
+  const [leftSeconds, setLeftSeconds] = useState(wait ? 2 : 0);
+
+  const handleClick = (fn?: () => void) => {
+    if (leftSeconds > 0) return;
+    close();
+    fn && fn();
+  };
+
+  commonHooks.useSecondEffect(2, (times) => {
+    if (wait) setLeftSeconds(2 - times - 1);
+  });
+
   return (
     <Flex
       direction={"column"}
@@ -55,10 +70,12 @@ const ErrorModal = ({
         <Flex w="100%" mt={20} direction={"column"} alignItems={"center"}>
           <Button
             stretch
-            title={yesText}
+            disabled={leftSeconds > 0}
+            title={`${
+              wait && leftSeconds > 0 ? `(${leftSeconds}) ` : ""
+            }${yesText}`}
             onClick={() => {
-              close();
-              onPressYes && onPressYes();
+              handleClick(onPressYes);
             }}
             type={"NAVY"}
             size="M"
@@ -69,8 +86,7 @@ const ErrorModal = ({
               type={"16_Light_Single"}
               color="YONSEI_CHARCOAL"
               onClick={() => {
-                close();
-                onPressNo && onPressNo();
+                handleClick(onPressNo);
               }}
             >
               {noText}
@@ -90,6 +106,7 @@ export type ErrorModalProps = {
   onPressYes?: () => void;
   onPressNo?: () => void;
   positive?: boolean;
+  wait?: boolean;
 };
 
 export default ErrorModal;
