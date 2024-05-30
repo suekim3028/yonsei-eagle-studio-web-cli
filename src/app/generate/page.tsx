@@ -6,7 +6,11 @@ import { jsUtils } from "@web-core";
 import React, { useEffect, useRef } from "react";
 import { useStepContext } from "./StepContext";
 import Result from "./components/Result/Result";
-import Break from "./components/Result/templates/Break";
+import ConfirmPhotos from "./components/steps/ConfirmPhotos/ConfirmPhotos";
+import SelectPhotos from "./components/steps/SelectPhotos/SelectPhotos";
+import SelectStyle from "./components/steps/SelectStyle/SelectStyle";
+import UploadDescription from "./components/steps/UploadDescription/UploadDescription";
+import UploadingPhotos from "./components/steps/UploadingPhotos/UploadingPhotos";
 
 const Generate = (): JSX.Element => {
   const { step } = useStepContext();
@@ -51,19 +55,19 @@ const Generate = (): JSX.Element => {
     );
 
   if (request) return <Result request={request} />;
-
-  return <Break />;
-  // switch (step) {
-  //   case "SELECT_STYLE":
-  //     return <SelectStyle />;
-  //   case "UPLOAD_DESCRIPTION":
-  //     return <UploadDescription />;
-  //   case "SELECT_PHOTOS":
-  //     return <SelectPhotos />;
-  //   case "CONFIRM_PHOTOS":
-  //     return <ConfirmPhotos />;
-  //   case "UPLOADING_PHOTOS":
-  //     return <UploadingPhotos />;
-  // }
+  //
+  // return <Break />;
+  switch (step) {
+    case "SELECT_STYLE":
+      return <SelectStyle />;
+    case "UPLOAD_DESCRIPTION":
+      return <UploadDescription />;
+    case "SELECT_PHOTOS":
+      return <SelectPhotos />;
+    case "CONFIRM_PHOTOS":
+      return <ConfirmPhotos />;
+    case "UPLOADING_PHOTOS":
+      return <UploadingPhotos />;
+  }
 };
 export default React.memo(Generate);
