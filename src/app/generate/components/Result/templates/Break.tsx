@@ -21,13 +21,13 @@ const Break = () => {
           textAlign={"center"}
           type={"20_Medium_Multi"}
           color="YONSEI_NAVY"
-        >{`🦅 독수리는 휴식 중...`}</Text>
+        >{`🦅 이벤트 종료`}</Text>
 
         <Flex w="100%" justifyContent={"center"}>
           <Flex position="relative">
             <Image
               alt={"waiting state result"}
-              src={`/images/crying_eagle.svg`}
+              src={`/images/talking_eagle.png`}
               priority
               width={80}
               height={80}
@@ -47,22 +47,7 @@ const Break = () => {
             color="YONSEI_NAVY"
             textAlign={"center"}
           >
-            {`예상보다 많은 트래픽으로\nAI 프로필 생성이 지연되고 있어요 🥺`}
-          </Text>
-          <Text
-            my={8}
-            type={"16_Medium_Single"}
-            color="YONSEI_NAVY"
-            textAlign={"center"}
-          >
-            오후 7시부터 다시 서비스 이용이 가능해요.
-          </Text>
-          <Text
-            type={"16_Light_Single"}
-            color="YONSEI_NAVY"
-            textAlign={"center"}
-          >
-            조금만 기다려 주세요!
+            {`그동안 독수리 사진관을\n사랑해 주신 모든 분들께\n진심으로 감사드립니다 🦅💙`}
           </Text>
 
           <Flex alignItems={"center"} mt={52}>
