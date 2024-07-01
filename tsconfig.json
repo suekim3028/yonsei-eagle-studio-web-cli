@@ -24,7 +24,7 @@
         "public/*"
       ],
       "@web-core": [
-        "web-core-modules"
+        "node_modules/@suebin/web-core-modules"
       ],
       "@*": [
         "src/*"

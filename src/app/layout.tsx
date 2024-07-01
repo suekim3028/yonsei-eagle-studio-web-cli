@@ -1,5 +1,4 @@
 import { Initializer } from "@components/app";
-
 import { UserContextProvider } from "@contexts";
 import { ModalWrapper } from "@web-core";
 import type { Metadata } from "next";
